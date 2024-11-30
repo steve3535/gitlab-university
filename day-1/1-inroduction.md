@@ -1,11 +1,11 @@
 # Module 1: Welcome
 
-## Opening (2 minutes)
+## Opening
 - Quick round of introductions
 - Course objectives overview
 - Day's structure and expectations
 
-## Why Version Control? (5 minutes)
+## Why Version Control?
 
 ### The Problem We're Solving
 ```
@@ -52,7 +52,7 @@ Visual Metaphor: "Photography Studio"
 - Staging Area = Setting up the shot
 - Repository = Photo album
 
-## Quick Setup Verification (3 minutes)
+## Quick Setup Verification
 
 ### Command Line Check
 ```bash
