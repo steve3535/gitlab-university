@@ -68,7 +68,6 @@ ssh -T git@github.com
 ```
 
 ### What's Next
-Brief preview of our first hands-on project:
 - Creating our first repository
 - Making our first commit
 - Understanding Git's internal model
