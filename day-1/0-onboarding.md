@@ -46,11 +46,12 @@
    3.2. On Github.com
    - Go to your profile settings
    - Select "SSH and GPG Keys" > "New SSH Key"
-   - Give a title ,and paste your public key, then clieck "Add SSH Key"  
+   - Give a title ,and paste your public key, then clieck "Add SSH Key"
+     <br>  
 
    >**!important!:** access to the upcoming labs  
    >kindly share your **public** key by sending it in an email to steve@thelinuxlabs.com  
-   >specify your github username in the object of your email  
+   >specify your github username in the email's object
      
    
 ## Verification Steps
