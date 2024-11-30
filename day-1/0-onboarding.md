@@ -57,12 +57,12 @@ ssh -T git@github.com
 ```
 Should see successful authentication message
 
-4. **Test Repository**
-   ```bash
-   git init test
-   cd test
-   git status
-   ```
+### 4. Test Repository
+```bash
+git init test
+cd test
+git status
+```
 
 ## Pre-Course Checklist
 - [ ] Git installed and working
