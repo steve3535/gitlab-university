@@ -30,7 +30,7 @@
    git config --global user.name "Your Name"
    git config --global user.email "your.email@example.com"
    ```
-   > --global is used here as we dont yet have a git directory
+   > *--global* is used here as we dont yet have a git directory
      
 2. **GitHub Account Setup**
    - Create account at github.com
@@ -47,6 +47,9 @@
    - Go to your profile settings
    - Select "SSH and GPG Keys" > "New SSH Key"
    - Give a title ,and paste your public key, then clieck "Add SSH Key"
+
+     >!important: access to the upcoming labs
+     >kindly share your public key by sending it in an email to steve@thelinuxlabs.com
    
 ## Verification Steps
 
