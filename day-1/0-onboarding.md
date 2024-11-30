@@ -4,7 +4,7 @@
 
 ### Windows Setup
 **Git Installation**
-   - Download Git from https://git-scm.com/download/windows
+   - Download Git from https://git-scm.com/download/win
    - During installation:
      - Choose "Git Bash" option
      - Select "main" as default branch name
@@ -31,6 +31,11 @@
    
 2. **GitHub Account Setup**
    - Create account at github.com
+     
+3. **SSH Key Setup**
+   ```bash
+   ssh-keygen -t ed25519 -C "your.email@example.com"
+   ``` 
    
 ## Verification Steps
 
@@ -51,6 +56,13 @@ Verify email and name are correct
 ssh -T git@github.com
 ```
 Should see successful authentication message
+
+4. **Test Repository**
+   ```bash
+   git init test
+   cd test
+   git status
+   ```
 
 ## Pre-Course Checklist
 - [ ] Git installed and working
