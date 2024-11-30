@@ -8,7 +8,9 @@
    - During installation:
      - Choose "Git Bash" option
      - Select "main" as default branch name
-     - Choose "Visual Studio Code" as default editor (or notepad if preferred)    
+     - Choose "Visual Studio Code" as default editor (or notepad++)
+     - Select "Use Git and optional Unix tools"
+     - Launch "Git bash"
    
 ### macOS Setup
 **Git Installation**
@@ -28,14 +30,23 @@
    git config --global user.name "Your Name"
    git config --global user.email "your.email@example.com"
    ```
-   
+   > --global is used here as we dont yet have a git directory
+     
 2. **GitHub Account Setup**
    - Create account at github.com
      
 3. **SSH Key Setup**
    ```bash
    ssh-keygen -t ed25519 -C "your.email@example.com"
-   ``` 
+   ```  
+   3.1. Copy your public key
+   ```bash
+   cat /c/Users/PC/.ssh/id_ed25519.pub
+   ```
+   3.2. On Github.com
+   - Go to your profile settings
+   - Select "SSH and GPG Keys" > "New SSH Key"
+   - Give a title ,and paste your public key, then clieck "Add SSH Key"
    
 ## Verification Steps
 
