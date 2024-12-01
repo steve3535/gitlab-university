@@ -1,4 +1,4 @@
-# Contact Manager Project
+# Project 2: Contact Manager Project
 
 ## Project Overview
 We'll build a command-line contact manager in Python that will:
