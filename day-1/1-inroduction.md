@@ -80,7 +80,8 @@ ssh -T git@github.com
 
 ## Labs access
 - Go to https://srv1.thelinuxlabs.com 
-- Select github as authentication method  
+- Select github as authentication method
+  * if asked, authorize gitlab-self-hosted (steve3535)  
 - Username: devops  
 - Enter your **private key** and your passphrase  
 - Once logged in, ssh into your environment: `ssh -p 22XX localhost`  
