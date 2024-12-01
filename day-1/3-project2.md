@@ -51,7 +51,7 @@ def load_contacts():
     try:
         with open('contacts.json', 'r') as f:
             content = f.read()
-            return json.loads(content) if content else return []
+            return json.loads(content) if content else []
     except FileNotFoundError:
         return []
 
