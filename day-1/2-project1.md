@@ -144,7 +144,8 @@ echo "# My Task List
 ## Tomorrow
 - [ ] Review Git concepts
 - [ ] Share progress with team" > tasks.md
-
+```
+```bash
 # Check status and stage
 git status
 git add tasks.md
@@ -167,13 +168,18 @@ echo "# My Task List
 - [ ] Review Git concepts
 - [ ] Share progress with team
 - [ ] Begin next module" > tasks.md
-
+```
+```bash
 # Check changes
 git status
 git diff
 
 # Stage and commit updates
 git add tasks.md
+# Try diff again
+git diff
+git diff --cached
+# Commit
 git commit -m "Update task progress and add new task"
 ```
 
