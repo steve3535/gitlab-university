@@ -272,42 +272,27 @@ git add hello.txt
 
 # Look at the object created (will show actual hash)
 find .git/objects -type f
+
+# Compare with the output of this:
+git hash-object hello.txt
 ```
 
-## Part C: Understanding Git's Storage 
+#### Exploring Git's Storage 
 
-### Exploring Git Objects
 ```bash
+# Create some file and commit
+echo "some content" > file.txt
+git add .
+git commit -m 'dummy file'
 # Look at objects
 git cat-file -p HEAD
 git cat-file -p main  # or master, depending on default branch
 ```
+## Questions
 
-### Key Concepts to Observe
-- Commit objects and their structure
-- Tree objects and file tracking
-- Blob storage and content addressing
+1. Git Directory Structure  
+   what happens if you delete .git ?
 
-## Learning Outcomes Verification
-Students should be able to:
-- Initialize a new Git repository
-- Create and stage changes
-- Create meaningful commits
-- View and understand repository history
-- Explain basic Git object types
-
-## Common Pitfalls and Learning Moments
-1. Staging vs. Committing
-   - Try to commit before staging (show error)
-   - Understand the two-step process
-
-2. Git Directory Structure
-   - Show what happens if you delete .git
-   - Demonstrate repository vs. regular directory
-
-3. Commit Messages
-   - Practice writing clear, descriptive messages
-   - Show impact of good vs. poor commit messages
 
 ## Extension Activities (if time permits)
 - Examine object hashes and their relationship
