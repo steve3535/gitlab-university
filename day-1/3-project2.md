@@ -41,7 +41,7 @@ git commit -m "Initial commit: Add README with project description"
 ```
 
 ### Basic Contact Manager Implementation
-```bash
+```python
 cat > contacts.py << 'EOL'
 import json
 import sys
@@ -49,7 +49,8 @@ import sys
 def load_contacts():
     try:
         with open('contacts.json', 'r') as f:
-            return json.load(f)
+            content = f.read()
+            return json.loads(content) if content else return []
     except FileNotFoundError:
         return []
 
@@ -100,8 +101,8 @@ git commit -m "Add basic contact management functionality"
 ### First Test
 ```bash
 # Add some test contacts
-python contacts.py add "John Doe" "john@example.com" "123-456-7890"
-python contacts.py add "Jane Smith" "jane@example.com" "098-765-4321"
+python contacts.py add "John Doe" "john@example.com" "+352-123-456-789"
+python contacts.py add "Jane Smith" "jane@example.com" "+352-098-765-4321"
 python contacts.py list
 
 # Commit the data file
