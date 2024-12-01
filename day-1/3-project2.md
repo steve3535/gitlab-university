@@ -113,14 +113,50 @@ git commit -m "Add initial test contacts"
 ## Phase 2: Add Search Feature (With a Bug)
 
 ```python
-# Update contacts.py to add search
-# [Previous functions remain the same]
+# Update contacts.py to add search, but with a bug that affects core functionality
+cat > contacts.py << 'EOL'
+import json
+import sys
+
+def load_contacts():
+    try:
+        with open('contacts.json', 'r') as f:
+            content = f.read()
+            return json.loads(content) if content else []
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+def save_contacts(contacts):
+    # Bug: accidentally modify contacts before saving
+    for contact in contacts:
+        contact['name'] = contact['name'].lower()  # Bug: forces all names to lowercase
+    with open('contacts.json', 'w') as f:
+        json.dump(contacts, f, indent=2)
+
+def add_contact(contacts, name, email, phone):
+    contact = {
+        "name": name,
+        "email": email,
+        "phone": phone
+    }
+    contacts.append(contact)
+    save_contacts(contacts)
+    print(f"Added contact: {name}")
+
+def list_contacts(contacts):
+    if not contacts:
+        print("No contacts found.")
+        return
+    for i, contact in enumerate(contacts, 1):
+        print(f"{i}. {contact['name']} - {contact['email']} - {contact['phone']}")
+
 def search_contacts(contacts, query):
     results = []
+    query = query.lower()
     for contact in contacts:
         if query in contact["name"].lower() or \
            query in contact["email"].lower() or \
-           query in contact["phone"].lower:  # Bug: missing parentheses
+           query in contact["phone"]:
             results.append(contact)
     return results
 
@@ -136,9 +172,9 @@ def main():
     elif command == "list":
         list_contacts(contacts)
     elif command == "search" and len(sys.argv) == 3:
-        results = search_contacts(contacts, sys.argv[2].lower())
+        results = search_contacts(contacts, sys.argv[2])
         if results:
-            print(f"Found {len(results)} contacts:")
+            print(f"Found {len(results)} matches:")
             for contact in results:
                 print(f"{contact['name']} - {contact['email']} - {contact['phone']}")
         else:
@@ -150,7 +186,6 @@ if __name__ == "__main__":
     main()
 EOL
 
-# Commit the changes
 git add contacts.py
 git commit -m "Add search functionality"
 ```
