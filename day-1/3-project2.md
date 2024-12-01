@@ -213,14 +213,13 @@ git status
 python contacts.py list  # Should work again
 ```
 
-## Phase 3: Adding Delete Feature (With Wrong Implementation)
+## Phase 3: Adding Delete Feature
 
 ```python
 # Update contacts.py with delete function
 # [Previous imports and functions]
 
 def delete_contact(contacts, index):
-    # Bug: directly using index without checking bounds
     deleted = contacts.pop(index)
     save_contacts(contacts)
     print(f"Deleted contact: {deleted['name']}")
@@ -254,12 +253,12 @@ git commit -m "Add delete functionality"
 ```bash
 # Try deleting a contact (might cause data loss)
 python contacts.py delete 1
-
-# Oh no! The delete function is dangerous! Let's revert the commit
+python contacts.py list
+# commit our data although it has been altered !
+git commit -am 'corrupted contacts.json'
+# Oh no! The delete function is dangerous! Let's revert the last commit
 git revert HEAD
-
 # Check that we're back to the safe version
-git log --oneline
 python contacts.py list
 ```
 
