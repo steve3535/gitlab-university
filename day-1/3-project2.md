@@ -249,12 +249,13 @@ git add contacts.py
 git commit -m "Add delete functionality"
 ```
 
-### Git revert
+### Git revert: UNDO COMMITED CHANGES
 ```bash
 # Try deleting a contact (might cause data loss)
 python contacts.py delete 1
 python contacts.py list
 # commit our data although it has been altered !
+git status
 git commit -am 'corrupted contacts.json'
 # Oh no! The delete function is dangerous! Let's revert the last commit
 git revert HEAD
@@ -262,55 +263,3 @@ git revert HEAD
 python contacts.py list
 ```
 
-## Phase 4: Experimental Feature (To Demonstrate git reset)
-
-```bash
-# Add experimental export feature
-cat >> contacts.py << 'EOL'
-def export_contacts(contacts, format='csv'):
-    if format == 'csv':
-        with open('contacts.csv', 'w') as f:
-            f.write("Name,Email,Phone\n")
-            for contact in contacts:
-                f.write(f"{contact['name']},{contact['email']},{contact['phone']}\n")
-    elif format == 'xml':
-        # Incomplete XML implementation
-        pass
-
-# Update main() to include export
-EOL
-
-# Add the changes
-git add contacts.py
-git commit -m "Add experimental export feature"
-
-# Make some more experimental changes
-# Add HTML export, YAML export, etc.
-# Commit these changes
-```
-
-### Learning Moment: git reset
-```bash
-# Decide the experimental feature is not ready
-git log --oneline  # Find the commit before experimental features
-
-# Reset to before the experimental changes
-git reset --hard HEAD~1
-
-# Or with git reset --soft to keep changes in staging
-git reset --soft HEAD~1
-```
-
-## Learning Outcomes
-After completing this project, students will understand:
-1. How to use git restore to undo uncommitted changes
-2. When to use git revert for safe history modification
-3. Different types of git reset and their use cases
-4. How to compare different versions of files
-5. Best practices for maintaining a clean Git history
-
-## Extended Exercises
-1. Try different types of git reset (--soft, --mixed, --hard)
-2. Practice git restore with different sources
-3. Compare changes between any two commits
-4. Recover from accidental deletions
