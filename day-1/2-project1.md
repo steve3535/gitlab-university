@@ -288,14 +288,35 @@ git commit -m 'dummy file'
 git cat-file -p HEAD
 git cat-file -p main  # or master, depending on default branch
 ```
+**HEAD**  
+Simply put, HEAD is a pointer to your current location in your Git history  
+It usually points to the latest commit in your current branch  
+Think of it as a "You are here" marker in your Git history  
+```bash
+# See where HEAD points to
+git log --oneline
+# abc1234 (HEAD -> main) Latest commit
+# def5678 Previous commit
+# ghi9012 First commit
+
+# HEAD can also be used as a reference point:
+HEAD      # Current commit
+HEAD^     # Parent of HEAD (one commit back)
+HEAD~1    # Same as HEAD^ (one commit back)
+HEAD~2    # Two commits back
+```
+**git ls-files**
+Shows you what files Git is tracking in your working directory  
+Useful to see what Git "knows about" in your project  
+
+**git ls-tree**
+Shows the contents of a tree object in Git  
+A tree object represents a directory in Git's storage  
+Shows how Git actually stores your project structure  
+
 ## Questions
 
 1. Git Directory Structure  
    what happens if you delete .git ?
-
-
-## Extension Activities (if time permits)
-- Examine object hashes and their relationship
-- Create multiple commits and view the chain
-- Use git log --oneline for compact history view
-- Try git log --graph for visual representation
+2. Use git log --oneline for compact history view
+3. Try git log --graph for visual representation
