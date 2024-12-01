@@ -1,4 +1,4 @@
-# Project 1: Local Git Mastery
+# Project 1: Git 101
 
 ## Part A: Basic Git Operations
 
@@ -264,7 +264,7 @@ git init
 
 # Examining .git directory
 ls -la .git/
-tree .git/  # (or dir /a .git on Windows)
+tree .git/  
 
 # Create content and examine objects
 echo "Hello, Git!" > hello.txt
@@ -273,7 +273,6 @@ git add hello.txt
 # Look at the object created (will show actual hash)
 find .git/objects -type f
 ```
-
 
 ## Part C: Understanding Git's Storage 
 
