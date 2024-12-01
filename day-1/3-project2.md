@@ -127,9 +127,8 @@ def load_contacts():
         return []
 
 def save_contacts(contacts):
-    # Bug: accidentally modify contacts before saving
     for contact in contacts:
-        contact['name'] = contact['name'].lower()  # Bug: forces all names to lowercase
+        contact['name'] = contact['name']  # Bug: forces all names to lowercase
     with open('contacts.json', 'w') as f:
         json.dump(contacts, f, indent=2)
 
@@ -148,7 +147,7 @@ def list_contacts(contacts):
         print("No contacts found.")
         return
     for i, contact in enumerate(contacts, 1):
-        print(f"{i}. {contact['name']} - {contact['email']} - {contact['phone']}")
+        print(f"{i}. {contact['name'].lower()} - {contact['email']} - {contact['phone']}")
 
 def search_contacts(contacts, query):
     results = []
