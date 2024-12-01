@@ -40,7 +40,6 @@ Various useful options:
 **git log --patch**: Show changes in each commit  
 **git log --graph**: Visual representation of history  
 
-
 ### Exercise 1: First Repository
 ```bash
 # Create a new project
@@ -123,6 +122,142 @@ git commit -m "Add game logic"
 git log
 git show
 ```
+### Exercise 2: Task Tracker
+
+#### Step 1: New Repository
+```bash
+mkdir task-tracker
+cd task-tracker
+git init
+```
+
+#### Step 2: Create Task List
+```bash
+# Create tasks file
+echo "# My Task List
+
+## Today
+- [ ] Start Git tutorial
+- [ ] Practice basic commands
+- [ ] Complete first project
+
+## Tomorrow
+- [ ] Review Git concepts
+- [ ] Share progress with team" > tasks.md
+
+# Check status and stage
+git status
+git add tasks.md
+
+# Create first commit
+git commit -m "Create initial task list with today and tomorrow sections"
+```
+
+### Step 3: Update Tasks
+```bash
+# Update tasks (mark some as complete)
+echo "# My Task List
+
+## Today
+- [x] Start Git tutorial
+- [x] Practice basic commands
+- [ ] Complete first project
+
+## Tomorrow
+- [ ] Review Git concepts
+- [ ] Share progress with team
+- [ ] Begin next module" > tasks.md
+
+# Check changes
+git status
+git diff
+
+# Stage and commit updates
+git add tasks.md
+git commit -m "Update task progress and add new task"
+```
+
+### Step 4: Using git add -p (Patch Mode)
+```bash
+# Update tasks.md with mixed changes
+echo "# My Task List
+
+## Today
+- [x] Start Git tutorial
+- [x] Practice basic commands
+- [x] Complete first project
+- [ ] Read documentation
+
+## Tomorrow
+- [ ] Review Git concepts
+- [ ] Share progress with team
+- [ ] Begin next module
+- [ ] Schedule team meeting
+
+## Future Ideas
+- [ ] Create project documentation
+- [ ] Set up automated testing
+- [ ] Plan release schedule" > tasks.md
+
+# Instead of adding all changes at once, let's review and stage selectively
+git add -p tasks.md
+
+# Git will show each change (hunk) and ask what to do:
+# Stage this hunk [y,n,q,a,d,j,J,g,/,s,e,?]?
+# y - stage this hunk
+# n - do not stage this hunk
+# q - quit; do not stage this or any remaining hunks
+# a - stage this and all remaining hunks
+# d - do not stage this or any remaining hunks
+# s - split the current hunk into smaller hunks
+# e - manually edit the current hunk
+# ? - print help
+
+# After selectively staging changes
+git status        # See what's staged and what's not
+git diff          # See unstaged changes
+git diff --staged # See staged changes
+
+# Create commit with only selected changes
+git commit -m "Complete today's tasks and add future project ideas"
+
+# Stage and commit remaining changes
+git add tasks.md
+git commit -m "Add team meeting to tomorrow's schedule"
+```
+
+## Key Learning Points for git add -p
+1. Granular control over staging
+2. Review changes before staging
+3. Split related changes into separate commits
+4. Better commit organization
+5. Improved code review process
+
+## Learning Outcomes Verification
+Students should be able to:
+- Create new Git repositories
+- Track file changes
+- Stage changes effectively
+- Create meaningful commits
+- View and understand repository history
+
+## Key Command Reference
+```bash
+git init          # Create new repository
+git status        # Check current state
+git add <file>    # Stage changes
+git commit -m ""  # Record changes
+git log           # View history
+git diff          # See unstaged changes
+```
+
+## Common Questions to Ask Students
+1. What's the difference between git add and git commit?
+2. Why do we need a staging area?
+3. What makes a good commit message?
+4. How can you see what changes are staged?
+5. What's the difference between tracked and untracked files?
+
 
 ## Part B: Understanding Git's Data Model
 
