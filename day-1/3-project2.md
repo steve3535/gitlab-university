@@ -185,7 +185,8 @@ def main():
 if __name__ == "__main__":
     main()
 EOL
-
+```
+```bash
 git add contacts.py
 git commit -m "Add search functionality"
 ```
