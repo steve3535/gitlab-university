@@ -77,3 +77,12 @@ ssh -T git@github.com
 - Ask questions anytime
 - Mistakes are learning opportunities
 - Take notes on commands for reference
+
+## Labs access
+- Go to https://srv1.thelinuxlabs.com 
+- Select github as authentication method  
+- Username: devops  
+- Enter your **private key** and your passphrase  
+- Once logged in, ssh into your environment: `ssh -p 22XX localhost`  
+  * XX is an identifier sent to you by email
+
