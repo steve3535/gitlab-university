@@ -232,21 +232,6 @@ git add tasks.md
 git commit -m "Add team meeting to tomorrow's schedule"
 ```
 
-## Key Learning Points for git add -p
-1. Granular control over staging
-2. Review changes before staging
-3. Split related changes into separate commits
-4. Better commit organization
-5. Improved code review process
-
-## Learning Outcomes Verification
-Students should be able to:
-- Create new Git repositories
-- Track file changes
-- Stage changes effectively
-- Create meaningful commits
-- View and understand repository history
-
 ## Key Command Reference
 ```bash
 git init          # Create new repository
@@ -257,13 +242,11 @@ git log           # View history
 git diff          # See unstaged changes
 ```
 
-## Common Questions to Ask Students
+## Questions
 1. What's the difference between git add and git commit?
 2. Why do we need a staging area?
-3. What makes a good commit message?
-4. How can you see what changes are staged?
-5. What's the difference between tracked and untracked files?
-
+3. How can you see what changes are staged?
+4. What's the difference between git diff and git diff --staged
 
 ## Part B: Understanding Git's Data Model
 
