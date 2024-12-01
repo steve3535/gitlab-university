@@ -192,8 +192,11 @@ git commit -m "Add search functionality"
 
 ### Learning Moment: git restore
 ```bash
-# Try the search feature (it will fail due to the bug)
-python contacts.py search "john"
+# Try the search feature 
+python contacts.py search "Jane"
+# Try the list feature
+python contacts.py list
+# Have you noticed the issue ?
 
 # Oh no! Let's look at what changed
 git diff HEAD
