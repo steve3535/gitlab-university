@@ -35,7 +35,7 @@ Best practices for commit messages:
 #### git log
 
 Shows commit history  
-Various useful options:
+Various useful options:  
 **git log --oneline**: Compact view  
 **git log --patch**: Show changes in each commit  
 **git log --graph**: Visual representation of history  
