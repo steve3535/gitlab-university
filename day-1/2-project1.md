@@ -51,7 +51,7 @@ git init
 git status
 ```
 
-### Making Changes
+### making changes
 1. Create a simple Python game starter:
 ```bash
 echo "# Number Guessing Game" > README.md
@@ -89,7 +89,7 @@ Try and run the game:
 ```bash
 python game.py
 ```  
-### Modifying and Viewing History
+### modifying and viewing History
 1. Add game logic:
 ```python
 # Add to game.py
