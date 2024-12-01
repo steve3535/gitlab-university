@@ -112,14 +112,9 @@ git commit -m "Add initial test contacts"
 
 ## Phase 2: Add Search Feature (With a Bug)
 
-```bash
+```python
 # Update contacts.py to add search
-cat > contacts.py << 'EOL'
-import json
-import sys
-
 # [Previous functions remain the same]
-
 def search_contacts(contacts, query):
     results = []
     for contact in contacts:
