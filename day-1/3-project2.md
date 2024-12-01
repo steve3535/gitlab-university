@@ -128,7 +128,7 @@ def load_contacts():
 
 def save_contacts(contacts):
     for contact in contacts:
-        contact['name'] = contact['name']  # Bug: forces all names to lowercase
+        contact['name'] = contact['name']
     with open('contacts.json', 'w') as f:
         json.dump(contacts, f, indent=2)
 
@@ -199,8 +199,12 @@ python contacts.py list
 # Have you noticed the issue ?
 
 # Oh no! Let's look at what changed
-git diff HEAD
-
+git log --oneline
+git show <COMMIT-first-version-of-contacts.py>:contacts.py
+git diff <COMMIT-first-version-of-contacts.py>:contacts.py contacts.py
+git diff HEAD^ HEAD
+```
+```bash
 # We can restore the previous working version
 git restore --source HEAD^ contacts.py
 
@@ -211,9 +215,8 @@ python contacts.py list  # Should work again
 
 ## Phase 3: Adding Delete Feature (With Wrong Implementation)
 
-```bash
+```python
 # Update contacts.py with delete function
-cat > contacts.py << 'EOL'
 # [Previous imports and functions]
 
 def delete_contact(contacts, index):
@@ -222,6 +225,7 @@ def delete_contact(contacts, index):
     save_contacts(contacts)
     print(f"Deleted contact: {deleted['name']}")
 
+# Update in main
 def main():
     contacts = load_contacts()
     if len(sys.argv) < 2:
