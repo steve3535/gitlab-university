@@ -65,10 +65,19 @@ git remote add upstream [url]    # Original source (for forks)
    - Set repository name: "portfolio"
    - Add description
    - Choose Public
-   - Initialize with README: No (we will create one)
+   - Initialize with README: Yes
+     ># Git Command Line Journey
+     >This repository documents my Git learning journey.
+     >## Commands Learned:
+     >- git init
+     >- git status
+     >- git add
+     >- git commit
+
 
 2. Essential Interface Elements
    - Code tab: Clone URLs (HTTPS/SSH)
+     * Copy the clone HTTPS URL
    - Settings tab:
      - Pages (for GitHub Pages setup)
      - Deploy keys (if needed)
@@ -76,10 +85,9 @@ git remote add upstream [url]    # Original source (for forks)
 
 
 ### Project Setup
-- Select the "Clone" URL (HTTPS)
 - Clone the project:
   ```bash
-  git clone https://github.com/<wour-username>/portfolio
+  git clone https://github.com/<wour-username>/portfolio.GIT
   ```
 ### Create Content
 
@@ -123,9 +131,7 @@ EOF
 ```bash
 cat > README.md << 'EOF'
 # Git Command Line Journey
-
 This repository documents my Git learning journey.
-
 ## Commands Learned:
 - git init
 - git status
