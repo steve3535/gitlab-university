@@ -5,42 +5,40 @@
 ### Core Commands Overview (10 minutes)
 **git init**
 
-Creates a new Git repository
-Sets up the necessary directory structure
-Creates the .git directory that stores all Git metadata
+Creates a new Git repository  
+Sets up the necessary directory structure  
+Creates the .git directory that stores all Git metadata  
 
-**git status**
+**git status**  
 
-Shows the current state of your working directory
-Displays tracked/untracked files
-Shows staged changes
-Provides helpful hints about possible next steps
+Shows the current state of your working directory  
+Displays tracked/untracked files  
+Shows staged changes  
+Provides helpful hints about possible next steps  
 
 **git add**
 
-Stages changes for commit
-Can add specific files: git add filename
-Can add all changes: git add .
-Can add parts of files: git add -p
+Stages changes for commit  
+Can add specific files: git add filename  
+Can add all changes: git add .  
+Can add parts of files: git add -p  
 
 **git commit**
 
-Records staged changes in the repository
-Requires a commit message: git commit -m "message"
-Best practices for commit messages
+Records staged changes in the repository  
+Requires a commit message: git commit -m "message"  
+Best practices for commit messages:    
+- Be specific but concise  
+- Use present tense  
+- Describe what and why, not how  
 
-Be specific but concise
-Use present tense
-Describe what and why, not how
+**git log**  
 
-**git log**
-
-Shows commit history
+Shows commit history  
 Various useful options:
-
-git log --oneline: Compact view
-git log --patch: Show changes in each commit
-git log --graph: Visual representation of history
+*git log --oneline*: Compact view  
+*git log --patch*: Show changes in each commit  
+*git log --graph*: Visual representation of history  
 
 
 ### Exercise 1: First Repository
