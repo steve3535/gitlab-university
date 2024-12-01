@@ -52,14 +52,15 @@ git init
 git status
 ```
 
-### Exercise 2: Making Changes
+### Making Changes
 1. Create a simple Python game starter:
 ```bash
 echo "# Number Guessing Game" > README.md
 ``` 
 ```bash
 vim game.py
-``` 
+```
+```python 
 import random
 
 def guess_number():
@@ -89,9 +90,9 @@ Try and run the game:
 ```bash
 python game.py
 ```  
-### Exercise 3: Modifying and Viewing History
+### Modifying and Viewing History
 1. Add game logic:
-```bash
+```python
 # Add to game.py
         try:
             guess = int(guess)
@@ -123,7 +124,7 @@ git log
 git show
 ```
 
-## Part B: Understanding Git's Data Model (15 minutes)
+## Part B: Understanding Git's Data Model
 
 ### Core Concepts Introduction
 - Git as a content-addressable filesystem
@@ -150,7 +151,7 @@ find .git/objects -type f
 ```
 
 
-## Part C: Understanding Git's Storage (10 minutes)
+## Part C: Understanding Git's Storage 
 
 ### Exploring Git Objects
 ```bash
