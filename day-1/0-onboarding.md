@@ -38,7 +38,9 @@
 3. **SSH Key Setup**
    ```bash
    ssh-keygen -t ed25519 -C "your.email@example.com"
-   ```  
+   ```
+   > Make sure you set a passphrase
+   
    3.1. Copy your public key
    ```bash
    cat /c/Users/PC/.ssh/id_ed25519.pub
