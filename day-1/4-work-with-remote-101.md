@@ -89,6 +89,7 @@ git remote add upstream [url]    # Original source (for forks)
 - Clone the project:
   ```bash
   git clone https://github.com/<wour-username>/portfolio.git
+  git remote -v
   ```
 ### Create Content
 
@@ -128,23 +129,14 @@ cat > index.html << 'EOF'
 EOF
 ```
 
-**Create README.md:**
-```bash
-cat > README.md << 'EOF'
-# Git Command Line Journey
-This repository documents my Git learning journey.
-## Commands Learned:
-- git init
-- git status
-- git add
-- git commit
-EOF
-```
-
 ### Initial Commit
 ```bash
 git add .
 git commit -m "Initial commit: Portfolio setup"
+```
+Try pushing:  
+```bash
+git push --set-upstream origin main
 ```
 
 ### Repository Exploration
