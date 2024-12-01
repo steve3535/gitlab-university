@@ -66,14 +66,15 @@ git remote add upstream [url]    # Original source (for forks)
    - Add description
    - Choose Public
    - Initialize with README: Yes
-     ># Git Command Line Journey
-     >This repository documents my Git learning journey.
-     >## Commands Learned:
-     >- git init
-     >- git status
-     >- git add
-     >- git commit
-
+     ```bash
+     # Git Command Line Journey
+     This repository documents my Git learning journey.
+     ## Commands Learned:
+     - git init
+     - git status
+     - git add
+     - git commit
+     ``` 
 
 2. Essential Interface Elements
    - Code tab: Clone URLs (HTTPS/SSH)
