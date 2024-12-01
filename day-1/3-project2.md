@@ -34,7 +34,8 @@ A simple command-line contact management system.
 ## Usage
 Run `python contacts.py` to start the program.
 EOL
-
+```
+```bash 
 # Initial commit
 git add README.md
 git commit -m "Initial commit: Add README with project description"
@@ -92,18 +93,17 @@ def main():
 if __name__ == "__main__":
     main()
 EOL
-
-# Check implementation and commit
-git add contacts.py
-git commit -m "Add basic contact management functionality"
 ```
-
-### First Test
 ```bash
-# Add some test contacts
+# check implementation
 python contacts.py add "John Doe" "john@example.com" "+352-123-456-789"
 python contacts.py add "Jane Smith" "jane@example.com" "+352-098-765-4321"
 python contacts.py list
+```
+```bash
+# If tests are ok, add and commit the code
+git add contacts.py
+git commit -m "Add basic contact management functionality"
 
 # Commit the data file
 git add contacts.json
