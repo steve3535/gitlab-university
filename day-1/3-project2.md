@@ -190,7 +190,7 @@ git add contacts.py
 git commit -m "Add search functionality"
 ```
 
-### Learning Moment: git restore
+### Git restore: UNDO UNCOMMITED CHANGES
 ```bash
 # Try the search feature 
 python contacts.py search "Jane"
@@ -250,7 +250,7 @@ git add contacts.py
 git commit -m "Add delete functionality"
 ```
 
-### Learning Moment: git revert
+### Git revert
 ```bash
 # Try deleting a contact (might cause data loss)
 python contacts.py delete 1
