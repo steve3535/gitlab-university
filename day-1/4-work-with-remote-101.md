@@ -55,17 +55,32 @@ git remote add upstream [url]    # Original source (for forks)
 - `upstream`: Original repository (when working with forks)
 - Multiple remotes possible, but origin is convention
 
-## 2. Hands-on Exercise: Command Line Portfolio
+# GitHub Interface and Remote Setup
+
+## 1. GitHub Repository Creation
+
+### Web Interface Quick Tour
+1. Create New Repository
+   - Click "New" button (green)
+   - Set repository name: "portfolio"
+   - Add description
+   - Choose Public
+   - Initialize with README: No (we will create one)
+
+2. Essential Interface Elements
+   - Code tab: Clone URLs (HTTPS/SSH)
+   - Settings tab:
+     - Pages (for GitHub Pages setup)
+     - Deploy keys (if needed)
+     - Branches (protection rules later)
+
 
 ### Project Setup
-```bash
-# Initialize new project
-mkdir portfolio
-cd portfolio
-git init
-git status
-```
-
+- Select the "Clone" URL (HTTPS)
+- Clone the project:
+  ```bash
+  git clone https://github.com/<wour-username>/portfolio
+  ```
 ### Create Content
 
 **Create index.html:**
@@ -134,8 +149,3 @@ git branch              # List branches
 ls -la .git/            # Explore git directory
 git config --local -l   # View local config
 ```
-
-## Next Steps
-- Prepare for GitHub interface exploration
-- Learn about remote connections
-- Set up authentication methods
