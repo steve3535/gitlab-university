@@ -88,7 +88,7 @@ git remote add upstream [url]    # Original source (for forks)
 ### Project Setup
 - Clone the project:
   ```bash
-  git clone https://github.com/<wour-username>/portfolio.GIT
+  git clone https://github.com/<wour-username>/portfolio.git
   ```
 ### Create Content
 
