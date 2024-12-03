@@ -23,8 +23,8 @@
    - Fedora: `sudo dnf install git`
    - Arch: `sudo pacman -S git`
 
-### Exercice:   
-### Common Setup Steps (All Platforms)
+   
+### Exercice: common Setup Steps (All Platforms)
 
 1. **Git Configuration**
    ```bash
