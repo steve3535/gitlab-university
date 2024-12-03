@@ -68,6 +68,9 @@ def guess_number():
     
     while True:
         guess = input("Your guess? ")
+
+if __name__ == "__main__":
+    guess_number()
 ```
 
 2. Stage and commit changes:
