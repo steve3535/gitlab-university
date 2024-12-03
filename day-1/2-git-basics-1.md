@@ -323,4 +323,5 @@ Shows how Git actually stores your project structure
 2. Use git log --oneline for compact history view
 3. Try git log --graph for visual representation <br />
 <br />
+
 ### [<<Previous](1-introduction.md) &nbsp;&nbsp; [>>Next](3-git-basics-2.md)  
