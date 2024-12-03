@@ -185,9 +185,6 @@ if __name__ == "__main__":
     main()
 EOL
 ```
-```bash
-git add contacts.py
-```
 
 ### Git restore: UNDO UNCOMMITED CHANGES (primarily)
 ```bash
@@ -198,9 +195,10 @@ python contacts.py list
 # Have you noticed the issue ?
 
 # Oh no! Let's look at what changed - TIP: pay attention at the list method definition
-git log --oneline
+git diff --name-status
 git diff contacts.py
 git diff HEAD -- contacts.py
+git status -s
 ```
 ```bash
 # We can restore the previous working version
