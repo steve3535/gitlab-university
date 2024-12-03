@@ -22,7 +22,8 @@
    - Ubuntu/Debian: `sudo apt-get install git`
    - Fedora: `sudo dnf install git`
    - Arch: `sudo pacman -S git`
-   
+
+### Exercice:   
 ### Common Setup Steps (All Platforms)
 
 1. **Git Configuration**
