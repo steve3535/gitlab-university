@@ -88,3 +88,5 @@ git status
 - [ ] GitHub account created
 - [ ] SSH key added to GitHub
 - [ ] Test repository created successfully
+
+### [>>Next](day-1/1-introduction.md)
