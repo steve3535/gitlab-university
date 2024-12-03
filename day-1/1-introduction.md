@@ -87,5 +87,5 @@ ssh -T git@github.com
 - Once logged in, ssh into your environment: `ssh -p 22XX localhost`  
   * XX is an identifier sent to you by email
  
-#### [<<Previous](0-onboarding.md)
+### [<<Previous](0-onboarding.md)  [>>Next](2-git-basics-1.md)
 
