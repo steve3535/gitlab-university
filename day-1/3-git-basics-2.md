@@ -239,7 +239,8 @@ def main():
         print("Invalid command or arguments")
 
 EOL
-
+```
+```bash
 # Commit the changes
 git add contacts.py
 git commit -m "Add delete functionality"
@@ -250,11 +251,11 @@ git commit -m "Add delete functionality"
 # Try deleting a contact (might cause data loss)
 python contacts.py delete 1
 python contacts.py list
-# commit our data although it has been altered !
+# commit our database of contacts although it has been altered !
 git status
-git commit -am 'corrupted contacts.json'
-# Oh no! The delete function is dangerous! Let's revert the last commit
-git revert HEAD
+git commit -am 'contacts.json data loss'
+# Oh no! The delete function is dangerous! Let's revert the one commit back
+git revert HEAD^ -- contacts.json
 # Check that we're back to the safe version
 python contacts.py list
 ```
