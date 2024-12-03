@@ -95,7 +95,8 @@ python game.py
 ### modifying and viewing History
 1. Add game logic:
 ```python
-# Add to game.py
+# Add to game.py, just before if __name__ == "__main__":
+
         try:
             guess = int(guess)
             if guess < number:
@@ -108,8 +109,6 @@ python game.py
         except ValueError:
             print("Please enter a valid number")
 
-if __name__ == "__main__":
-    guess_number()
 ```
 
 2. Track changes:
