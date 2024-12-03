@@ -49,7 +49,7 @@
    3.2. On Github.com
    - Go to your profile settings
    - Select "SSH and GPG Keys" > "New SSH Key"
-   - Give a title ,and paste your public key, then clieck "Add SSH Key"
+   - Give a title ,and paste your public key, then clieck "Add SSH Key" <br />
         
 
    >**!important!:** access to the upcoming labs  
