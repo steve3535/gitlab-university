@@ -187,10 +187,9 @@ EOL
 ```
 ```bash
 git add contacts.py
-git commit -m "Add search functionality"
 ```
 
-### Git restore: UNDO UNCOMMITED CHANGES
+### Git restore: UNDO UNCOMMITED CHANGES (primarily)
 ```bash
 # Try the search feature 
 python contacts.py search "Jane"
@@ -198,15 +197,14 @@ python contacts.py search "Jane"
 python contacts.py list
 # Have you noticed the issue ?
 
-# Oh no! Let's look at what changed
+# Oh no! Let's look at what changed - TIP: pay attention at the list method definition
 git log --oneline
-git show <COMMIT-first-version-of-contacts.py>:contacts.py
-git diff <COMMIT-first-version-of-contacts.py>:contacts.py contacts.py
-git diff HEAD^ HEAD
+git diff contacts.py
+git diff HEAD -- contacts.py
 ```
 ```bash
 # We can restore the previous working version
-git restore --source HEAD^ contacts.py
+git restore contacts.py
 
 # Check that it's back to the working version
 git status
