@@ -89,4 +89,4 @@ git status
 - [ ] SSH key added to GitHub
 - [ ] Test repository created successfully
 
-### [>>Next](day-1/1-introduction.md)
+### [>>Next](1-introduction.md)
