@@ -197,14 +197,21 @@ python contacts.py list
 ```bash
 # Oh no! Let's look at what changed - TIP: pay attention at the list method definition
 git diff --name-status
+```
+```bash
 git diff contacts.py
+```
+```bash
 git diff HEAD -- contacts.py
+```
+```bash
 git status -s
 ```
 ```bash
 # We can restore the previous working version
 git restore contacts.py
-
+```
+```bash
 # Check that it's back to the working version
 git status
 python contacts.py list  # Should work again
