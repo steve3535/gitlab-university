@@ -245,8 +245,6 @@ def main():
             print(f"Error: {e}")
     else:
         print("Invalid command or arguments")
-
-EOL
 ```
 ```bash
 # Commit the changes
