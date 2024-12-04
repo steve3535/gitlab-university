@@ -303,6 +303,10 @@ git commit -am 'contacts.json data loss'
 git revert HEAD
 ```
 ```bash
+# A new commit reprsenting the revert has been created
+git log --oneline
+```
+```bash
 # Check that we have our data back
 python contacts.py list
 ```
@@ -310,12 +314,3 @@ python contacts.py list
 # should we remove completely the delete functionality ?
 git checkout <COMMIT_delete_func>~1 -- contacts.py
 ```
-
-
-
-```bash
-# A new commit reprsenting the revert has been created
-git log --oneline
-```
-
-
