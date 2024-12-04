@@ -192,8 +192,9 @@ EOL
 python contacts.py search "Jane"
 # Try the list feature
 python contacts.py list
-# Have you noticed the issue ?
-
+# Have you spot the issue ?
+```
+```bash
 # Oh no! Let's look at what changed - TIP: pay attention at the list method definition
 git diff --name-status
 git diff contacts.py
