@@ -10,8 +10,8 @@ By the end of this section, you will be able to:
 ### What is a Remote Repository?
 
 ```bash
-mkdir git-demo
-cd git-demo
+mkdir remote-demo
+cd remote-demo
 git init
 ls -la .git/   # Examine local structure
 ```
