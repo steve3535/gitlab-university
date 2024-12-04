@@ -257,11 +257,17 @@ git commit -m "Add delete functionality"
 # Try deleting a contact (might cause data loss)
 python contacts.py delete 1
 python contacts.py list
+```
+```bash
 # commit our database of contacts although it has been altered !
 git status
 git commit -am 'contacts.json data loss'
-# Oh no! The delete function is dangerous! Let's revert the one commit back
+```
+```bash
+# Oh no! The delete function is dangerous! Let's revert one commit back
 git revert HEAD^ -- contacts.json
+```
+```bash
 # Check that we're back to the safe version
 python contacts.py list
 ```
