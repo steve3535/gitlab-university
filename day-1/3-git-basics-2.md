@@ -299,11 +299,23 @@ git status
 git commit -am 'contacts.json data loss'
 ```
 ```bash
-# Oh no! The delete function is dangerous! Let's revert one commit back
-git revert HEAD^ -- contacts.json
+# Oh no! The delete function is dangerous! Let's restore our data
+git revert HEAD
 ```
 ```bash
-# Check that we're back to the safe version
+# Check that we have our data back
 python contacts.py list
 ```
+```bash
+# should we remove completely the delete functionality ?
+git checkout <COMMIT_delete_func>~1 -- contacts.py
+```
+
+
+
+```bash
+# A new commit reprsenting the revert has been created
+git log --oneline
+```
+
 
