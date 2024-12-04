@@ -314,3 +314,5 @@ python contacts.py list
 # should we remove completely the delete functionality ?
 git checkout <COMMIT_delete_func>~1 -- contacts.py
 ```
+<br />
+## [<<Previous](./2-git-basics-1.md) &nbsp;&nbsp;[>>Next](./4-work-with-remote-101.md)
