@@ -6,7 +6,7 @@ A branch in Git is simply a lightweight movable pointer to a commit. Think of it
 - Experiment with changes safely
 - Collaborate with team members without conflicts
 
-### 1.1 Hands-on Exercise: Viewing Branches
+### 1.1 Viewing Branches
 ```bash
 # Create a new directory and initialize Git
 mkdir branching-tutorial
@@ -37,7 +37,7 @@ git checkout feature-login
 git checkout -b feature-signup
 ```
 
-### 2.2 Hands-on Exercise: Your First Branch
+### 2.2 Your First Branch
 1. Create a branch named `feature-homepage`
 ```bash
 git checkout -b feature-homepage
@@ -57,7 +57,7 @@ git log --oneline --decorate --graph --all
 
 ## 3. Working with Multiple Branches
 
-### 3.1 Hands-on Exercise: Branch Navigation
+### 3.1 Branch Navigation
 ```bash
 # Create multiple features
 git checkout -b feature-1
@@ -74,6 +74,12 @@ git commit -m "Add feature 2"
 git checkout feature-1
 git checkout feature-2
 git checkout main
+
+# Check branches
+git branch
+
+# View your branch history
+git log --oneline --decorate --graph --all
 ```
 
 ## 4. Merging Branches
