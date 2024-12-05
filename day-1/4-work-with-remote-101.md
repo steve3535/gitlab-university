@@ -96,12 +96,6 @@ git push -u origin main
 # - Need Personal Access Token (PAT)
 ``` 
 
-
-
-
-
-
-
 ### Project Setup
 - Clone the project:
   ```bash
