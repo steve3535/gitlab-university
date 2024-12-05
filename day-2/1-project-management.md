@@ -96,12 +96,16 @@ Create a Kanban board to visualize work:
 
 ## 6. Time Tracking
 
+Time tracking helps you measure how long tasks take, which can improve your project planning and estimation skills over time.  
+
 Enable time tracking for your issues:
 
 1. In each issue, you can:
    - Estimate time: `/estimate 2h`
-   - Start work: `/spend 30m`
-   - Add remaining time: `/spend 1h 30m`
+   - Set deadline: `/due in 2 days`
+   - Log time spent: `/spend 30m`
+   
+Use /estimate and /spend commands in the comment section of an issue. These commands update the issue’s time tracking widget.  
 
 ## Best Practices
 
