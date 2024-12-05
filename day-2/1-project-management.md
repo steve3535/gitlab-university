@@ -28,6 +28,10 @@ Labels help categorize and prioritize work. Create the following labels:
 | documentation| #4CAF50 | Documentation updates |
 | testing      | #FFC107 | Testing related tasks |
 | ci-cd        | #9C27B0 | CI/CD pipeline tasks |
+| To Do        | #FF0000 | TODO List |
+| Doing        | #4CAF50 | Work In Progress |
+| Review       | #FFC107 | 
+| Done         | #9C27B0 | 
 
 To create labels:
 1. Go to Manage → Labels
