@@ -328,3 +328,7 @@ Follow these patterns:
 ## Additional Resources
 - Git documentation: https://git-scm.com/doc
 - Pro Git book: https://git-scm.com/book/en/v2
+<br />
+
+## [<< Previous](4-work-with-remote-101.md) &nbsp;&nbsp; [>> Next](6-gitlab-intro.md)
+
