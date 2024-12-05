@@ -78,11 +78,10 @@
    - Select github as authentication method
    - Authorize gitlab-self-hosted (steve3535)  
    - Username: devops  
-   - Enter your **private key** and your passphrase  
+   - Enter your **private key** and your **passphrase**  
    - Once logged in, ssh into your dedicated environment: `ssh -p **22XX** localhost`  
    - **XX** is your id communicated to you by the Instructor.
   
-
 ## Pre-Course Checklist
 - [ ] Git installed and working
 - [ ] GitHub account created
