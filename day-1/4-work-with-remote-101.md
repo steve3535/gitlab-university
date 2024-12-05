@@ -9,13 +9,6 @@ By the end of this section, you will be able to:
 
 ### What is a Remote Repository?
 
-```bash
-mkdir remote-demo
-cd remote-demo
-git init
-ls -la .git/   # Examine local structure
-```
-
 **Key Concepts:**
 - Local repository: Lives in `.git/` directory on your machine
 - Remote repository: Hosted version of your project (GitHub, GitLab)
@@ -54,6 +47,19 @@ git remote add upstream [url]    # Original source (for forks)
 - `origin`: Your main remote repository
 - `upstream`: Original repository (when working with forks)
 - Multiple remotes possible, but origin is convention
+
+```bash
+# Create a test file
+echo "Hello, Remote World!" > test.txt
+git add test.txt
+git commit -m "Initial commit"
+
+# Try pushing (this will fail - good!)
+git push
+
+# Why did it fail? Let's check our remotes
+git remote -v
+``` 
 
 # GitHub Interface and Remote Setup
 
