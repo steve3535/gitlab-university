@@ -12,12 +12,14 @@ A branch in Git is simply a lightweight movable pointer to a commit. Think of it
 mkdir branching-tutorial
 cd branching-tutorial
 git init
-
+```
+```bash
 # Create and commit a simple file
 echo "# Branching Tutorial" > README.md
 git add README.md
 git commit -m "Initial commit"
-
+```
+```bash
 # List all branches
 git branch
 ```
@@ -27,7 +29,7 @@ You should see a single branch named `main` or `master` with an asterisk (*) ind
 
 ### 2.1 Basic Branch Operations
 ```bash
-# Create a new branch
+# Create a new branch from main
 git branch feature-login
 
 # Switch to the new branch
@@ -42,14 +44,14 @@ git checkout -b feature-signup
 ```bash
 git checkout -b feature-homepage
 ```
-
+```bash
 2. Make some changes
 ```bash
 echo "<h1>Welcome to Our Site</h1>" > index.html
 git add index.html
 git commit -m "Add homepage header"
 ```
-
+```bash
 3. View your branch history
 ```bash
 git log --oneline --decorate --graph --all
@@ -59,17 +61,21 @@ git log --oneline --decorate --graph --all
 
 ### 3.1 Branch Navigation
 ```bash
+# Come back to main
+git checkout main
 # Create multiple features
 git checkout -b feature-1
 echo "Feature 1 content" > feature1.txt
 git add feature1.txt
 git commit -m "Add feature 1"
-
+```
+```bash
 git checkout -b feature-2
 echo "Feature 2 content" > feature2.txt
 git add feature2.txt
 git commit -m "Add feature 2"
-
+```
+```bash
 # Navigate between branches
 git checkout feature-1
 git checkout feature-2
@@ -121,7 +127,7 @@ git merge complex-feature
 
 ## 5. Handling Merge Conflicts
 
-### 5.1 Hands-on Exercise: Creating and Resolving Conflicts
+### 5.1 Creating and Resolving Conflicts
 ```bash
 # Create a conflict scenario
 git checkout -b conflict-branch
@@ -137,7 +143,6 @@ git commit -m "Main version"
 # Try to merge
 git merge conflict-branch
 ```
-
 Resolve the conflict:
 1. Open conflict.txt
 2. Choose desired changes
