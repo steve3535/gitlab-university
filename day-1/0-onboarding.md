@@ -44,6 +44,7 @@
    
    3.1. Copy your public key
    ```bash
+   # this is just an example: your path might be different
    cat /c/Users/PC/.ssh/id_ed25519.pub
    ```
    3.2. On Github.com
