@@ -199,25 +199,23 @@ Go to your repository on GitHub:
 ![sample](pat-sample-1.png) 
 ![sample](pat-sample-2.png) 
 
-
 Save/Copy down the generated token.  
 Share the token with another student, and get his.  
+
 ```bash
 # Clone someone else's project
-git clone https://oauth2:<ACCESS_TOKEN>@github.com/remote-demo.git another-remote-demo
+git clone https://oauth2:<ACCESS_TOKEN>@github.com/<other-username>/remote-demo.git another-remote-demo
+```
+```bash
 cd another-remote-demo
-
 # Make quick fix
 echo "# Updated" >> README.md
 git commit -am "Fix documentation"
-
 # Push using HTTPS 
 git push -u origin main
 ``` 
 <br />
 
-### [<<Previous](3-git-basics-2.md) &nbsp;&nbsp; [>>Next]()
-
-   
+### [<<Previous](3-git-basics-2.md) &nbsp;&nbsp; [>>Next]()  
 
 
