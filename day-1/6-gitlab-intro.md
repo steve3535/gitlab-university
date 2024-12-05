@@ -63,4 +63,6 @@ Your personal settings let you configure various aspects of your GitLab experien
 3. **Notifications:** Manage how GitLab sends you updates.
 
 GitLab is a powerful tool, and this introduction is just the beginning. Feel free to explore more features like **Merge Requests**, **Wiki**, and **Security & Compliance** tools as you gain familiarity.
+<br />
 
+## [<< Previous](5-branching-and-merging.md)
