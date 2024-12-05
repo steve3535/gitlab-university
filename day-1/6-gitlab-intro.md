@@ -1,4 +1,4 @@
-# GitLab Interface Exploration: A Crash Course for Freshmen
+# GitLab Interface Exploration
 
 Welcome to GitLab! If you're new here, GitLab can seem a little overwhelming at first. But don’t worry—this guide will walk you through the basic interface and functionalities. By the end, you'll be familiar with how to navigate the platform confidently.
 
