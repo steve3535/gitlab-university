@@ -172,8 +172,18 @@ git remote set-url origin git@github.com-project-a:<username>/project-a.git
 git clone https://github.com/<username>/project-b
 cd project-b
 git remote set-url origin git@github.com-project-b:<username>/project-b.git
-``` 
+```
+```bash
+# Test the connection
+ssh -T git@github.com-project-a
 
+# Try pushing some changes
+echo "# Testing deploy key" >> test.md
+git add test.md
+git commit -m "Test deploy key access"
+git pull
+git push
+```
 
    
 
