@@ -196,7 +196,9 @@ Go to your repository on GitHub:
 - Under the section Permissions, choose "Content: Read & Write access"
 - Click "Generate token"
 
-![sample]
+![sample](pat-sample-1.png) 
+![sample](pat-sample-2.png) 
+
 
 Save/Copy down the generated token.  
 Share the token with another student, and get his.  
