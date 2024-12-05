@@ -77,11 +77,9 @@
    - Go to https://srv1.thelinuxlabs.com 
    - Select github as authentication method
    - Authorize gitlab-self-hosted (steve3535)  
-   - Username: devops  
+   - Username: <your-github-username>
    - Enter your **private key** and your **passphrase**  
-   - Once logged in, ssh into your dedicated environment: `ssh -p **22XX** localhost`  
-   - **XX** is your id communicated to you by the Instructor.
-  
+     
 ## Pre-Course Checklist
 - [ ] Git installed and working
 - [ ] Test repository created successfully
