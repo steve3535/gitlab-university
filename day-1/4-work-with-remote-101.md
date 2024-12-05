@@ -184,6 +184,9 @@ git commit -m "Test deploy key access"
 git pull
 git push
 ```
+<br />
+
+### [<<Previous](3-git-basics-2.md) &nbsp;&nbsp; [>>Next]()
 
    
 
