@@ -202,25 +202,107 @@ Document why and how changes were made
    For work in progress, create a "Draft pull request" instead  
    This prevents accidental merging before ready  
 
-## 6. Team Collaboration Workflows
+### 6.3 Reviewing Merge Requests
+As a reviewer:
+1. Check out the branch locally:
+```bash
+git fetch origin
+git checkout origin/feature-1
+```
+2. Test the changes
+3. Review the code
+   - Look for:
+     - Code quality
+     - Potential bugs
+     - Documentation
+     - Test coverage
+   - Add comments inline
+   - Suggest changes
+4. Approve or Request Changes
 
-### 6.1 Feature Branch Workflow
+### 6.4 Hands-on Team Exercise: Complete Workflow
+In your teams of 5:
 
-1. Create feature branch from main
-2. Develop feature
-3. Push branch to remote
-4. Create Pull/Merge Request
-5. Review and merge
+#### Setup Phase:
+1. Team lead:
+   ```bash
+   # Create new repository on GitHub named 'team-[pseudo]'
+   # Initialize with README
+   ```
 
-### 6.2 Hands-on Team Exercise
-In your teams of 5:  
+2. All members:
+   ```bash
+   # Clone the repository
+   git clone https://github.com/<your-team-lead-username>/team-[pseudo].git
+   ```
 
-0. Create a repository with the name of your team
-1. Each member creates a feature branch
-2. Add a file with your username
-3. Push your branch
-4. Create merge requests
-5. Review each other's code
+#### Development Phase:
+1. Create your feature branch:
+   ```bash
+   git checkout -b feature/[username]-profile
+   ```
+
+2. Add your profile:
+   ```bash
+   mkdir profiles
+   echo "# About [Your Name]" > profiles/[username].md
+   echo "Role: Developer" >> profiles/[username].md
+   echo "Skills: Git, Python, etc." >> profiles/[username].md
+   ```
+
+3. Commit and push:
+   ```bash
+   git add profiles/[username].md
+   git commit -m "Add [username]'s profile"
+   git push -u origin feature/[username]-profile
+   ```
+
+4. Create Pull Request:
+   - Title: "Add [username]'s profile"
+   - Assign to: Another team member
+   - Add label: "profile"
+
+#### Review Phase:
+1. Each member reviews one teammate's PR:
+   ```bash
+   git fetch origin
+   git checkout origin/feature/[teammate]-profile
+   ```
+   
+2. Review in GitHub:
+   - Add at least one constructive comment
+   - Suggest one improvement
+   - Approve if changes look good
+
+#### Merge Phase:
+1. Address review comments:
+   ```bash
+   # Make requested changes
+   git add profiles/[username].md
+   git commit -m "Address review comments"
+   git push
+   ```
+
+2. Merge after approval:
+   - Click "Merge" in GitHub
+   - Delete branch after merge (checkbox in UI)
+
+3. Update local main:
+   ```bash
+   git checkout main
+   git pull origin main
+   ```
+
+### 6.7 Best Practices for Team Collaboration
+1. Always create branches from updated main
+2. Push regularly to backup work
+3. Keep MRs small and focused
+4. Write clear MR descriptions
+5. Review thoroughly but kindly
+6. Address all review comments
+7. Keep main branch clean and stable
+8. Delete merged branches
+
 
 ## 7. Branch Management
 
@@ -243,67 +325,6 @@ Follow these patterns:
 - hotfix/fix-description
 - release/version-number
 
-## 8. Advanced Topics
-
-### 8.1 Rebasing
-```bash
-# Interactive rebase
-git checkout feature-branch
-git rebase -i main
-
-# Squash commits
-git rebase -i HEAD~3
-```
-
-### 8.2 Cherry-picking
-```bash
-# Apply specific commits to current branch
-git cherry-pick commit-hash
-```
-
-## Practice Exercises
-1. Individual Exercise:
-   - Create 3 feature branches
-   - Make changes in each
-   - Merge them back to main
-   - Resolve any conflicts
-
-2. Team Exercise:
-   - Each team member creates a branch
-   - Implement a small feature
-   - Create merge requests
-   - Review and merge all changes
-
-## Common Issues and Solutions
-1. Cannot switch branches:
-   - Stash or commit changes first
-   ```bash
-   git stash
-   git checkout other-branch
-   git stash pop
-   ```
-
-2. Merge conflicts:
-   - Always pull latest changes before starting new work
-   - Communicate with team about file changes
-   - Use git status to check conflict files
-
-## Best Practices
-1. Always create branches from updated main
-2. Keep branches focused and short-lived
-3. Write clear commit messages
-4. Review code before merging
-5. Delete branches after merging
-6. Regular pulls from main to avoid conflicts
-
-## Review Questions
-1. What is a branch and why do we use them?
-2. How do you create and switch branches?
-3. What's the difference between merge and rebase?
-4. How do you resolve merge conflicts?
-5. What's the team workflow for feature development?
-
 ## Additional Resources
 - Git documentation: https://git-scm.com/doc
-- Git branching visualization: https://learngitbranching.js.org/
 - Pro Git book: https://git-scm.com/book/en/v2
