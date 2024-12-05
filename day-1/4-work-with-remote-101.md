@@ -184,6 +184,34 @@ git commit -m "Test deploy key access"
 git pull
 git push
 ```
+### 4. Personal Access Token: the VIP access
+Personal Access Tokens:  
+these are literally kind of VIP access passes: they are fit for a quick one time contribution  
+
+Go to your repository on GitHub:
+- Navigate to "Profile" > "Settings" > "Developper Settings"
+- Click "Personal Access Tokens"
+- Choose "Fine grained access token" 
+- Generate a new token that expires in 7 days and scoped to the remote-demo repository
+- Under the section Permissions, choose "Content: Read & Write access"
+- Click "Generate token"
+
+![sample]
+
+Save/Copy down the generated token.  
+Share the token with another student, and get his.  
+```bash
+# Clone someone else's project
+git clone https://oauth2:<ACCESS_TOKEN>@github.com/remote-demo.git another-remote-demo
+cd another-remote-demo
+
+# Make quick fix
+echo "# Updated" >> README.md
+git commit -am "Fix documentation"
+
+# Push using HTTPS 
+git push -u origin main
+``` 
 <br />
 
 ### [<<Previous](3-git-basics-2.md) &nbsp;&nbsp; [>>Next]()
