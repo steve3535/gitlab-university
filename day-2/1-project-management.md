@@ -27,7 +27,7 @@ Labels help categorize and prioritize work. Create the following labels:
 | ci-cd        | #9C27B0 | CI/CD pipeline tasks |
 
 To create labels:
-1. Go to Settings → Labels
+1. Go to Manage → Labels
 2. Click "New label"
 3. Create each label with the specified colors
 4. Add meaningful descriptions
