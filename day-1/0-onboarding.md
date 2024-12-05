@@ -65,9 +65,10 @@
    
    1.1. Copy your public key
    ```bash
-   # this is an example on Windows with gitbash terminal: the command to display the key and your path might be different
+   # this is an example on Windows with gitbash terminal: the command and the path might be different
    cat /c/Users/PC/.ssh/id_ed25519.pub
    ```
+
    1.2. On Github.com
    - Go to your profile settings
    - Select "SSH and GPG Keys" > "New SSH Key"
