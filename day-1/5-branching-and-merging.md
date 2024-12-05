@@ -1,4 +1,4 @@
-# Git Branching: From Fundamentals to Team Collaboration
+# Git Branching & Merging
 
 ## 1. Understanding Branches
 A branch in Git is simply a lightweight movable pointer to a commit. Think of it as a separate line of development that allows you to:
@@ -40,20 +40,18 @@ git checkout -b feature-signup
 ```
 
 ### 2.2 Your First Branch
-1. Create a branch named `feature-homepage`
 ```bash
+# 1. Create a branch named `feature-homepage`
 git checkout -b feature-homepage
 ```
 ```bash
-2. Make some changes
-```bash
+# 2. Make some changes
 echo "<h1>Welcome to Our Site</h1>" > index.html
 git add index.html
 git commit -m "Add homepage header"
 ```
 ```bash
-3. View your branch history
-```bash
+#3. View your branch history
 git log --oneline --decorate --graph --all
 ```
 
@@ -99,12 +97,16 @@ git checkout -b simple-feature
 echo "New feature" > feature.txt
 git add feature.txt
 git commit -m "Add simple feature"
-
-# Merge back to main
+```
+```bash
+# back to main & Merge
 git checkout main
 git merge simple-feature
 ```
-
+```bash
+# View your branch history
+git log --oneline --decorate --graph --all
+``` 
 ### 4.2 Three-Way Merge
 When both branches have new commits, Git creates a merge commit.
 
@@ -121,8 +123,13 @@ echo "Main changes" > main.txt
 git add main.txt
 git commit -m "Add main changes"
 
+```bash
 # Merge feature into main
 git merge complex-feature
+```
+```bash
+# View your branch history
+git log --oneline --decorate --graph --all
 ```
 
 ## 5. Handling Merge Conflicts
@@ -139,11 +146,12 @@ git checkout main
 echo "Main version" > conflict.txt
 git add conflict.txt
 git commit -m "Main version"
-
+```
+```bash
 # Try to merge
 git merge conflict-branch
-```
-Resolve the conflict:
+```  
+**Resolve the conflict**:  
 1. Open conflict.txt
 2. Choose desired changes
 3. Remove conflict markers
@@ -153,7 +161,10 @@ Resolve the conflict:
 git add conflict.txt
 git commit -m "Resolve merge conflict"
 ```
-
+```bash
+# View your branch history
+git log --oneline --decorate --graph --all
+``` 
 ## 6. Team Collaboration Workflows
 
 ### 6.1 Feature Branch Workflow
