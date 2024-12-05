@@ -70,9 +70,7 @@ git remote -v
 ```
 ## 2. Setting up Remote Connection
 
-### GitHub Interface
-
-#### Web Interface Quick Tour
+### GitHub Web Interface Quick Tour
 1. Create New Repository
    - Click "New" button (green)
    - Set repository name: "remote-demo"
@@ -86,15 +84,32 @@ git remote -v
 ### 1. HTTPS remote Method  
 ```bash
 # Add remote using HTTPS
-git remote add origin https://github.com/username/remote-demo.git
+git remote add origin https://github.com/<username>/remote-demo.git
+
+# Now we should have a remote tracking
+git remote -v
 
 # Try pushing (will prompt for credentials)
 git push -u origin main
 
 # Common Issues:
 # - Password authentication removed by GitHub
-# - Need Personal Access Token (PAT)
+# - Need Personal Access Token (PAT) -- we will come back to this later
 ``` 
+
+### 2. SSH Method 
+```
+# Generate SSH key if needed 
+ssh-keygen -t ed25519 -C "your@email.com"
+
+
+# Add key to ssh-agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# Add remote using SSH
+git remote set-url origin git@github.com:username/remote-demo.git
+```
 
 ### Project Setup
 - Clone the project:
