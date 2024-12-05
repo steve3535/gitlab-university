@@ -71,13 +71,12 @@ Create these essential issues:
    - Description: "Document project setup and deployment process"
 
 For each issue:
-1. Go to Issues → List
+1. Go to Plan → Issues → List
 2. Click "New issue"
 3. Add appropriate title and description
 4. Assign to yourself
 5. Add appropriate label
 6. Link to MVP milestone
-7. Set weight (story points) if desired
 
 ## 5. Project Board Setup
 
