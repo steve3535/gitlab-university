@@ -69,8 +69,8 @@
    cat /c/Users/PC/.ssh/id_ed25519.pub
    ```
    1.2. Send your public key by email to *steve@thelinuxlabs.com*
-   - Specify your github username in the email's object
-     e.g.
+   - Specify your github username in the email's object  
+     ![sample](./send_ssh_pubkey.png)  
      
 
 3. **Labs access**
