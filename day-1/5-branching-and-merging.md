@@ -165,29 +165,59 @@ git commit -m "Resolve merge conflict"
 # View your branch history
 git log --oneline --decorate --graph --all
 ``` 
+## 6. Working with Remote Branches
+```bash
+# Push a local branch to remote for the first time
+git push -u origin feature-login
+# -u sets up tracking, allowing future git pull/push without specifying branch
+
+# Push changes to an existing remote branch
+git push
+
+# Get all remote branches
+git fetch origin
+
+# Pull changes from remote branch
+git pull origin feature-login
+```
+
+## 6.1. Understanding Pull/Merge Requests
+A Pull Request (GitHub) or Merge Request (GitLab) is a formal way to:
+
+Propose changes from your branch to main
+Review code as a team
+Discuss modifications
+Ensure quality through peer review
+Document why and how changes were made
+
+### 6.2. Creating a Pull Request in GitHub
+1. Push your branch
+2. Visit GitHub repository
+   You'll see a "Compare & pull request" button (appears after pushing)  
+   If not visible, click "Pull requests" tab and then "New pull request"  
+   Select your branch to compare with main  
+3. Fill in the PR template
+   Add accurate description, add reviewers, labels, projects, etc.  
+4. Click "Create pull request"  
+   For work in progress, create a "Draft pull request" instead  
+   This prevents accidental merging before ready  
+
 ## 6. Team Collaboration Workflows
 
 ### 6.1 Feature Branch Workflow
-Best for small teams (4-5 members):
+
 1. Create feature branch from main
 2. Develop feature
 3. Push branch to remote
 4. Create Pull/Merge Request
 5. Review and merge
 
-```bash
-# Example workflow
-git checkout -b feature-auth
-# Make changes
-git add .
-git commit -m "Implement authentication"
-git push -u origin feature-auth
-```
-
 ### 6.2 Hands-on Team Exercise
-In your teams of 5:
+In your teams of 5:  
+
+0. Create a repository with the name of your team
 1. Each member creates a feature branch
-2. Add a file with your name
+2. Add a file with your username
 3. Push your branch
 4. Create merge requests
 5. Review each other's code
