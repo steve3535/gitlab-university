@@ -84,8 +84,8 @@
   
 ## Pre-Course Checklist
 - [ ] Git installed and working
-- [ ] GitHub account created
-- [ ] SSH key added to GitHub
 - [ ] Test repository created successfully
+- [ ] GitHub account created
+- [ ] SSH key pair generated and access granted for the labs
 
 ### [>>Next](1-introduction.md)
