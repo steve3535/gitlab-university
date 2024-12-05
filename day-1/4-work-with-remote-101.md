@@ -49,6 +49,14 @@ git remote add upstream [url]    # Original source (for forks)
 - Multiple remotes possible, but origin is convention
 
 ```bash
+# Create a local repository
+mkdir remote-demo
+cd remote-demo
+git init
+ls -la .git/   # Examine local structure
+```
+
+```bash
 # Create a test file
 echo "Hello, Remote World!" > test.txt
 git add test.txt
