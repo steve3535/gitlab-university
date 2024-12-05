@@ -111,77 +111,12 @@ ssh-keygen
    - Give a title ,and paste your public key, then clieck "Add SSH Key" <br />
 <br />     
 
-
-
-
-# Add key to ssh-agent
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-
+```bash
 # Add remote using SSH
-git remote set-url origin git@github.com:username/remote-demo.git
+git remote set-url origin git@github.com:<username>/remote-demo.git
 ```
-
-### Project Setup
-- Clone the project:
-  ```bash
-  git clone https://github.com/<wour-username>/portfolio.git
-  git remote -v
-  ```
-### Create Content
-
-**Create index.html:**
-```html
-cat > index.html << 'EOF'
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Git Journey</title>
-    <style>
-        body { 
-            font-family: Arial, sans-serif;
-            margin: 40px auto;
-            max-width: 650px;
-            line-height: 1.6;
-            padding: 0 10px;
-            background-color: #f4f4f4;
-        }
-        .commit-log {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-    </style>
-</head>
-<body>
-    <div class="commit-log">
-        <h1>My Git Commands Log</h1>
-        <pre id="git-log">
-# Will be filled with git commands...
-        </pre>
-    </div>
-</body>
-</html>
-EOF
-```
-
-### Initial Commit
 ```bash
-git add .
-git commit -m "Initial commit: Portfolio setup"
-```
-Try pushing:  
-```bash
-git push --set-upstream origin main
+# Try pushing again
+git push origin main
 ```
 
-### Repository Exploration
-```bash
-# Examine repository state
-git log                  # View commit history
-git status              # Check current status
-git branch              # List branches
-ls -la .git/            # Explore git directory
-git config --local -l   # View local config
-```
