@@ -2,7 +2,9 @@
 
 ## Overview
 
-Before writing any code, we'll set up proper project management in GitLab. This foundation will help you organize your work and track progress effectively.
+Before writing any code, we'll set up proper project management in GitLab. This foundation will help you organize your work and track progress effectively.  
+Good project management ensures your project stays organized, scalable, and trackable—even for simple tasks.  
+By the end of this section, you will have a well-organized GitLab project with clear labels, milestones, and issues that streamline your development process.  
 
 ## 1. Project Creation
 
@@ -10,9 +12,10 @@ Before writing any code, we'll set up proper project management in GitLab. This 
 2. Click "New Project"
 3. Select "Create blank project"
 4. Fill in project details:
-   - Project name: `simple-webapp-yourname`
-   - Visibility Level: Private
+   - Project name: `simple-webapp-[your-gitlab-username]`
+   - "Visibility Level: Set to 'Private' to protect your code from being publicly accessible while you're learning."  
    - Initialize with a README: Yes
+     A README file gives your project an initial structure and lets others understand its purpose.  
 
 ## 2. Label Setup
 
