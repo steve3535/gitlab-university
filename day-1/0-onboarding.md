@@ -35,19 +35,40 @@
      
 2. **GitHub Account Setup**
    - Create account at github.com
-     
-3. **SSH Key Setup**
+  
+3. **Verification**  
+   - Git Installation Check
+     ```bash
+     git --version
+     ```
+     Expected output: version 2.x or higher
+
+   - Git Configuration Check
+     ```bash
+     git config --list
+     ```
+     Verify email and name are correct
+
+4. **Test Repository**
+   ```bash
+   git init test
+   cd test
+   git status
+   ```
+
+### Labs access    
+1. **SSH Key Setup**
    ```bash
    ssh-keygen -t ed25519 -C "your.email@example.com"
    ```
-   > Make sure you set a passphrase
+   > **Make sure you set a passphrase**
    
-   3.1. Copy your public key
+   1.1. Copy your public key
    ```bash
-   # this is just an example: your path might be different
+   # this is an example on Windows with gitbash terminal: the command to display the key and your path might be different
    cat /c/Users/PC/.ssh/id_ed25519.pub
    ```
-   3.2. On Github.com
+   1.2. On Github.com
    - Go to your profile settings
    - Select "SSH and GPG Keys" > "New SSH Key"
    - Give a title ,and paste your public key, then clieck "Add SSH Key" <br />
@@ -58,19 +79,6 @@
    >specify your github username in the email's object
      
    
-## Verification Steps
-
-### 1. Git Installation Check
-```bash
-git --version
-```
-Expected output: version 2.x or higher
-
-### 2. Git Configuration Check
-```bash
-git config --list
-```
-Verify email and name are correct
 
 ### 3. GitHub SSH Check
 ```bash
@@ -78,12 +86,6 @@ ssh -T git@github.com
 ```
 Should see successful authentication message
 
-### 4. Test Repository
-```bash
-git init test
-cd test
-git status
-```
 
 ## Pre-Course Checklist
 - [ ] Git installed and working
