@@ -67,36 +67,39 @@ git push
 
 # Why did it fail? Let's check our remotes
 git remote -v
-``` 
+```
+## 2. Setting up Remote Connection
 
-# GitHub Interface and Remote Setup
+### GitHub Interface
 
-## 1. GitHub Repository Creation
-
-### Web Interface Quick Tour
+#### Web Interface Quick Tour
 1. Create New Repository
    - Click "New" button (green)
-   - Set repository name: "portfolio"
+   - Set repository name: "remote"
    - Add description
-   - Choose Public
-   - Initialize with README: Yes
-     ```bash
-     # Git Command Line Journey
-     This repository documents my Git learning journey.
-     ## Commands Learned:
-     - git init
-     - git status
-     - git add
-     - git commit
-     ``` 
-
+   - Choose Public  
 2. Essential Interface Elements
    - Code tab: Clone URLs (HTTPS/SSH)
      * Copy the clone HTTPS URL
-   - Settings tab:
-     - Pages (for GitHub Pages setup)
-     - Deploy keys (if needed)
-     - Branches (protection rules later)
+   
+
+### 1. HTTPS remote Method  
+```bash
+# Add remote using HTTPS
+git remote add origin https://github.com/username/remote-demo.git
+
+# Try pushing (will prompt for credentials)
+git push -u origin main
+
+# Common Issues:
+# - Password authentication removed by GitHub
+# - Need Personal Access Token (PAT)
+``` 
+
+
+
+
+
 
 
 ### Project Setup
