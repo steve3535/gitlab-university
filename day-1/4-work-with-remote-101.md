@@ -123,3 +123,58 @@ git remote set-url origin git@github.com:<username>/remote-demo.git
 # Try pushing again
 git push origin main
 ```
+**Problems with using one SSH key for everything**:
+  1. Security: If key is compromised, ALL repositories are at risk  
+  2. Access Management: Can't revoke access to just one project  
+  3. Compliance: Some companies require unique keys per project  
+  4. Audit Trail: Hard to track which key was used for what
+
+### 3. Deploy keys 
+
+In Github.com:  
+- Delete any global SSH key previously set
+- Create two new Repositories: project-a & project-b
+In your environment:
+```bash
+ #Create repository-specific keys
+ ssh-keygen -t ed25519 -f ~/.ssh/project_a_key -C "deploy key for project A"
+ ssh-keygen -t ed25519 -f ~/.ssh/project_b_key -C "deploy key for project B"
+```
+Copy each of the genrated public keys.  
+Go to your repository on GitHub:
+- Navigate to "Settings" > "Deploy keys" (or "Settings" > "Security" > "Deploy keys")
+- Click "Add deploy key"
+- Give your key a descriptive title (e.g., "Project A Deploy Key")
+- Paste your public key content
+- check "Allow write access"
+- Click "Add key"
+
+```bash
+# Configure SSH to use different keys for different projects
+cat >> ~/.ssh/config << EOF
+Host github.com-project-a
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/project_a_key
+
+Host github.com-project-b
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/project_b_key
+EOF
+```
+```bash
+# Clone each project and set the remote method to SSH
+git clone https://github.com/<username>/project-a
+cd project-a
+git remote set-url origin git@github.com-project-a:<username>/project-a.git
+
+git clone https://github.com/<username>/project-b
+cd project-b
+git remote set-url origin git@github.com-project-b:<username>/project-b.git
+``` 
+
+
+   
+
+
