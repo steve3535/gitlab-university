@@ -99,10 +99,12 @@ git push -u origin main
 
 ### 2. SSH Method 
 ```bash
-# Generate a new SSH key
+# From your dedicated environment,generate a new SSH key
 # passphrase not mandatory this time
 ssh-keygen
 ```
+![sample](./sample-sshkeygen.png)  
+
 **On Github.com:**
    - Go to your profile settings
    - Select "SSH and GPG Keys" > "New SSH Key"
