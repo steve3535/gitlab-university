@@ -68,25 +68,20 @@
    # this is an example on Windows with gitbash terminal: the command and the path might be different
    cat /c/Users/PC/.ssh/id_ed25519.pub
    ```
-
-   1.2. On Github.com
-   - Go to your profile settings
-   - Select "SSH and GPG Keys" > "New SSH Key"
-   - Give a title ,and paste your public key, then clieck "Add SSH Key" <br />
-   <br />     
-
-   >**!important!:** access to the upcoming labs  
-   >kindly share your **public** key by sending it in an email to steve@thelinuxlabs.com  
-   >specify your github username in the email's object
+   1.2. Send your public key by email to *steve@thelinuxlabs.com*
+   - Specify your github username in the email's object
+     e.g.
      
-   
 
-### 3. GitHub SSH Check
-```bash
-ssh -T git@github.com
-```
-Should see successful authentication message
-
+3. **Labs access**
+   - Go to https://srv1.thelinuxlabs.com 
+   - Select github as authentication method
+   - Authorize gitlab-self-hosted (steve3535)  
+   - Username: devops  
+   - Enter your **private key** and your passphrase  
+   - Once logged in, ssh into your dedicated environment: `ssh -p **22XX** localhost`  
+   - **XX** is your id communicated to you by the Instructor.
+  
 
 ## Pre-Course Checklist
 - [ ] Git installed and working
