@@ -109,8 +109,12 @@ ssh-keygen
    - Go to your profile settings
    - Select "SSH and GPG Keys" > "New SSH Key"
    - Give a title ,and paste your public key, then clieck "Add SSH Key" <br />
-<br />     
+<br />
 
+```bash
+# GitHub SSH Check
+ssh -T git@github.com
+```
 ```bash
 # Add remote using SSH
 git remote set-url origin git@github.com:<username>/remote-demo.git
@@ -119,4 +123,3 @@ git remote set-url origin git@github.com:<username>/remote-demo.git
 # Try pushing again
 git push origin main
 ```
-
