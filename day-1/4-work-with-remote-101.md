@@ -98,9 +98,18 @@ git push -u origin main
 ``` 
 
 ### 2. SSH Method 
+```bash
+# Generate a new SSH key
+# passphrase not mandatory this time
+ssh-keygen
 ```
-# Generate SSH key if needed 
-ssh-keygen -t ed25519 -C "your@email.com"
+**On Github.com:**
+   - Go to your profile settings
+   - Select "SSH and GPG Keys" > "New SSH Key"
+   - Give a title ,and paste your public key, then clieck "Add SSH Key" <br />
+<br />     
+
+
 
 
 # Add key to ssh-agent
