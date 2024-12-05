@@ -27,8 +27,8 @@ By the end of this section, you will be able to:
 
 **Essential Commands:**
 ```bash
-git remote add       # Connect to remote
-git remote -v        # List remote connections
+git remote add      # Connect to remote
+git remote -v       # List remote connections
 git push            # Send changes to remote
 git fetch           # Download changes (without merge)
 git pull            # Download and merge changes
@@ -75,7 +75,7 @@ git remote -v
 #### Web Interface Quick Tour
 1. Create New Repository
    - Click "New" button (green)
-   - Set repository name: "remote"
+   - Set repository name: "remote-demo"
    - Add description
    - Choose Public  
 2. Essential Interface Elements
