@@ -1,124 +1,39 @@
-# GitLab Project Management Setup Guide - Individual Project
+# GitLab Project Planning Tutorial: Building TaskMaster
 
-## Overview
+Welcome to this hands-on tutorial where you'll learn GitLab's project planning and organization features by building TaskMaster, a personal task management web application. This tutorial focuses on proper project setup and planning using GitLab's powerful tools.
 
-Before writing any code, we'll set up proper project management in GitLab. This foundation will help you organize your work and track progress effectively.<br />  
-Projects are the fundamental building blocks of GitLab. A GitLab project represents a single software product that you are working on or a single non-software project that you are working on. 
+## Prerequisites
+- A GitLab.com account
+- Basic understanding of web applications
+- A web browser
+- About 4-6 hours of time
 
-## 1. Project Creation
+## Tutorial Overview
+In this tutorial, you'll learn how to:
+1. Set up project structure in GitLab
+2. Use GitLab's planning tools to organize work
+3. Break down features into manageable tasks
+4. Track progress effectively
+5. Collaborate using GitLab's features
 
-1. Log into GitLab
-2. Click "New Project"
-3. Select "Create blank project"
-4. Fill in project details:
-   - Project name: `simple-webapp-[your-gitlab-username]`
-   - "Visibility Level: Set to 'Private' to protect your code from being publicly accessible while you're learning."  
-   - Initialize with a README: Yes
-     A README file gives your project an initial structure and lets others understand its purpose.  
+## Part 1: Initial Setup & Project Structure
 
-## 2. Label Setup
+### Step 1: Create a Group
+First, we'll create a group to organize our project:
 
-Labels help categorize and prioritize work. Create the following labels:
+1. Log into GitLab.com
+2. Click the "+" button at the top of the left sidebar
+3. Select "New group"
+4. For the group setup:
+   - Name: `taskmaster-app`
+   - Visibility level: Public
+   - Group URL: Will auto-populate based on the name
+5. Click "Create group"
 
-| Label Name    | Color  | Description |
-|--------------|--------|-------------|
-| feature      | #428BCA | New functionality |
-| bug          | #FF0000 | Something isn't working |
-| documentation| #4CAF50 | Documentation updates |
-| testing      | #FFC107 | Testing related tasks |
-| ci-cd        | #9C27B0 | CI/CD pipeline tasks |
-| To Do        | #FF0000 | TODO List |
-| Doing        | #4CAF50 | Work In Progress |
-| Review       | #FFC107 | 
-| Done         | #9C27B0 | 
+A group provides a dedicated space for our TaskMaster application and potential future related projects. You can think of it as a container that can hold multiple related projects, making it easier to manage access control and organize work at a higher level.
 
-To create labels:
-1. Go to Manage → Labels
-2. Click "New label"
-3. Create each label with the specified colors
-4. Add meaningful descriptions
+---
 
-## 3. Milestone Creation
+> **💡 Tip**: While you could create the project directly without a group, using a group structure provides better organization and scalability. It allows you to add more related projects later and manage permissions at a group level.
 
-Create a milestone to group related issues:
-
-1. Go to Issues → Milestones
-2. Click "New milestone"
-3. Set up milestone details:
-   - Title: "MVP Release"
-   - Due date: End of today
-   - Description: "Basic web application with CI/CD pipeline"
-
-## 4. Issue Creation
-
-Create these essential issues:
-
-1. "Setup basic HTML/CSS structure"
-   - Label: feature
-   - Description: "Create basic webpage layout with header, content area, and footer"
-   
-2. "Configure CI/CD pipeline"
-   - Label: ci-cd
-   - Description: "Set up basic GitLab CI/CD pipeline with build and test stages"
-   
-3. "Implement basic Node.js API"
-   - Label: feature
-   - Description: "Create simple API endpoint returning JSON data"
-   
-4. "Add security scanning"
-   - Label: ci-cd
-   - Description: "Implement basic security scanning in CI pipeline"
-   
-5. "Create project documentation"
-   - Label: documentation
-   - Description: "Document project setup and deployment process"
-
-For each issue:
-1. Go to Plan → Issues → List
-2. Click "New issue"
-3. Add appropriate title and description
-4. Assign to yourself
-5. Add appropriate label
-6. Link to MVP milestone
-
-## 5. Project Board Setup
-
-Create a Kanban board to visualize work:
-
-1. Go to Plan → Issues Board
-2. Click "Add list"
-3. Create four lists:
-   - To Do
-   - Doing
-   - Review
-   - Done
-
-## 6. Time Tracking
-
-Time tracking helps you measure how long tasks take, which can improve your project planning and estimation skills over time.  
-
-Enable time tracking for your issues:
-
-1. In each issue, you can:
-   - Estimate time: `/estimate 2h`
-   - Set deadline: `/due in 2 days`
-   - Log time spent: `/spend 30m`
-   
-Use /estimate and /spend commands in the comment section of an issue. These commands update the issue’s time tracking widget.  
-
-## Best Practices
-
-1. **Issue Updates**: Comment on issues regularly to track progress
-2. **Link Related Work**: Use `#issue-number` to reference related issues
-3. **Move Cards**: Update issue status by moving cards across the board
-4. **Track Time**: Log time spent to improve future estimations
-
-## Next Steps
-
-After completing this setup:
-1. Review all created issues
-2. Prioritize your work
-3. Move first issue to "Doing"
-4. Start development work
-
-Remember: Good project management makes development smoother and more trackable.
+Let me know once you've created your group and we'll move on to creating our project within it.
