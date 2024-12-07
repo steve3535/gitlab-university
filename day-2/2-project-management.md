@@ -19,7 +19,7 @@ First, we'll create a group to organize our project:
 2. Click the "+" button at the top of the left sidebar
 3. Select "New group"
 4. For the group setup:
-   - Name: `taskmaster-app`
+   - Name: `taskmaster apps`
    - Visibility level: Public
    - Group URL: Will auto-populate based on the name
 5. Click "Create group"
