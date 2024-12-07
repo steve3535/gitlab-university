@@ -1,4 +1,15 @@
 # Prereqs
+
+## 1. Project Creation
+1. Log into GitLab
+2. Click "New Project"
+3. Select "Create blank project"
+4. Fill in project details:
+   - Project name: `simple-webapp-[your-gitlab-username]`
+   - "Visibility Level: Set to 'Private' to protect your code from being publicly accessible while you're learning."  
+   - Initialize with a README: Yes
+     A README file gives your project an initial structure and lets others understand its purpose.  
+
 ## Your virtual Desk: spin up a github codespace
 1. Fork the gitlab-university repository - https://github.com/steve3535/gitlab-university -
    * Go to your Github account
@@ -12,7 +23,25 @@
 
    ![sample](sample-codespace.png)   
 
-3.  
+3. Connect your codespace to your gitlab project
+   3.1. Go to your project in gitlab and generate a Personal Access Token:
+     * Settings > Access Tokens > Add new token
+     * Select "Maintainer" role and the following scopes: read repository, write repository, read registry, write registry
+     * Click "Create Project Access Token"
+     * Copy down the token
+   
+   3.2. Back to your codespace,clone your gitlab project
+     ```bash
+     @kwakoulux ➜ /workspaces/gitlab-university (main) $ cd ..
+     kwakoulux ➜ /workspaces $ git clone https://oauth2:glp...xxxxxxx-@gitlab.com/kwakoulux/simple-webapp-kwakoulux
+     Cloning into 'simple-webapp-kwakoulux'...
+     warning: redirecting to https://gitlab.com/kwakoulux/simple-webapp-kwakoulux.git/
+     remote: Enumerating objects: 3, done.
+     Receiving objects: 100% (3/3), done.
+     @kwakoulux ➜ /workspaces $
+     ```   
+   You can now open the project in your codespace.  
+ 
 # Technical Blueprint - Personal Dev Portfolio
 
 ## Project Structure
