@@ -2,18 +2,17 @@
 ## Your virtual Desk: spin up a github codespace
 1. Fork the gitlab-university repository - https://github.com/steve3535/gitlab-university -
    * Go to your Github account
-   * In the to right search bar, search for the repository steve3535/gitlab-university
+   * In the to right search bar, search for the repository *steve3535/gitlab-university*
    * Select fork
    * Leave all defaults and click "Create Fork"
 2. Create a codespace
    * In your copy of the repository (the fork you just created), click Code
    * Select Codespaces tab, and click "Create Codespace"  
-   It will open up automatically a vscode web space for you  
+   It will open up automatically a vscode web space for you <br />
+
    ![sample](sample-codespace.png)   
 
-
-
-4. 
+3.  
 # Technical Blueprint - Personal Dev Portfolio
 
 ## Project Structure
