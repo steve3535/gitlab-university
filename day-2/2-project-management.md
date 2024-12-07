@@ -86,7 +86,7 @@ For each issue:
 
 Create a Kanban board to visualize work:
 
-1. Go to Project information → Project overview
+1. Go to Plan → Issues Board
 2. Click "Add list"
 3. Create four lists:
    - To Do
