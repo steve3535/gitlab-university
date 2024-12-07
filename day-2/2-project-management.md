@@ -2,7 +2,7 @@
 
 ## Overview
 
-Before writing any code, we'll set up proper project management in GitLab. This foundation will help you organize your work and track progress effectively.  
+Before writing any code, we'll set up proper project management in GitLab. This foundation will help you organize your work and track progress effectively.<br />  
 Projects are the fundamental building blocks of GitLab. A GitLab project represents a single software product that you are working on or a single non-software project that you are working on. 
 
 ## 1. Project Creation
