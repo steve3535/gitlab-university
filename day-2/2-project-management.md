@@ -205,6 +205,3 @@ Create basic documentation for TaskMaster users including:
 - Milestone: MVP Release
 - Weight: 3
 
-> **💡 Tip**: Notice how we use issue weights to indicate relative complexity/effort. This helps in sprint planning and workload management.
-
-Let me know once you've created these milestones and issues, and we'll move on to organizing them in an issue board.
