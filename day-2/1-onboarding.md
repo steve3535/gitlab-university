@@ -5,7 +5,7 @@
 2. Click "New Project"
 3. Select "Create blank project"
 4. Fill in project details:
-   - Project name: `simple-webapp-[your-gitlab-username]`
+   - Project name: `time-tracker`
    - "Visibility Level: Set to 'Private' to protect your code from being publicly accessible while you're learning."  
    - Initialize with a README: Yes
      A README file gives your project an initial structure and lets others understand its purpose.  
