@@ -3,16 +3,6 @@
 ## Overview
 In this section, we'll move from the planning phase to actual implementation by creating our first feature branch and setting up our project structure.
 
-## Prerequisites
-- A GitLab account
-- A project created in GitLab
-- Initial issues created and assigned (from previous section)
-
-## Learning Objectives
-- Create a feature branch following GitLab conventions
-- Set up a merge request with technical specifications
-- Define project structure and tech stack
-
 ## Technical Stack and Project Structure
 
 ### Defining Our Tech Stack
@@ -128,5 +118,3 @@ MR creation fails | Verify source and target branches exist and you have proper 
 - 📝 Use clear commit messages referencing the issue
 - 👥 Request early feedback on technical approach
 
----
-Need help? Use the discussions tab or mention team members with @username.
