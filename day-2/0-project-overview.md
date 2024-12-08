@@ -14,3 +14,5 @@
 <br />
 ![gitlab_stages_simple](gitlab_stages_simplified.png)
 <br />
+
+## [>>Next](1-onboarding.md)  
