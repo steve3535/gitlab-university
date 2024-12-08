@@ -45,5 +45,8 @@ Now that we have our group set up, let's create our main project:
      Receiving objects: 100% (3/3), done.
      @kwakoulux ➜ /workspaces $
      ```   
-   You can now open the project in your codespace.  
+   You can now open the project in your codespace.
+   <br />
+   
+   ## [<<Previous](0-project-overview.md) &nbsp;&nbsp; [>>Next](2-project-management.md)  
  
