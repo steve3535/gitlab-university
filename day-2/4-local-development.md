@@ -189,7 +189,6 @@ Before moving to CI/CD setup, verify:
 - [ ] Application runs without errors
 - [ ] API endpoints respond correctly
 - [ ] No console errors or warnings
-- [ ] Code is committed and pushed to GitLab
 
 ## Next Steps
 Once everything works locally:
