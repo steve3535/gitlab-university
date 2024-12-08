@@ -100,9 +100,7 @@ Testing | Jest | Unit testing framework
 
 ## What's Next?
 - Add initial project scaffolding
-- Implement basic CRUD operations
-- Create fundamental UI components
-- Request early feedback from team members
+- Local develoment and testing
 
 ## Common Issues and Solutions
 
@@ -120,6 +118,6 @@ MR creation fails | Verify source and target branches exist and you have proper 
 
 <br />
 
-## [<<Previous](2-project-management.md) &nbsp;&nbsp; [>>Next](4-implementation-cicd.md)  
+## [<<Previous](2-project-management.md) &nbsp;&nbsp; [>>Next](4-local-development.md)  
 
 
