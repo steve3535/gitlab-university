@@ -11,25 +11,7 @@ You'll learn how to:
 
 ## Part 1: Initial Setup & Project Structure
 
-### Step 1: Create a Group
-First, we'll create a group to organize our project:
-
-1. Log into GitLab.com
-2. Click the "+" button at the top of the left sidebar
-3. Select "New group"
-4. For the group setup:
-   - Name: `taskmaster-apps`
-   - Visibility level: Public
-   - Group URL: Will auto-populate based on the name
-5. Click "Create group"
-
-A group provides a dedicated space for our TaskMaster application and potential future related projects. You can think of it as a container that can hold multiple related projects, making it easier to manage access control and organize work at a higher level.
-
----
-
-> **💡 Tip**: While you could create the project directly without a group, using a group structure provides better organization and scalability. It allows you to add more related projects later and manage permissions at a group level.
-
-### Step 2: Create the Project
+### Step 1: Create the Project
 
 Now that we have our group set up, let's create our main project:
 
@@ -38,11 +20,10 @@ Now that we have our group set up, let's create our main project:
 3. Configure the project:
    - Project name: `taskmaster`
    - Project URL: Will auto-populate based on name
-   - Visibility level: Public 
    - Initialize repository with a README: Yes
 4. Click "Create project"
 
-### Step 3: Project Organization
+### Step 2: Project Organization
 
 Before diving into features, let's set up our project's basic organization:
 
@@ -93,7 +74,7 @@ Now we have a basic project structure with:
 
 ## Part 2: Breaking Down Features
 
-### Step 4: Create Milestones
+### Step 3: Create Milestones
 
 Let's organize our work into milestones to track progress effectively:
 
@@ -125,7 +106,7 @@ Additional features to improve user experience:
 - Start date: After MVP
 - Due date: 2 weeks after MVP
 
-### Step 5: Create Issues for Features
+### Step 4: Create Issues for Features
 
 Now let's break down our MVP milestone into specific issues. We'll create several issues to track different features:
 
@@ -206,7 +187,7 @@ Create basic documentation for TaskMaster users including:
 
 > **💡 Tip**: Notice how we use issue weights to indicate relative complexity/effort. This helps in sprint planning and workload management.
 
-### Step 6: Set Up Issue Board
+### Step 5: Set Up Issue Board
 
 Let's create a board to visualize and manage our workflow:
 
@@ -237,3 +218,6 @@ Now you have a Kanban-style board that visualizes your workflow! Try these actio
    - Show only feature-type issues
 
 > **💡 Tip**: Issue boards are real-time collaborative. If you're working with a team, everyone sees updates instantly when cards are moved.
+<br />
+---
+## [<<Previous](1-onboarding.md) &nbsp;&nbsp; [>>Next](3-implementation-merge-requests.md)  
