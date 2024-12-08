@@ -119,6 +119,7 @@ MR creation fails | Verify source and target branches exist and you have proper 
 - 👥 Request early feedback on technical approach
 
 <br />
+
 ## [<<Previous](2-project-management.md) &nbsp;&nbsp; [>>Next](4-implemnetation-cicd.md)  
 
 
