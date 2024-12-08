@@ -237,5 +237,3 @@ Now you have a Kanban-style board that visualizes your workflow! Try these actio
    - Show only feature-type issues
 
 > **💡 Tip**: Issue boards are real-time collaborative. If you're working with a team, everyone sees updates instantly when cards are moved.
-
-Let me know once you've set up your board and tried moving some issues around. We'll then move on to organizing our development timeline.
