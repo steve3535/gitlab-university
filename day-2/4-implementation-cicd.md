@@ -30,6 +30,10 @@ taskmaster/
 │   └── tasks.js
 └── tests/
     └── tasks.test.js
+
+mkdir -p src tests
+touch .gitlab-ci.yml package.json src/index.js src/tasks.js tests/tasks.test.js
+
 ```
 
 ### 2. Create Package.json
