@@ -45,19 +45,20 @@ Create a simple `package.json`:
 
 ```json
 {
-  "name": "taskmaster",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "node src/index.js",
-    "test": "jest",
-    "build": "echo 'Simulating build...'"
-  },
-  "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {
-    "jest": "^27.0.6"
-  }
+    "name": "taskmaster",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "node src/index.js",
+        "test": "jest",
+        "build": "echo 'Simulating build...'"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "jest": "^27.0.6"
+    }
 }
 ```
 
