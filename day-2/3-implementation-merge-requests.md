@@ -15,7 +15,7 @@ Backend | Node.js + Express | Lightweight server
 Database | MongoDB | Flexible document storage
 Testing | Jest | Unit testing framework
 
-### Project Structure
+### Project Structure sample
 ```
 /frontend
   /src
