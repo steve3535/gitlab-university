@@ -218,6 +218,7 @@ Now you have a Kanban-style board that visualizes your workflow! Try these actio
    - Show only feature-type issues
 
 > **💡 Tip**: Issue boards are real-time collaborative. If you're working with a team, everyone sees updates instantly when cards are moved.
-<br />
 ---
+<br />
+
 ## [<<Previous](1-onboarding.md) &nbsp;&nbsp; [>>Next](3-implementation-merge-requests.md)  
