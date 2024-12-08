@@ -2,8 +2,7 @@
 
 Welcome to this hands-on tutorial where you'll learn GitLab's project planning and organization features by building TaskMaster, a personal task management web application. This tutorial focuses on proper project setup and planning using GitLab's powerful tools.
 
-## Tutorial Overview
-In this tutorial, you'll learn how to:
+You'll learn how to:
 1. Set up project structure in GitLab
 2. Use GitLab's planning tools to organize work
 3. Break down features into manageable tasks
@@ -19,7 +18,7 @@ First, we'll create a group to organize our project:
 2. Click the "+" button at the top of the left sidebar
 3. Select "New group"
 4. For the group setup:
-   - Name: `taskmaster apps`
+   - Name: `taskmaster-apps`
    - Visibility level: Public
    - Group URL: Will auto-populate based on the name
 5. Click "Create group"
@@ -205,3 +204,38 @@ Create basic documentation for TaskMaster users including:
 - Milestone: MVP Release
 - Weight: 3
 
+> **💡 Tip**: Notice how we use issue weights to indicate relative complexity/effort. This helps in sprint planning and workload management.
+
+### Step 6: Set Up Issue Board
+
+Let's create a board to visualize and manage our workflow:
+
+1. Go to **Plan** > **Boards**
+2. Click "Create first board" (or "New board" if you already have one)
+3. Name it "Development workflow"
+4. Click "Create board"
+5. Set up the following lists (click the plus icon to add new lists):
+
+   - **Open** (default list)
+   - **Planning** (create list for label `status::planning`)
+   - **In Progress** (create list for label `status::in-progress`)
+   - **Review** (create list for label `status::review`)
+   - **Done** (create list for label `status::done`)
+
+6. Optional: Click the gear icon ⚙️ next to the board name to configure board settings:
+   - Enable "Show the Milestone in each issue card"
+   - Enable "Show labels in each issue card"
+
+Now you have a Kanban-style board that visualizes your workflow! Try these actions:
+
+1. Drag an issue from "Open" to "Planning"
+   - Notice how the label automatically changes
+2. Click an issue to view/edit it without leaving the board
+3. Use the filters at the top to:
+   - Show only MVP milestone issues
+   - Show only high priority issues
+   - Show only feature-type issues
+
+> **💡 Tip**: Issue boards are real-time collaborative. If you're working with a team, everyone sees updates instantly when cards are moved.
+
+Let me know once you've set up your board and tried moving some issues around. We'll then move on to organizing our development timeline.
