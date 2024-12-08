@@ -8,6 +8,7 @@
 * Basic priority levels
 * Simple user interface
 
+## The Gitlab Flow: stages
 
 ![gitlab_stages](gitlab_stages_full.png)
 <br />
