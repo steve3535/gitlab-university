@@ -35,7 +35,7 @@ Testing | Jest | Unit testing framework
 ### 1. Create a Feature Branch
 
 1. Navigate to your project's repository:
-   - Click **Repository > Branches** in the left sidebar
+   - Click **Code > Branches** in the left sidebar
 
 2. Create a new branch:
    - Click the **New branch** button
