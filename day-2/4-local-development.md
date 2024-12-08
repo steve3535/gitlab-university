@@ -20,13 +20,103 @@ git status
 # Should show: On branch 1-core-task-management
 ```
 
-### 2. Install Dependencies
+### 2. Create Basic Project Structure
+
+In your GitHub Codespace, create this minimal project structure:
+
+```
+taskmaster/
+├── .gitlab-ci.yml
+├── package.json
+├── src/
+│   ├── index.js
+│   └── tasks.js
+└── tests/
+    └── tasks.test.js
+```
+```
+mkdir -p src tests
+touch .gitlab-ci.yml package.json src/index.js src/tasks.js tests/tasks.test.js
+```
+
+### 3. Create Package.json
+
+Create a simple `package.json`:
+
+```json
+{
+  "name": "taskmaster",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest",
+    "build": "echo 'Simulating build...'"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6"
+  }
+}
+```
+
+### 4. Create Basic Application Code
+
+In `src/index.js`:
+```javascript
+const express = require('express');
+const app = express();
+const tasks = require('./tasks');
+
+app.use(express.json());
+
+app.get('/tasks', (req, res) => {
+  res.json(tasks.getAllTasks());
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`TaskMaster running on port ${port}`);
+});
+```
+
+In `src/tasks.js`:
+```javascript
+let tasks = [];
+
+module.exports = {
+  getAllTasks() {
+    return tasks;
+  },
+  addTask(task) {
+    tasks.push(task);
+    return task;
+  }
+};
+```
+
+### 5. Add a Simple Test
+
+In `tests/tasks.test.js`:
+```javascript
+const tasks = require('../src/tasks');
+
+test('should add a new task', () => {
+  const task = { id: 1, title: 'Test Task' };
+  tasks.addTask(task);
+  expect(tasks.getAllTasks()).toContainEqual(task);
+});
+```
+
+
+### 6. Install Dependencies
 ```bash
 # Install npm packages
 npm install
 ```
 
-### 3. Run Local Tests
+### 7. Run Local Tests
 ```bash
 # Run Jest tests
 npm test
@@ -37,7 +127,7 @@ npm test
 # Test Suites: 1 passed, 1 total
 ```
 
-### 4. Start Development Server
+### 8. Start Development Server
 ```bash
 # Start the application
 npm start
@@ -46,7 +136,7 @@ npm start
 # TaskMaster running on port 3000
 ```
 
-### 5. Test the API Endpoint
+### 8. Test the API Endpoint
 Open a new terminal in your Codespace and test the endpoint:
 ```bash
 # Test GET /tasks endpoint
