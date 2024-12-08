@@ -1,5 +1,3 @@
-# Prereqs
-
 ## 1. Project Creation
 ### Step 1: Create a Group
 First, we'll create a group to organize our project:
