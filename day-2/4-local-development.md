@@ -66,20 +66,28 @@ Create a simple `package.json`:
 In `src/index.js`:
 ```javascript
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const tasks = require('./tasks');
 
+// Enable CORS for browser access
+app.use(cors());
 app.use(express.json());
+
+// Add a simple welcome route for browser testing
+app.get('/', (req, res) => {
+  res.send('Welcome to TaskMaster API!');
+});
 
 app.get('/tasks', (req, res) => {
   res.json(tasks.getAllTasks());
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {  // Listen on all network interfaces
   console.log(`TaskMaster running on port ${port}`);
 });
-```
+``` 
 
 In `src/tasks.js`:
 ```javascript
