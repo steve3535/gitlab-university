@@ -9,3 +9,7 @@
 * Simple user interface
 
 
+![gitlab_stages](gitlab_stages_full.png)
+<br />
+![gitlab_stages_simple](gitlab_stages_simplified.png)
+<br />
