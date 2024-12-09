@@ -17,9 +17,10 @@ Before you can run any pipelines, you need to verify your GitLab account:
 
 > **Note:** Account verification is required to prevent abuse of GitLab's free tier resources.
 
-## Step 2: Configure the GitHub Codespace
-We'll use Github Codespace IDE to create our pipeline configuration
-#[codespace_configuration]()
+## Step 2: Github Codespace or Gitlab Web IDE ?
+If you use Github Codespace IDE to create our pipeline configuration:  
+see #[codespace_configuration]()
+Otherwise just select **Edit** > **Web IDE**
 
 ## Step 3: Create the Pipeline Configuration
 Now we'll create the pipeline configuration file:
