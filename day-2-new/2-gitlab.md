@@ -23,21 +23,3 @@ GitLab is like a Swiss Army knife for software development - it's a single tool 
 
 The power of GitLab comes from having everything in one place. Instead of juggling multiple tools and copying information between them, everything lives in GitLab and works together seamlessly.
 
-### Key Benefits of GitLab's Single-Tool Approach:
-
-```mermaid
-graph TD
-    A[Single Tool] --> B[One Login]
-    A --> C[Consistent Interface]
-    A --> D[Connected Data]
-    A --> E[Central Dashboard]
-    A --> F[Lower Cost]
-```
-
-1. **One Login**: No need to remember multiple passwords
-2. **Consistent Interface**: Learn once, use everywhere
-3. **Connected Data**: Information flows smoothly between features
-4. **Central Dashboard**: See everything in one place
-5. **Lower Cost**: Pay for one tool instead of many
-
-Would you like me to continue with the next section about GitLab's core components? I'll explain projects and groups next, using practical examples.
