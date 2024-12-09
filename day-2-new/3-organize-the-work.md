@@ -168,4 +168,3 @@ Implement basic user account functionality
 /milestone %"MVP Launch - Basic Cat Hat Store"
 ```
 
-Would you like me to continue with more essential issues for the MVP, or would you like to see how to set up the project board with these initial issues?
