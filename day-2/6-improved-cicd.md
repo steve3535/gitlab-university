@@ -109,6 +109,20 @@ git push
 - Shows code quality changes
 - Highlights new issues
 
+## Initial Merge for Code Baseline
+
+1. Before merging:
+   - Edit the MR to remove "Closes #X" -- since we are not done with the feature implementation
+   - Uncheck "Delete source branch when merge request is accepted"
+   - Keep the issue open (don't add Closes #X in commit message)
+3. Merge the code to establish baseline
+   - A new pipeline triggers
+5. Continue development on same branch
+6. Subsequent merge requests will now show code quality comparisons
+
+Note: This initial merge establishes our code quality baseline while allowing 
+continued development on the same feature branch.
+
 ## Pro Tips
 - 💡 Check pipeline status in GitLab UI to verify configuration
 - 🔍 Use the CI Lint tool to validate .gitlab-ci.yml
