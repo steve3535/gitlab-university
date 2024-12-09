@@ -120,5 +120,6 @@ test_car:
 1. Commit the changes to `.gitlab-ci.yml`.
 2. Navigate to your project dashboard and check the pipeline status.
 3. Ensure both `build_car` and `test_car` jobs run successfully.
-4. Review the job logs to confirm the pipeline works as expected.
+4. test_car job will fail the pipeline.
+5. Review the job logs to find out why.
 
