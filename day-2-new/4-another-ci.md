@@ -77,49 +77,116 @@ build_car:
 - Each **Job** performs specific tasks and runs in an isolated environment (Docker container).
 - **Stages** organize jobs. In this example, we only defined one stage (`build`), but you can add more (e.g., `test`).
 
-### Add a Test Stage (Optional)
+---
 
-Expand your pipeline by adding a test job:
-
-```yaml
-# .gitlab-ci.yml
-stages:
-  - build
-  - test
-
-build_car:
-  stage: build
-  image: alpine
-  script:
-    - echo "Building the car"
-    - mkdir build
-    - cd build
-    - touch car.txt
-    - echo "chassis" > car.txt
-
-test_car:
-  stage: test
-  image: alpine
-  script:
-    - echo "Testing the car"
-    - cat build/car.txt
-```
-
-### Explanation:
-
-- **Stages (`stages`)**: Defines the order of execution.
-  - `build`: Executes the `build_car` job.
-  - `test`: Executes the `test_car` job.
-- **Job (`test_car`)**:
-  - Prints the contents of `car.txt` to verify the file.
+## Learning point: 
+- **Key Concepts**:
+  - GitLab does not save anything unless explicitly told.
+  - Files created during a pipeline are not committed to the repository by default.
 
 ---
 
-## Step 7: Commit and Verify the Extended Pipeline
+## Inspecting Files in the Build Directory
+- **Command**:
+  - Use `cat car.txt` to view the file contents.
 
-1. Commit the changes to `.gitlab-ci.yml`.
-2. Navigate to your project dashboard and check the pipeline status.
-3. Ensure both `build_car` and `test_car` jobs run successfully.
-4. test_car job will fail the pipeline.
-5. Review the job logs to find out why.
+### Outcome:
+- Successfully created `car.txt` with contents.
+- Manual process identified as inefficient.
 
+---
+
+## Automating File Verification
+- **Objective**:
+  - Use Linux commands to automate checks for file existence and content.
+- **Commands**:
+  - `test -f build/car.txt`: Checks if the file exists.
+  - `grep chassis build/car.txt`: Searches for specific content.
+
+---
+
+## Adding a New Job: `test_car`
+- **Configuration**:
+  - Define a job to test the file:
+    ```yaml
+    test_car:
+      script:
+        - test -f build/car.txt
+        - grep chassis build/car.txt
+    ```
+
+- **Observations**:
+  - Pipeline failure occurs if the file or content is missing.
+  - Logs reveal the cause of the failure.
+
+---
+
+## Stages in GitLab Pipelines
+- **Issue**:
+  - Jobs `build_car` and `test_car` run in parallel.
+- **Solution**:
+  - Define sequential stages: `build` and `test`.
+  - Update pipeline configuration:
+    ```yaml
+    stages:
+      - build
+      - test
+
+    build_car:
+      stage: build
+
+    test_car:
+      stage: test
+    ```
+
+- **Outcome**:
+  - Jobs executed sequentially in the specified order.
+
+---
+
+## Persisting Artifacts Across Jobs
+- **Problem**:
+  - Docker containers are isolated; files from one job are destroyed after execution.
+- **Solution**:
+  - Define job artifacts to retain important files:
+    ```yaml
+    build_car:
+      artifacts:
+        paths:
+          - build/
+    ```
+- **Behavior**:
+  - Artifacts from the `build` stage are accessible in the `test` stage.
+
+---
+
+## Troubleshooting Errors
+- **Common Issues**:
+  - Incorrect file paths in commands.
+  - Overlooked relative paths for `grep`.
+- **Fix**:
+  - Update commands to include full paths:
+    ```bash
+    grep chassis build/car.txt
+    ```
+
+---
+
+## Final Pipeline Configuration
+- **Pipeline Structure**:
+  - Two stages: `build` and `test`.
+  - Jobs assigned to appropriate stages.
+- **Execution Flow**:
+  - Jobs run sequentially, ensuring dependencies are met.
+- **Visualization**:
+  - Pipeline executes from left to right, stage by stage.
+
+---
+
+## Key Learnings
+- Use **stages** to manage job execution order.
+- Use **artifacts** to persist files between jobs.
+- Debugging requires careful log examination.
+- Linux commands like `test` and `grep` enhance automation.
+
+---
