@@ -1,5 +1,3 @@
-I'll help create a detailed tutorial for setting up a very basic CI/CD pipeline in GitLab. Let me structure this step-by-step.
-
 # Tutorial: Creating Your First GitLab CI/CD Pipeline
 
 ## Overview
