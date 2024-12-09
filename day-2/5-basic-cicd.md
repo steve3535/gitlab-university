@@ -102,10 +102,8 @@ Cache not working | Check cache configuration syntax
 
 ## Next Steps
 After this basic pipeline is working, we can enhance it with:
-- Multiple environments
 - Build stages
 - Code quality checks
-- Deployment stages
 
 ## Pro Tips
 - 💡 Keep pipelines simple at first
