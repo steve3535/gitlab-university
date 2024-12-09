@@ -1,9 +1,5 @@
 # Tutorial: Creating Your First GitLab CI/CD Pipeline
 
-## Overview
-In this tutorial, you'll learn how to create and run your very first CI/CD pipeline in GitLab. We'll create a simple pipeline that outputs a "Hello" message.
-
-**Time Required:** ~15-20 minutes
 **Prerequisites:**
 - A GitLab.com account
 - A phone number for account verification
@@ -21,16 +17,9 @@ Before you can run any pipelines, you need to verify your GitLab account:
 
 > **Note:** Account verification is required to prevent abuse of GitLab's free tier resources.
 
-## Step 2: Configure the Web IDE
-We'll use GitLab's Web IDE to create our pipeline configuration:
-
-1. From your project page, click the "Edit" button
-2. Select "Web IDE" from the dropdown menu
-3. Configure the IDE settings:
-   - Click the settings gear icon
-   - Go to "Themes" and select your preferred theme (optional)
-   - Search for "whitespace" in settings
-   - Set "Render Whitespace" to "all"
+## Step 2: Configure the GitHub Codespace
+We'll use Github Codespace IDE to create our pipeline configuration
+#[codespace_configuration]()
 
 ## Step 3: Create the Pipeline Configuration
 Now we'll create the pipeline configuration file:
@@ -49,10 +38,6 @@ This configuration creates:
 - A single command that prints "Hello!"
 
 ## Step 4: Commit the Pipeline Configuration
-1. Click on "Source Control" in the Web IDE menu
-2. Enter a commit message (e.g., "Added pipeline")
-3. Click "Commit to 'main'"
-4. Select "Continue" when prompted about branch creation
 
 ## Step 5: View and Run the Pipeline
 1. Return to your project's main page
@@ -70,9 +55,4 @@ To verify everything works:
 3. A new pipeline will trigger automatically
 4. View the pipeline to see your updated message
 
-## Troubleshooting
-If your pipeline doesn't run:
-- Verify the `.gitlab-ci.yml` filename is exactly correct (including the dot)
-- Ensure your account verification is complete
-- Check that the YAML formatting is correct (indentation matters)
 
