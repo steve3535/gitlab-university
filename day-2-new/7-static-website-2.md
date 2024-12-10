@@ -66,7 +66,6 @@ Now that we have our production build working locally, let's automate this proce
    - Jobs in the same stage (like both test jobs) run in parallel
    - Using `&` makes gatsby serve run in background
    - The `sleep 3` gives the server time to start
-   - `tac | tac` ensures full page content is received before grep
    - The `-q` flag makes grep quiet for cleaner logs
 
    ✨ Success Checks:
