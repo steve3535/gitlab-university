@@ -80,7 +80,7 @@ Now let's update our pipeline to automatically deploy our site to Surge. Here's 
 
 ```yaml
 # Default image for all jobs unless overridden
-image: node
+image: node:18
 
 stages:
   - build
