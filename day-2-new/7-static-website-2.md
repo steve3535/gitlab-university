@@ -20,7 +20,9 @@ Now that we have our production build working locally, let's automate this proce
    - If you get `npm: command not found`, it's because the default GitLab CI image (ruby:2.5) doesn't include Node.js
    - Fix: Add the following line at the start of your job:
      ```yaml
-     image: node
+     image: node:18
+     variables:
+       NODE_OPTIONS: "--max-old-space-size=4096"  # Increase Node's memory limit
      ```
    Try pushing once again ...
 
