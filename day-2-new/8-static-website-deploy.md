@@ -166,10 +166,8 @@ deploy_to_surge:
 - Deploy logs show: "Success published to yourdomain.surge.sh"
 - Site is accessible at your Surge domain
 
-🚨 Common Issues:
-- If deploy fails with 'domain taken', choose a different name
-- Ensure all stages complete before deployment
-- Check pipeline logs for detailed error messages
+3. **Next step: Assignment**:
+   - We need a 4th stage "deployment tests" with a job that actually test the deployed website
 
 
 
