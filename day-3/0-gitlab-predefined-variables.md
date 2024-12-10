@@ -41,6 +41,8 @@ build:
     - echo $CI_COMMIT_SHORT_SHA  # Debug: verify the variable value
     - gatsby build  # Or your actual build command
     - sed -i "s/__VERSION_MARKER__/$CI_COMMIT_SHORT_SHA/" public/index.html
+
+# Be aware of the "" with sed, otherwise the Gitlab variable will not be substituted
 ```
 
 The `sed` command explained:
