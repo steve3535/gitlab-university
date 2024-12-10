@@ -39,14 +39,9 @@ Now that we have our production build working locally, let's automate this proce
 
    build_website:
      stage: build
-     image: node
-     script:
-       - npm install
-       - npm install gatsby-cli
-       - gatsby build
-     artifacts:
-       paths:
-         - ./public
+     ...
+     #same as before
+     ...
 
    test_artifact:
      stage: test
