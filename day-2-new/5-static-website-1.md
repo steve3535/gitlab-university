@@ -52,7 +52,5 @@ Great! Let me continue with the next section about creating the static website:
    - Click "New project"
    - Name it "my-static-website"
 
-2. Connect your local repository to GitLab:
+2. Connect your local repository to GitLab
 
-
-Would you like me to continue with the next section that introduces CI/CD concepts and shows how to implement them in this project?
