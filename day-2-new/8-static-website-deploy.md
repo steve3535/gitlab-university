@@ -33,8 +33,13 @@ First, let's test deployment locally:
    ```
    - Accept the default project path
    - Accept the generated domain or customize it
-   - Note the deployment URL provided
+   - **Note the deployment URL provided**
+   - Confirm the site is live !
 
+   ```
+   # in case of a modification, run against the same URL with:
+   surge --domain your-domain.surge.sh /workspaces/static-website/public
+   ```   
 #### Setting up Surge Credentials in GitLab
 
 To automate deployments, we need to securely store Surge credentials in GitLab:
