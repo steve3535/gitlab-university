@@ -84,6 +84,7 @@ const IndexPage = () => (
       <h1>
          <b>Lets have a drink !</b>
       </h1>
+      <h6><div>%%VERSION%%</div></h6>
       <p className={styles.intro}>
         <b>Example pages:</b>{" "}
         {samplePageLinks.map((link, i) => (

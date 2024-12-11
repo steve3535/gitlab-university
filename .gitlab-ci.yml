@@ -10,9 +10,11 @@ stages:
 build_website:
   stage: build
   script:
+    - echo "$CI_COMMIT_SHORT_SHA"
     - npm install
     - npm install -g gatsby-cli
     - ./node_modules/.bin/gatsby build
+    - sed -i "s/%%VERSION%%/$CI_COMMIT_SHORT_SHA" public/index.html
   artifacts:
     paths:
       - ./public
