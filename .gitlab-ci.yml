@@ -15,6 +15,9 @@ build_website:
     - npm install -g gatsby-cli
     - ./node_modules/.bin/gatsby build
     - sed -i "s/%%VERSION%%/$CI_COMMIT_SHORT_SHA/" public/index.html
+    - sed -i "s/%%TIMESTAMP%%/$CI_COMMIT_TIMESTAMP/" public/index.html
+    - sed -i "s/%%AUTHOR%%/$CI_COMMIT_AUTHOR/" public/index.html
+    - sed -i "s/%%BRANCH%%/$CI_COMMIT_BRANCH/" public/index.html
   artifacts:
     paths:
       - ./public
@@ -32,7 +35,7 @@ test_website:
     - npm install -g gatsby-cli
     - gatsby serve & 
     - sleep 3
-    - curl localhost:9000 | tac | tac | grep -q "Gatsby"
+    - curl localhost:9000 | tac | tac | grep -q "$CI_COMMIT_SHORT_SHA"
 
 deploy_to_surge:
   stage: deploy
