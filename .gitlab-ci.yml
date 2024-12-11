@@ -1,6 +1,13 @@
 # Default image for all jobs unless overridden
 image: node:18
 
+cache:
+  key: $CI_COMMIT_REF_NAME
+  paths:
+    - node_modules/          # Yes: External dependencies
+    # - dist/                # No: Build output
+    # - .git/               # No: Repository data
+
 stages:
   - build
   - test
