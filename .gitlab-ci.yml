@@ -5,6 +5,7 @@ stages:
   - build
   - test
   - deploy    # Add new deploy stage
+  - deploy_test
 
 build_website:
   stage: build
@@ -36,3 +37,12 @@ deploy_to_surge:
   script:
     - npm install --global surge
     - surge --project ./public --domain slimy-silk123.surge.sh
+
+
+deploy_test:
+  stage: deploy_test
+  image: alpine
+  script:
+    - apk add curl
+    - curl -s  https://slimy-silk123.surge.sh/ | grep -iq drink
+
