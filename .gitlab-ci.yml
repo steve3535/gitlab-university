@@ -19,7 +19,7 @@ build_website:
   stage: build
   script:
     - echo "$CI_COMMIT_SHORT_SHA"
-    - npm install
+    - if [-d node_modules ];then echo "Cache found"; else npm i;fi      
     - npm install -g gatsby-cli
     - ./node_modules/.bin/gatsby build
     - sed -i "s/%%VERSION%%/$CI_COMMIT_SHORT_SHA/" public/index.html
