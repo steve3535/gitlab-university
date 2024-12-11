@@ -1,5 +1,10 @@
+stages:
+  - build
+  - test
+
 build_website:
   image: node:18
+  stage: build
   script:
     - npm install
     - npm install -g gatsby-cli
