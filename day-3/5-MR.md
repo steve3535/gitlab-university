@@ -70,6 +70,13 @@ Let's set up some safeguards for merge requests:
    - Enable "Delete source branch when merge request is accepted"
    - Consider enabling "Fast-forward merge" for a cleaner Git history
 
+
+### Assignment:
+- Push the new ci file tothe repository.
+- What happens ? Why ?
+- Resolve the issue
+
+
 ## Step 4: Working with Feature Branches
 
 Let's walk through a typical workflow:
@@ -85,6 +92,13 @@ Let's walk through a typical workflow:
 ### Making Changes
 
 1. Clone the repository and switch to your feature branch
+   ```
+   # from your codespace
+   git branch
+   git branch -a
+   git fetch --all
+   git checkout -b feature/new-title origin/feature/new-title
+   ``` 
 2. Make your changes (e.g., updating website title)
 3. Commit and push your changes
 4. Notice that only build and test stages run in the pipeline
