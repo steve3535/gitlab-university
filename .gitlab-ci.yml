@@ -24,7 +24,7 @@ test_website:
   image: node
   script:
     - npm install
-    - npm install gatsby-cli
+    - npm -g install gatsby-cli
     - gatsby serve
     - sleep 3
     - curl localhost:9000  | grep -q "Gatsby"
