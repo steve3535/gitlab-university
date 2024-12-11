@@ -11,8 +11,9 @@ cache:
 stages:
   - build
   - test
-  - deploy    # Add new deploy stage
-  - deploy_test
+  - deploy_staging
+  - deploy_production
+  - production_test
 
 build_website:
   stage: build
@@ -44,15 +45,21 @@ test_website:
     - sleep 3
     - curl localhost:9000 | tac | tac | grep -q "$CI_COMMIT_SHORT_SHA"
 
-deploy_to_surge:
-  stage: deploy
+deploy_to_staging:
+  stage: deploy_staging
+  script:
+    - npm install --global surge
+    - surge --project ./public --domain staging-slimy-silk123.surge.sh
+
+deploy_to_production:
+  stage: deploy_production
   script:
     - npm install --global surge
     - surge --project ./public --domain slimy-silk123.surge.sh
 
 
-deploy_test:
-  stage: deploy_test
+production_test:
+  stage: production_test
   image: alpine
   script:
     - apk add curl
