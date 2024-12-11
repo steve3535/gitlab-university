@@ -7,3 +7,19 @@ build_website:
   artifacts:
     paths:
       - ./public  
+
+test_artifact:
+  stage: test
+  image: alpine
+  script:
+    - grep -q "Gatsby" ./public/index.html
+
+test_website:
+  stage: test
+  image: node
+  script:
+    - npm install
+    - npm install gatsby-cli
+    - gatsby serve
+    - sleep 3
+    - curl localhost:9000  | grep -q "Gatsby"
