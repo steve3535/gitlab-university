@@ -33,8 +33,13 @@ First, let's test deployment locally:
    ```
    - Accept the default project path
    - Accept the generated domain or customize it
-   - Note the deployment URL provided
+   - **Note the deployment URL provided**
+   - Confirm the site is live !
 
+   ```
+   # in case of a modification, run against the same URL with:
+   surge --domain your-domain.surge.sh /workspaces/static-website/public
+   ```   
 #### Setting up Surge Credentials in GitLab
 
 To automate deployments, we need to securely store Surge credentials in GitLab:
@@ -75,7 +80,7 @@ Now let's update our pipeline to automatically deploy our site to Surge. Here's 
 
 ```yaml
 # Default image for all jobs unless overridden
-image: node
+image: node:18
 
 stages:
   - build
@@ -161,10 +166,8 @@ deploy_to_surge:
 - Deploy logs show: "Success published to yourdomain.surge.sh"
 - Site is accessible at your Surge domain
 
-🚨 Common Issues:
-- If deploy fails with 'domain taken', choose a different name
-- Ensure all stages complete before deployment
-- Check pipeline logs for detailed error messages
+3. **Next step: Assignment**:
+   - We need a 4th stage "deployment tests" with a job that actually test the deployed website
 
 
 
