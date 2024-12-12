@@ -221,6 +221,109 @@ For each merge request:
 4. Enable the "Delete source branch when merge request is accepted" option
 5. Test your changes in the review environment before requesting review
 
+## Solution Guide
+
+### Task 1
+In src/components, create a new file *footer.js*: 
+```javascript
+import React from 'react'
+
+const Footer = () => {
+  return (
+    <footer style={{
+      backgroundColor: '#f5f5f5',
+      padding: '1rem',
+      textAlign: 'center',
+      position: 'fixed',
+      bottom: 0,
+      width: '100%',
+      fontSize: '0.8rem',
+      color: '#666'
+    }}>
+      <p>Version: __VERSION_MARKER__ </p>
+      <p>Built at: __TIMESTAMP_MARKER__</p>
+      <p>By: __AUTHOR_MARKER__</p>
+    </footer>
+  )
+}
+
+export default Footer
+``` 
+In the main index.js, integrate footer.js:
+```javascript
+import Footer from '../components/footer'
+
+// Inside your main component, before the closing tag:
+return (
+  <div>
+    {/* existing content */}
+    <Footer />
+  </div>
+)
+```
+
+### Task 3
+
+```javascript
+import React from 'react'
+
+const SocialLinks = () => {
+  const socialStyles = {
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '2rem',
+      margin: '2rem 0'
+    },
+    link: {
+      color: 'var(--color-primary)',
+      textDecoration: 'none',
+      fontSize: '1.2rem',
+      transition: 'color 0.3s ease'
+    }
+  }
+
+  return (
+    <div style={socialStyles.container}>
+      <a 
+        href="https://github.com/yourusername" 
+        style={socialStyles.link}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub
+      </a>
+      <a 
+        href="https://linkedin.com/in/yourusername" 
+        style={socialStyles.link}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        LinkedIn
+      </a>
+      <a 
+        href="https://twitter.com/yourusername" 
+        style={socialStyles.link}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Twitter
+      </a>
+    </div>
+  )
+}
+
+export default SocialLinks
+```
+Integrate it to the main page:  
+
+```javascript
+import SocialLinks from '../components/social-links'
+
+// Add before the Footer component:
+<SocialLinks />
+<Footer />
+``` 
 ## Success Criteria
 
 Your assignment is successful when:
