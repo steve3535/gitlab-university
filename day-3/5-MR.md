@@ -201,7 +201,7 @@ Create a merge request that changes the rimary color of the website:
 2. Use file *layout.css* under *src/components*:
 3. Create a merge request explaining the improvements
 
-### Task 3: Add Social Links (15 minutes)
+### Task 3: Add Social Links
 Create a merge request that adds social media links:
 
 1. Create a branch named `feature/social-links`
