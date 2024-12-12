@@ -39,7 +39,7 @@ A one-day workshop to implement infrastructure automation using GitLab CI/CD, de
    - Docker configuration
    - Initial pipeline setup
 
-### Mid-day (2-3 hours)
+### Mid-day
 1. Infrastructure Setup
    - Terraform configuration
    - Cloud-init scripts
@@ -50,7 +50,7 @@ A one-day workshop to implement infrastructure automation using GitLab CI/CD, de
    - Environment variables
    - Build processes
 
-### Afternoon (2-3 hours)
+### Afternoon
 1. Integration
    - Component combination
    - Testing
