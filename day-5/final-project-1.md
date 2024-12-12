@@ -3,6 +3,17 @@
   ```
   mkdir -pv gitlab/{log,data,config}
   ```
+* put this minimal content in config subfolder (change X by your teams number):
+  ``` 
+  cat <<EOF >config/gitlab.rb
+  external_url "https://teamX-gitlab.thelinuxlabs.com"
+  gitlab_rails['gitlab_shell_ssh_port'] = 2424
+  letsencrypt['enable'] = false
+  nginx['listen_port'] = 80
+  nginx['listen_https'] = false
+  web_server['external_users'] = ['gitlab-www','git']
+  EOF
+  ```  
 * create the docker-compose file:
   ```
   cd gitlab
@@ -28,7 +39,11 @@
 
   docker compose logs -f
   ```
+* if after 5 minutes, the status of the container is still unhealthy, then u might hit a 502
+  
+Try: https://teamX-gitlab.thelinuxlabs.com/
 
+  
 
    
   
