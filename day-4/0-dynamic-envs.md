@@ -20,24 +20,6 @@ This approach has several limitations:
 Review environments solve these problems by creating a unique environment for each merge request.
 # Setting Up Dynamic Review Environments in GitLab CI/CD
 
-## Introduction
-
-When developing new features or making changes to an application, it's incredibly valuable to have a way to preview and test changes before merging them into the main codebase. GitLab's dynamic review environments solve this problem by automatically creating temporary environments for each merge request, allowing developers, testers, and stakeholders to preview changes in a live environment.
-
-In this tutorial, you'll learn how to:
-- Set up dynamic review environments for your merge requests
-- Configure your CI/CD pipeline to automatically deploy feature branches
-- Use GitLab environment variables to create unique URLs for each environment
-- Understand the benefits and workflow of review environments
-
-## Prerequisites
-
-Before starting this tutorial, make sure you have:
-- A GitLab account with a project
-- Basic understanding of GitLab CI/CD pipelines
-- An existing `.gitlab-ci.yml` file with basic stages (build, test, deploy)
-- A web application that can be deployed (we'll use a Node.js application as an example)
-
 ## The Problem We're Solving
 
 Currently, your pipeline might only deploy to staging and production environments. This means that to test new features, you need to:
