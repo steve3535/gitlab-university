@@ -68,7 +68,7 @@ users:
   --image-id ami-071878317c449ae48 \
   --instance-type t2.micro \
   --tag-specifications \
-  "ResourceType=instance,Tags=[{Key=Team,Value=${AWS_TEAM_TAG}},Key=Name,Value=${INSTANCE_NAME}}]"
+  "ResourceType=instance,Tags=[{Key=Team,Value=${AWS_TEAM_TAG},Key=Name,Value=${INSTANCE_NAME}}]"
   ```
   **After the test, go to the console and terminate the instance**
 
