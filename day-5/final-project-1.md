@@ -50,7 +50,7 @@
 
 ## Installation of a gitlab runner   
 * setup
-  ´´´
+  ```bash
   # Docker runner installation
   docker run -d --name gitlab-runner-team0 \
   --restart always \
@@ -60,6 +60,15 @@
   ```
 * go to the settings in gitlab and create and register the runner
 * https://docs.gitlab.com/runner/install/docker.html  
+* register to your instance (one or two of you) - shell to start with  
+* get approved by admin
+* once approved, login and create a test project
+* link it with your codespace
 
+## Test a CI pipeline 
+* test a simple CI
+* remove the old runner, and this time register it twice (shell executor and then docker executor) -- use --privileged as option with docker run command
+* test a node CI
+  
    
   
