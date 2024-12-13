@@ -66,7 +66,7 @@ users:
 
   # Create instance with both Team and Name tags
   aws ec2 run-instances \
-  --image-id ami-xyz \
+  --image-id ami-071878317c449ae48 \
   --instance-type t2.micro \
   --tag-specifications "ResourceType=instance,Tags=[{Key=Team,Value=team1},{Key=Name,Value=${INSTANCE_NAME}}]"
   ```
