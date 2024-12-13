@@ -59,7 +59,6 @@ users:
 * Test an ec2 creation from the CLI
   ```
   # adapt the script
-  ~~./create-ec2.sh~~
   # Set environment variables
   export AWS_TEAM_TAG="Team=team1"
   export INSTANCE_NAME="team1-test-instance"
