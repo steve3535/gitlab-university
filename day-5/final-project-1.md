@@ -41,9 +41,25 @@
   ```
 * if after 5 minutes, the status of the container is still unhealthy, then u might hit a 502
   
-Try: https://teamX-gitlab.thelinuxlabs.com/
+  Try:   https://teamX-gitlab.thelinuxlabs.com/
+  **Resolve the issue by setting a write bit to the file /var/opt/gitlab/gitlab-workhorse/sockets/socket inside the container**
 
+* the initial password is in the file /etc/gitlab/initial_root_password inside the container
+* Access the gitlab from the UI, change the password and let your team members register and get approved
   
+
+## Installation of a gitlab runner   
+* setup
+  ´´´
+  # Docker runner installation
+  docker run -d --name gitlab-runner-team0 \
+  --restart always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v gitlab-runner-config-team0:/etc/gitlab-runner \
+  gitlab/gitlab-runner:latest
+  ```
+* go to the settings in gitlab and create and register the runner
+* https://docs.gitlab.com/runner/install/docker.html  
 
    
   
