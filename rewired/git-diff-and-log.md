@@ -8,5 +8,9 @@
     * with ... the comparaison is against the common ancestor of the two branches before they diverge  
       then in this case it will show exlusively what's in the right side branch that is not in the left side branch  
       e.g.: `git diff HEAD...origin/main`  will show changes in the upstream branch main that are not present locally.
+ * **git log** seems to have the opposite behavior !!
+   * it shows all differences between two points irrespective of the order when you use ...
+   * it shows history that is present in A but not in B when you use .. as in  `git log B..A`
+     
     
   
