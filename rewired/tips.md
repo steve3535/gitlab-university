@@ -17,6 +17,14 @@
   >it can help skip tracking things without using .gitignore, so apparently solving the above issue.
   but thereis a trap ...
   > remember in git the distinction between tracked and changed: u can have something tracked but that is changing or not: track is the very first step to put something unde rthe control of git
+
+  And here is the issue with the exclude file: it will only skip files that are untracked.  
+  lesson of this is that u should create this file ahead of your files, for it to work !  
+
+  **git update-index --assume-unchanged /path/to/file**
+  > lets say u already have a 'dirty' git environment but u still want to catchup :)
+  > this one will ignore the file but not like the way you think of !!!  
+  
   
   
   
