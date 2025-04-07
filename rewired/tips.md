@@ -23,7 +23,22 @@
 
   **git update-index --assume-unchanged /path/to/file**
   > lets say u already have a 'dirty' git environment but u still want to catchup :)
-  > this one will ignore the file but not like the way you think of !!!  
+  > this one will ignore the file but not like the way you think of !!!
+  > here its like a stating there is a file that constantly doesnt change: its empirical ! meaning the only benefit here is to let git be more performant by avoiding tracking unecesary files.  
+  > because u have to imagine that when we ask git to track, it will be checking every time whats happening with the file - like u when u wait for a parcel from dhl  
+
+  A good way of illustrating this is whith: `git ls-files -v`  
+  **H** is high priority tracking  
+  **h** is low priority tracking  
+  **S** is for skipping  
+
+  **git update-index --skip-worktree /path/to/file**  
+  > what we really want is this.
+  > this will really skips all the changes locally in your WD while the file actually changes.
+
+  
+  
+    
   
   
   
