@@ -8,8 +8,15 @@
   >Let me clatify things:
   >Nothing is simple in git, even ignoring files.
   
-  **.gitignore** is the classic solution, an there a re even templates for it (not only in IDEs but remember also this site => gitigniore.io -- from my old friend of toptal)  
-    the issue with .gitignore is that is ahred with the team, so its part of the commits and needs to be shipped upstream  
-    what happens if you want to ignore some very specific local files but that are only peculliar to you ... very easy situation to happen, ha !  
+  **.gitignore** is the classic solution
+  there are even generators for it (not only in IDEs but remember also this site => gitigniore.io -- from my old friend of toptal)  
+  the issue with .gitignore is that is ahred with the team, so its part of the commits and needs to be shipped upstream  
+  what happens if you want to ignore some very specific local files but that are only peculliar to you ... very easy situation to happen, ha !
+
+  **.git/info/exclude**
+  >it can help skip tracking things without using .gitignore, so apparently solving the above issue.
+  but thereis a trap ...
+  > remember in git the distinction between tracked and changed: u can have something tracked but that is changing or not: track is the very first step to put something unde rthe control of git
+  
   
   
