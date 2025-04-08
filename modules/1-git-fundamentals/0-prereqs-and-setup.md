@@ -61,22 +61,24 @@ git config --global user.email "your.email@example.com"
    - Once approved, sign in again with GitHub
    - You'll be automatically redirected to your GitLab dashboard
    - Your GitHub email will be used as your GitLab email
-   - Your profile information will be synced from GitHub
-
+   
 ### 4. Verification Steps
 
-1. **Test Git Configuration**
+1. **Test Git Configuration from codespace**
    ```bash
    # Create a test repository
+   cd ../
    git init test-repo
    cd test-repo
    git status
    ```
 
-2. **Test GitLab Connection**
+2. **Test GitLab Connection from Codespace**
    ```bash
-   # Clone a test repository using HTTPS
-   git clone https://gitlab-dev.thelinuxlabs.com/training/test-repo.git
+   cd /workspaces
+   # Remove the previous test-repo 
+   rm -rf test-repo
+   git clone https://gitlab-dev.thelinuxlabs.com/steve/test-repo.git
    ```
 
 ## Pre-Course Checklist
