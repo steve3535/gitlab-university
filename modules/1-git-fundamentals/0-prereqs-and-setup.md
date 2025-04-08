@@ -1,4 +1,4 @@
-# Git Fundamentals - Setup Guide
+# Setup Guide
 
 ## Overview
 This guide will help you set up your development environment for the course. We'll be using:
