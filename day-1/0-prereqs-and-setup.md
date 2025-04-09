@@ -23,8 +23,9 @@ This guide will help you set up your development environment for the course. We'
    - Select "New repository"
    - Repository name: "git-training" (or any name you prefer)
    - Make sure "Public" is selected
+   - Select "Add README file" 
    - Click "Create repository"
-   - Once created, click "Create codespace" on the repository page
+   - Once created, click "Create codespace" on the repository page or on the *Code* button then from the *Codespaces* tab
    - Your browser-based VS Code environment will open automatically
 
    ![createrepocdsp](./images/create-repo-and-codespace-1.png)  
