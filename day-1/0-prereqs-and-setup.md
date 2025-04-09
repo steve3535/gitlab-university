@@ -92,6 +92,7 @@ git config --global user.email "your.email@example.com"
 - [ ] GitLab access requested via GitHub login
 - [ ] GitLab access approved and confirmed
 - [ ] Test repository successfully created
+- [ ] Clone the dlh-04-2025 repository
 
 ---
 
