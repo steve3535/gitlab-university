@@ -120,4 +120,4 @@ While not required for the course, you may want to install Git locally for perso
 - Fedora: `sudo dnf install git`
 - Arch: `sudo pacman -S git`
 
-### [Next Section >>](1-introduction.md)
+### [Next Section >>](1-basics.md)
