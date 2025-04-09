@@ -1,82 +1,62 @@
-# Git Katas: Basics
+# Basic Commits and Staging
+This guide will introduce you to the `git add` and `git commit` commands.
 
-## Chapter 1: Basic Commits
+## Setup:
+Run:
+  ```bash
+  cd dlh-04-2025
+  ./setup_basics.sh
+  ```
+## Commits Tasks
 
-In this chapter, you will learn how to make basic commits in Git. Committing is a fundamental part of using Git, as it allows you to save changes to your repository.
+1. Use `git status` to see which branch you are on.
+2. What does `git log` look like?
+3. Create a file named `hello.txt` with some content
+4. What does the output from `git status` look like now?
+5. `add` the file to the staging area
+6. How does `git status` look now?
+7. `commit` the file to the repository
+8. How does `git status` look now?
+9. Change the content of the file you created earlier
+10. What does `git status` look like now?
+11. `add` the file change
+12. What does `git status` look like now?
+13. Change the file again
+14. Make a `commit`
+15. What does the `status` look like now? The `log`?
+16. Add and commit the newest change
 
-### Objectives
-- Understand what a commit is
-- Learn how to make a commit
-- Explore commit messages
+## Staging Tasks
 
-### Exercises
-1. **Initialize a Repository**
-   - Create a new directory and initialize it as a Git repository.
-   ```bash
-   mkdir basic-commits
-   cd basic-commits
-   git init
-   ```
+1. Create a second file named `world.txt` and add some text to it
+2. Add both files to the staging area with a single command
+3. Make additional changes to `hello.txt`
+4. Check the status of your repository
+5. Commit your changes
+6. Check your commit history with `git log --oneline`
 
-2. **Make Your First Commit**
-   - Create a new file and add some content.
-   ```bash
-   echo "Hello, Git!" > hello.txt
-   ```
-   - Add the file to the staging area and commit it.
-   ```bash
-   git add hello.txt
-   git commit -m "Add hello.txt with initial content"
-   ```
+## Useful commands
+- `git add`
+- `git commit`
+- `git commit -m "My commit message"`
+- `git log`
+- `git log -n 5`
+- `git log --oneline`
+- `git log --oneline --graph`
+- `touch filename` to create a file
+- `echo content > file` to overwrite file with content
+- `echo content >> file` to append file with content
 
-3. **View Commit History**
-   - Check the commit history to see your changes.
-   ```bash
-   git log
-   ```
+![git areas](./images/git_basics-areas.excalidraw.png)
 
-## Chapter 2: Basic Staging
+## Git Initial Configuration
+1. `git config --global user.name "John Doe"`
+1. `git config --global user.email "johndoe@example.com"`
 
-In this chapter, you will learn about staging changes in Git. Staging is an important step before committing changes, as it allows you to review what will be included in the next commit.
+For the vim scared:
+- `git config --global core.editor nano`
 
-### Objectives
-- Understand the staging area
-- Learn how to stage changes
-- Explore the difference between staged and unstaged changes
+Other editor options:
+- `git config --global core.editor "atom --wait"`
+- `git config --global core.editor "code --wait"`
 
-### Exercises
-1. **Modify a File**
-   - Edit the `hello.txt` file.
-   ```bash
-   echo "Another line" >> hello.txt
-   ```
-
-2. **Stage the Changes**
-   - Add the changes to the staging area.
-   ```bash
-   git add hello.txt
-   ```
-
-3. **Check Staged Changes**
-   - Use the following command to see what changes are staged.
-   ```bash
-   git diff --cached
-   ```
-
-4. **Commit the Staged Changes**
-   - Commit the changes with a meaningful message.
-   ```bash
-   git commit -m "Update hello.txt with a new message"
-   ```
-
-5. **Explore Unstaged Changes**
-   - Make another change to `hello.txt` but do not stage it.
-   ```bash
-   echo "Yet another line" >> hello.txt
-   ```
-   - Use the following command to see unstaged changes.
-   ```bash
-   git diff
-   ```
-
-![git_areas](./images/git_basics-areas.png)
