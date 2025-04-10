@@ -2,7 +2,7 @@
 This guide will introduce you to the `git add` and `git commit` commands.
 
 ## Setup:
-1. CD to the training directory: `cd dlh-04-2025/day-1`  
+1. Day 1: `cd day-1`  
 2. Run `source setup_basics.sh`
    - This script will create a `git-basics` directory and switch into it.
 

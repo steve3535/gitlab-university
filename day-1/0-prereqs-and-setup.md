@@ -81,9 +81,10 @@ git config --global user.email "your.email@example.com"
    rm -rf test-repo
    git clone https://gitlab-dev.thelinuxlabs.com/steve/test-repo.git
    ```
-3. **Clone the repository needed for the git exercises**
+3. **Clone & move into the repository needed for the git exercises**
    ```bash
    git clone -b dlh-04-2025 https://github.com/steve3535/gitlab-university
+   cd gitlab-university
    ```
 
 ## Pre-Course Checklist
