@@ -17,7 +17,7 @@ These changes do not have to be the same.
 We will also work with `git restore` to restore the staged changes of a file, and `git checkout` to return a file to a previous state.
 
 ## Setup
-
+0. Day 1: `cd day-1`
 1. Run `source setup_basic_staging.sh`
 
 ## The task
@@ -64,3 +64,5 @@ You live in your own repository. There is a file called `file.txt`.
 You can set up aliases as such:
 `git config --global alias.lol 'log --oneline --graph --all'`
 This might be useful to you.
+
+### [Next Section >>](3-investigation.md)
