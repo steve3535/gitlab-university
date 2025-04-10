@@ -33,7 +33,7 @@ git add .
 git commit -m "Update file1 and add file4 on feature branch"
 
 # Go back to master and make a different change
-git checkout master
+git checkout main
 echo "Modified content of file1 on master" > file1
 
 # Commit changes on master
