@@ -40,6 +40,7 @@ This guide will introduce you to the `git add` and `git commit` commands.
 - `git add`
 - `git commit`
 - `git commit -m "My commit message"`
+- `git commit -am "My commit message"`
 - `git log`
 - `git log -n 5`
 - `git log --oneline`
@@ -47,8 +48,6 @@ This guide will introduce you to the `git add` and `git commit` commands.
 - `touch filename` to create a file
 - `echo content > file` to overwrite file with content
 - `echo content >> file` to append file with content
-
-![git areas](./images/git_basics-areas.excalidraw.png)
 
 ## Git Initial Configuration
 1. `git config --global user.name "John Doe"`
@@ -59,5 +58,6 @@ For the vim scared:
 
 Other editor options:
 - `git config --global core.editor "atom --wait"`
-- `git config --global core.editor "code --wait"`
+- `git config --global core.editor "code --wait"` 
 
+### [Next Section >>](2-basic-staging.md)

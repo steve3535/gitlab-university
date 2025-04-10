@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Clean up previous directory if it exists
+rm -rf git-basics
+
 # Create a new directory for the exercises
 mkdir -p git-basics
 cd git-basics
