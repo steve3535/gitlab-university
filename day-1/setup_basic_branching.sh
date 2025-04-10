@@ -17,10 +17,16 @@ git config user.email "student@example.com"
 # Rename the default branch to main (in case it's not already)
 git checkout -b main 2>/dev/null || git checkout main
 
-# Create the initial file and first commit
-echo "# Git Branching Exercise" > README.md
-git add README.md
-git commit -m "Initial commit with README"
+# Create a dummy file and commit it
+echo "dummy" > dummy.txt
+git add dummy.txt
+git commit -m "dummy commit"
+
+# Create a second branch
+git checkout -b second-branch
+
+# Return to main branch
+git checkout main
 
 echo "Environment setup complete. You are in the git-basic-branching directory."
 echo "You can now start the basic branching exercises." 
