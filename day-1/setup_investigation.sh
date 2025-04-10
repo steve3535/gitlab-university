@@ -32,13 +32,13 @@ echo "New file on feature branch" > folder1/file4
 git add .
 git commit -m "Update file1 and add file4 on feature branch"
 
-# Go back to master and make a different change
+# Go back to main and make a different change
 git checkout main
-echo "Modified content of file1 on master" > file1
+echo "Modified content of file1 on main" > file1
 
-# Commit changes on master
+# Commit changes on main
 git add file1
-git commit -m "Update file1 on master branch"
+git commit -m "Update file1 on main branch"
 
 # Create a tag
 git tag v1.0
