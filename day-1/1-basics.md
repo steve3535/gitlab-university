@@ -2,11 +2,12 @@
 This guide will introduce you to the `git add` and `git commit` commands.
 
 ## Setup:
-Run:
-  ```bash
-  cd dlh-04-2025
-  ./setup_basics.sh
-  ```
+1. CD to the training directory: `cd dlh-04-2025`  
+2. Run `source setup_basics.sh`
+   - This script will create a `git-basics` directory and switch into it.
+
+**Important:** All Git commands for this exercise **must** be run from *inside* the `git-basics` directory.
+
 ## Commits Tasks
 
 1. Use `git status` to see which branch you are on.
