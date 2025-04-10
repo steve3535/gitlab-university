@@ -4,6 +4,8 @@
 0. Day 1: `cd day-1`  
 1. Run `source setup_basic_branching.sh`
 
+![basic branching](./images/git_basic_branching.png)
+
 ## The task
 
 You again live in your own branch, this time we will be doing a bit of juggling with branches, to show how lightweight branches are in git.
