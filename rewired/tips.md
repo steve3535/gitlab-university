@@ -35,6 +35,11 @@
   **git update-index --skip-worktree /path/to/file**  
   > what we really want is this.
   > this will really skips all the changes locally in your WD while the file actually changes.
+* jai remarké qqchz detrange avec codepsaces. impossible den lancer ou den ouvrir en fenetre incognito sous un autre compte. (firefox)
+  finalement, le workflow: commencer par ouvrir le codespace avec letudiant beta dans la fenetre incognito avant de se connecter en tant que steve3535 dans la fenetre main
+  
+
+
 
   
   
