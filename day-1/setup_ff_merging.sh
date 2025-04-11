@@ -17,10 +17,13 @@ git config user.email "student@example.com"
 # Rename the default branch to main (in case it's not already)
 git checkout -b main 2>/dev/null || git checkout main
 
-# Create the initial file and first commit
-echo "hello world" > greeting.txt
+# Create the initial file and commits following the template
+touch greeting.txt
 git add greeting.txt
-git commit -m "Initial commit with greeting.txt"
+git commit -m "Add file greeting.txt"
+echo "hello" > greeting.txt
+git add greeting.txt
+git commit -m "Add content to greeting.txt"
 
 echo "Environment setup complete. You are in the git-ff-merge directory."
 echo "You can now start the fast-forward merging exercises." 
