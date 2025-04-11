@@ -1,21 +1,29 @@
 #!/bin/bash
 
-# Cleanup any previous directory
-rm -rf 3way-merge-repo
+# Clean up previous directory if it exists
+rm -rf git-ff-merge
+
+# Create a new directory for the exercises
+mkdir -p git-ff-merge
+cd git-ff-merge
 
 # Initialize a new Git repository
-git init 3way-merge-repo
-cd 3way-merge-repo
+git init
 
-# Create and commit a base file
+# Configure user for this repo
+git config user.name "Git Student"
+git config user.email "student@example.com"
+
+# Rename the default branch to main (in case it's not already)
+git checkout -b main 2>/dev/null || git checkout main
+
+# Create the initial file and commits following the template
 touch greeting.txt
 git add greeting.txt
 git commit -m "Add file greeting.txt"
-
-# Add content to greeting.txt and commit
 echo "hello" > greeting.txt
 git add greeting.txt
 git commit -m "Add content to greeting.txt"
 
-echo "Environment setup complete. You are in the 3way-merge-repo directory."
-echo "You can now start the 3-way merge exercises." 
+echo "Environment setup complete. You are in the git-ff-merge directory."
+echo "You can now start the fast-forward merging exercises." 
