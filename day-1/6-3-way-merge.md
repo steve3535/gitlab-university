@@ -20,6 +20,8 @@ You will work within your own branch to demonstrate the lightweight nature of br
 10. Merge the `greeting` branch into `main`.
 11. Observe the output of `git log --oneline --graph --all` again to see the merge commit with the message "Merge branch 'greeting'".
 
+![3w merge](./images/git_3w_merge.png)
+
 ## Useful Commands
 
 - `git branch`
