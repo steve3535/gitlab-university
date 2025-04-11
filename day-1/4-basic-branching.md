@@ -17,7 +17,7 @@ Hint: `git switch` will make you switch from one branch to another.
 4. Use `git branch` again to see the new branch created.
 5. Use `git switch mybranch` to switch to your new branch.
 6. How does the output from `git status` change when you switch between the _main_ and the new branch that you have created?
-7. How does the workspace change when you change between the two branches?
+7. How does the workspace change when you change between the two branches? 
 8. Make sure you are on your _mybranch_ branch before you continue.
 9. Create a file called `file1.txt` with your name.
 10. `Add` the file and `commit` with this change.
