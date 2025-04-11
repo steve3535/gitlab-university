@@ -39,4 +39,12 @@ You again live in your own branch, this time we will be doing a bit of juggling 
 - `git diff <branchA> <branchB>`
 - `git log --oneline --graph --all`
 
+## Key Concepts to Understand
+
+1. **Fast-Forward Merge**: This type of merge occurs when the target branch (e.g., `main`) has not had any new commits since the feature branch was created. Git can simply move the target branch pointer forward to the latest commit of the feature branch. It's a simple, linear history update.
+2. **No Merge Commit**: Fast-forward merges do not create a new merge commit. This keeps the history linear and clean, but you lose the explicit record that a feature branch was merged at that point.
+3. **Condition for Fast-Forward**: It only happens if the target branch's tip is a direct ancestor of the source branch's tip. 
+
+![git ff merge](./images/git_ff_merge.png)
+
 ### [Next Section >>](6-3-way-merge.md)
