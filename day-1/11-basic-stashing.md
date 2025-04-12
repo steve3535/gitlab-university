@@ -1,5 +1,7 @@
 # Basic stashing
 
+![git stash](./images/git_stash.png)
+
 ## Setup:
 
 1. Run `source setup_basic_stashing.sh`

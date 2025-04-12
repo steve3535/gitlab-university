@@ -1,105 +1,109 @@
-# Git Kata: Basic Stashing - Answers
+# Git Kata: Basic Stashing - Practical Exercise Summary
 
-## Task Answers
+## Initial State
+We started with:
+```bash
+$ git status
+Changes to be committed:
+  modified:   file.txt        # Staged changes
 
-1. Exploring the repo initially:
-   1. Working directory changes:
-      ```bash
-      $ git status
-      Changes not staged for commit:
-        modified:   file.txt
-        modified:   fix.txt
-      ```
-      The unstaged changes show modifications to both file.txt and fix.txt.
+Changes not staged for commit:
+  modified:   file.txt        # Additional unstaged changes
+  modified:   fix.txt         # Unstaged changes
+```
 
-   2. Staged changes:
-      ```bash
-      $ git status
-      Changes staged for commit:
-        modified:   file.txt
-      ```
-      file.txt has staged changes (visible in the staging area/index).
+## Step-by-Step Actions and Observations
 
-   3. Commit log:
-      ```bash
-      $ git log --oneline
-      abc1234 add bug.txt
-      def5678 Initial commit
-      ```
-      Two commits are present: the initial commit and the bug.txt addition.
-
-2. After using `git stash`:
-   1. Working directory:
-      ```bash
-      $ git status
-      On branch main
-      nothing to commit, working tree clean
-      ```
-      All changes (both staged and unstaged) are now stashed away.
-
-   2. Staged changes: None (cleared by stash)
-
-   3. Commit log: Unchanged from before
-
-   4. Stash list:
-      ```bash
-      $ git stash list
-      stash@{0}: WIP on main: abc1234 add bug.txt
-      ```
-      The stash contains our saved work-in-progress (WIP) state.
-
-3. Fixing bug.txt:
+1. **Stashing Changes**
    ```bash
-   $ echo "this file has some typos" > bug.txt
-   $ git add bug.txt
-   $ git commit -m "Fix typos in bug.txt"
+   $ git stash
+   Saved working directory and index state WIP on main: 9c8f859 add bug.txt
    ```
-   This creates a new commit fixing the typos.
+   - All changes (staged and unstaged) were saved
+   - Working directory became clean
+   - Changes were labeled as "WIP" (Work In Progress)
 
-4. After applying stash (without --index):
-   1. Working directory:
-      ```bash
-      $ git status
-      Changes not staged for commit:
-        modified:   file.txt
-        modified:   fix.txt
-      ```
-      All changes are present but unstaged.
+2. **Verifying Stash**
+   ```bash
+   $ git stash list
+   stash@{0}: WIP on main: 9c8f859 add bug.txt
+   ```
+   - Stash was saved in the stash stack
+   - Reference to the commit we were on was preserved
 
-   2. Staged changes: None
-      > This is a key point: `git stash apply` without --index doesn't preserve staging area state.
-      > The changes are recovered but need to be re-staged.
+3. **Fixing the Bug**
+   ```bash
+   # Fixed bug.txt and committed
+   $ git commit -am "fixbug"
+   [main 1daa8bf] fixbug
+   ```
+   - Working on a clean state
+   - Fixed the immediate issue
+   - Created a proper commit
 
-5. After reset and applying stash with --index:
-   1. Working directory:
-      ```bash
-      $ git status
-      Changes to be committed:
-        modified:   file.txt
-      Changes not staged for commit:
-        modified:   file.txt
-        modified:   fix.txt
-      ```
+4. **Applying Stash Without Index**
+   ```bash
+   $ git stash apply
+   ```
+   Result:
+   - All changes came back as unstaged
+   - Lost the original staging state
+   - Content was preserved but staging information was lost
 
-   2. Staged changes:
-      The original staged changes to file.txt are properly restored to the staging area.
-      > The --index option preserves the exact state of both working directory and staging area.
+5. **Applying Stash With Index**
+   ```bash
+   $ git stash apply --index
+   ```
+   Result:
+   - Restored exact previous state
+   - Staged changes remained staged
+   - Unstaged changes remained unstaged
 
-7. After dropping the stash:
-   1. Stash list:
-      ```bash
-      $ git stash list
-      # Empty list - no stashes remain
-      ```
+## Key Learnings
 
-   2. Commit log:
-      ```bash
-      $ git log --oneline
-      xyz9012 Fix typos in bug.txt
-      abc1234 add bug.txt
-      def5678 Initial commit
-      ```
-      Shows the original commits plus our bug fix commit.
+1. **Stash Usage Pattern**:
+   - Stash when you need to switch context
+   - Fix urgent issues with a clean slate
+   - Return to your work exactly as you left it
+
+2. **Staging State Preservation**:
+   - `git stash apply` - recovers content but loses staging
+   - `git stash apply --index` - recovers content AND staging state
+   - Always use `--index` if you want to preserve your exact working state
+
+3. **Real-world Application**:
+   ```
+   Working on feature
+         ↓
+   Urgent bug reported
+         ↓
+   Stash changes
+         ↓
+   Fix bug
+         ↓
+   Commit fix
+         ↓
+   Restore changes (with --index)
+         ↓
+   Continue feature work
+   ```
+
+## Best Practice Tips from Exercise
+
+1. **Stashing**:
+   - Use `git stash list` to verify your stash was saved
+   - Use `git stash show -p` to inspect stash contents
+   - Always check status after stashing
+
+2. **Applying Stashes**:
+   - Use `--index` to preserve staging area state
+   - Verify the restored state matches expectations
+   - Remember stashes persist until explicitly dropped
+
+3. **Context Switching**:
+   - Stash is perfect for quick context switches
+   - Keep commits clean and focused
+   - Don't leave stashes hanging around too long
 
 ## Key Concepts
 
