@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Initialize the exercise
-EXERCISE_DIR=exercise
+EXERCISE_DIR=git-tagging
 echo "Setting up the exercise..."
 
 # Cleanup previous exercise
