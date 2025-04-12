@@ -6,7 +6,7 @@ echo "Setting up remote exercises in $EXERCISE_DIR..."
 
 # Cleanup previous exercise
 rm -rf $EXERCISE_DIR
-mkdir -p $EXERCISE_DIR
+mkdir -p $EXERCISE_DIR/my-first-remote
 
 # Create the exercise structure
 cd $EXERCISE_DIR
