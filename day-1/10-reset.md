@@ -35,8 +35,6 @@ While commonly used to unstage changes, reset has several modes with different e
 
 ## Further Explanation
 
-The following is taken from the Recap section of [Git Tools - Reset Demystified](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified).
-
 The reset command overwrites these three trees in a specific order, stopping when you tell it to:
 1. Move what the branch HEAD points to (stop here if `--soft`)
 2. Make the stage look like HEAD (stop here unless `--hard`)
