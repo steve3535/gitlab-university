@@ -60,4 +60,4 @@ Other editor options:
 - `git config --global core.editor "atom --wait"`
 - `git config --global core.editor "code --wait"` 
 
-### [Next Section >>](2-basic-staging.md)
+### [Next >>](2-basic-staging.md)

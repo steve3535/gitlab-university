@@ -47,4 +47,4 @@ You again live in your own branch, this time we will be doing a bit of juggling 
 
 ![git ff merge](./images/git_ff_merge.png)
 
-### [Next Section >>](6-3-way-merge.md)
+### [Next >>](6-3-way-merge.md)

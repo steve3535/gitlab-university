@@ -42,4 +42,4 @@ git ls-tree main:folder1
 find .git/objects -type f | sort
 ```
 
-### [Next Section >>](4-basic-branching.md)
+### [Next >>](4-basic-branching.md)

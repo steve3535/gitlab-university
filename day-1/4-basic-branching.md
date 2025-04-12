@@ -38,4 +38,4 @@ Hint: `git switch` will make you switch from one branch to another.
 - `git branch`
 - `git diff`
 
-### [Next Section >>](5-ff-merging.md)
+### [Next >>](5-ff-merging.md)

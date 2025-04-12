@@ -36,3 +36,5 @@ You will work within your own branch to demonstrate the lightweight nature of br
 - `git merge <branch-name>`
 - `git diff <branchA> <branchB>`
 - `git log --oneline --graph --all`
+
+### [Next >>](7-your-first-conflict.md)

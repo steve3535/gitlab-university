@@ -65,4 +65,4 @@ You can set up aliases as such:
 `git config --global alias.lol 'log --oneline --graph --all'`
 This might be useful to you.
 
-### [Next Section >>](3-investigation.md)
+### [Next >>](3-investigation.md)
