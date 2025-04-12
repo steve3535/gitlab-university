@@ -25,4 +25,6 @@ You will work with branches to understand how Git's rebase operation works and h
 - `git log --oneline --graph --all`
 - `git merge <branch-name>`
 
+![git rebase](./images/git_rebase.png)
+
 ### [Next >>](9-basic-revert.md)
