@@ -27,3 +27,23 @@ The task is to look at the merge conflict, and solve it by editing the file acco
 - `git mergetool --tool=vimdiff`
 - `git add`
 - `git commit`
+
+## Panels Overview
+**Left Panel (LOCAL)**: Represents the changes from the current branch (e.g., main).  
+Shows the code as it exists in your branch before the merge.  
+**Middle Panel (BASE):** Represents the common ancestor of the two branches being merged.  
+Shows the original state of the code before any changes were made in either branch.  
+**Right Panel (REMOTE):** Represents the changes from the branch being merged in (e.g., Mergesort-Impl).  
+Shows the code as it exists in the branch you're trying to merge.  
+
+## Conflict Markers
+**<<<<<<< HEAD**: Marks the beginning of the conflicting changes from your current branch.  
+**=======**: Separates your changes from the incoming changes.  
+**>>>>>>> Mergesort-Impl**: Marks the end of the conflicting changes from the branch being merged.  
+
+## Resolving the Conflict
+To resolve the conflict, you need to decide which changes to keep or how to combine them.  
+You can:  
+* Keep the changes from your branch: Remove the conflict markers and the code from the REMOTE section.
+* Keep the changes from the incoming branch: Remove the conflict markers and the code from the LOCAL section.
+* Combine changes: Manually edit the code to incorporate changes from both sections, then remove the conflict markers.
