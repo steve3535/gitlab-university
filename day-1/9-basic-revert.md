@@ -29,4 +29,4 @@ In this task, some unwanted changes were introduced that we need to remove. Sinc
 - `git log --oneline`
 - `git show <ref>`
 
-### [Next >>](10-reset.md)
+### [<<Previous](8-branch-rebase.md) &nbsp;&nbsp; [>>Next](10-reset.md)

@@ -37,4 +37,4 @@ You will work within your own branch to demonstrate the lightweight nature of br
 - `git diff <branchA> <branchB>`
 - `git log --oneline --graph --all`
 
-### [Next >>](7-your-first-conflict.md)
+### [<<Previous](5-ff-merging.md) &nbsp;&nbsp; [>>Next](7-your-first-conflict.md)

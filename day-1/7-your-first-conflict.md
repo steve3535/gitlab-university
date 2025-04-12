@@ -48,4 +48,4 @@ You can:
 * Keep the changes from the incoming branch: Remove the conflict markers and the code from the LOCAL section.
 * Combine changes: Manually edit the code to incorporate changes from both sections, then remove the conflict markers.
 
-### [Next >>](8-branch-rebase.md)
+### [<<Previous](6-3-way-merge.md) &nbsp;&nbsp; [>>Next](8-branch-rebase.md)

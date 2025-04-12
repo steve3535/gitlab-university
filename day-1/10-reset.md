@@ -40,4 +40,4 @@ The reset command overwrites these three trees in a specific order, stopping whe
 2. Make the stage look like HEAD (stop here unless `--hard`)
 3. Make the working directory look like the stage
 
-### [Next >>](11-basic-stashing.md)
+### [<<Previous](9-basic-revert.md) &nbsp;&nbsp; [>>Next](11-basic-stashing.md)
