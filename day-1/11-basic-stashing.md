@@ -52,4 +52,4 @@ Suddenly, you're made aware that a bug has made it to production. You'll stash y
 
 ## Next Steps
 
-### [<<Previous](10-reset.md) &nbsp;&nbsp; [>>Next](12-git_cheatsheet.md)
+### [<<Previous](10-reset.md) &nbsp;&nbsp; [>>Next](12-git-tags.md)
