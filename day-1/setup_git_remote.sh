@@ -1,43 +1,35 @@
 #!/bin/bash
 
-# Initialize the exercise
-EXERCISE_DIR=git-remote
-echo "Setting up the exercise..."
+# Create a directory outside of our current git repository
+EXERCISE_DIR=/workspaces/git-remote
+echo "Setting up remote exercises in $EXERCISE_DIR..."
 
 # Cleanup previous exercise
 rm -rf $EXERCISE_DIR
-mkdir -p $EXERCISE_DIR/{remote-demo,project-a,project-b}
+mkdir -p $EXERCISE_DIR
 
-# Setup remote-demo repository
-cd $EXERCISE_DIR/remote-demo
-git init
-echo "# Remote Demo Project" > README.md
-echo "This is a demonstration of Git remote operations." >> README.md
-echo "Initial content" > test.txt
-git add README.md test.txt
-git commit -m "Initial commit"
+# Create the exercise structure
+cd $EXERCISE_DIR
 
-# Setup project-a repository
-cd ../project-a
-git init
-echo "# Project A" > README.md
-echo "This is Project A for deploy key demonstration." >> README.md
-git add README.md
-git commit -m "Initial commit for Project A"
+# Instructions for students
+echo "
+Remote Exercise Setup Complete!
 
-# Setup project-b repository
-cd ../project-b
-git init
-echo "# Project B" > README.md
-echo "This is Project B for deploy key demonstration." >> README.md
-git add README.md
-git commit -m "Initial commit for Project B"
+Your working directory is: $EXERCISE_DIR
+This directory is OUTSIDE the course repository.
 
-echo "Exercise setup completed! Created three repositories:"
-echo "1. remote-demo: For basic remote operations"
-echo "2. project-a: For deploy key demonstration"
-echo "3. project-b: For deploy key demonstration"
-echo ""
-echo "Next steps:"
-echo "1. Create corresponding repositories on GitHub"
-echo "2. Follow the lesson instructions to set up remote connections" 
+Follow these steps:
+1. cd $EXERCISE_DIR
+2. Create your first repository:
+   mkdir my-first-remote
+   cd my-first-remote
+   git init
+   
+3. Create and commit some files
+4. Create a new repository on GitHub
+5. Follow the lesson instructions to connect and push
+
+Note: You can safely practice all remote operations here without affecting the course repository.
+" > README.md
+
+echo "Exercise environment ready at $EXERCISE_DIR"
