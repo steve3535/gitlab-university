@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create a directory outside of our current git repository
-EXERCISE_DIR=/workspaces/git-remote
+EXERCISE_DIR=/workspaces/git-remote-exercises
 echo "Setting up remote exercises in $EXERCISE_DIR..."
 
 # Cleanup previous exercise
