@@ -3,7 +3,8 @@
 ## Step 1: Create the Pipeline Configuration
 Now we'll create the pipeline configuration file:
 
-1. In the Web IDE, hover over the project root and click the "New file" icon
+0. In the Gitlab Web UI, create a project (e.g. demo)
+1. Hover over the project root and click the "New file" icon
 2. Name the file exactly: `.gitlab-ci.yml` (the leading dot is crucial)
 3. Add the following basic configuration:
 ```yaml
