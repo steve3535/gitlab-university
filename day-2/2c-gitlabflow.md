@@ -10,6 +10,48 @@ You are working on the "Shoes for Dogs" web application. Your task is to impleme
 - Access to the GitLab instance
 - Create a project (internal or public) in your workspace with the name **shoes-for-dog**  
 
+# GitLab Flow Exercise - Team Structure
+
+Each team must add both reviewers to their project as developers:
+1. Go to Project Settings > Members
+2. Add member: @michael (Developer role)
+3. Add member: @emma (Developer role)
+
+## Project Teams
+
+### Team 1: "shoes-for-dogs-team1"
+- Student 1: Project Owner
+  - Creates initial issue
+  - Sets up project
+  - Manages overall flow
+  - Adds Michael and Emma as project members
+- Student 2: Backend Developer
+  - Implements initial backend features
+  - Works with reviewers
+  - Sets up CI/CD pipeline
+- Student 3: Frontend Developer
+  - Takes over after backend completion
+  - Completes frontend implementation
+
+### Team 2: "shoes-for-dogs-team2"
+- Student 4: Project Owner
+- Student 5: Backend Developer
+- Student 6: Frontend Developer
+
+etc...  
+
+## Role Responsibilities
+
+## Team Summary Table
+
+| Team | Project Owner | Backend Developer | Frontend Developer |
+|------|---------------|-------------------|-------------------|
+| Team 1 | Student 1 | Student 2 | Student 3 |
+| Team 2 | Student 4 | Student 5 | Student 6 |
+| Team 3 | Student 7 | Student 8 | Student 9 |
+| Team 4 | Student 10 | Student 11 | Student 12 |
+
+
 ## Exercise Tasks
 
 ### Initial Setup and Planning Phase
