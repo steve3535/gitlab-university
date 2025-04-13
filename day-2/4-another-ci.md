@@ -235,7 +235,5 @@ You are tasked to create a GitLab pipeline for processing a product inventory.
     - Updates the file format (e.g., replaces `-` with `:`).
   - **validate_inventory**:
     - Verifies `products.txt` exists.
-    - Ensures all products have numeric values using `grep`.
-
-
+   
 ## [<<Previous](./3-your-first-ci.md) &nbsp;&nbsp; [>>Next](./5-static-website-1.md)
