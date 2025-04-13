@@ -63,7 +63,7 @@ Now that we have our production build working locally, let's automate this proce
      script:
        - npm install
        - npm install gatsby-cli
-       - gatsby serve
+       - ./node_modules/.bin/gatsby serve
        - sleep 3
        - curl localhost:9000  | grep -q "Gatsby"
    ```
