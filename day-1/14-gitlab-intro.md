@@ -5,7 +5,7 @@ Welcome to GitLab! If you're new here, GitLab can seem a little overwhelming at 
 ![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-logo-gray-rgb.png)
 
 **Our course instance:**  
-https://gitlab-dev.thelinuxlabs.com  
+https://gitlab.thelinuxlabs.com  
 Use your GitHub account to register  
 
 ## 1. Introduction to GitLab
