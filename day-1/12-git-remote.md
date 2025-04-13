@@ -95,8 +95,7 @@ You will create and manage multiple remote repositories to learn essential remot
 
 2. Repository Owner:
    ```bash
-   # Create new repository
-   cd $HOME/git-remote-exercises
+   cd /workspaces/git-remote-exercises
    mkdir collaboration-demo
    cd collaboration-demo
    git init
@@ -143,53 +142,79 @@ You will create and manage multiple remote repositories to learn essential remot
 
 ### Part 3: Advanced Authentication Methods
 
-1. Personal Access Tokens (PAT):
-   - Useful for automation and scripts
-   - Go to GitHub Settings → Developer Settings → Personal Access Tokens
-   - Generate new token with repo scope
-   - Store securely for future use
-
-2. Deploy Keys (Repository-specific):
+1. GitLab PAT Exercise:
    ```bash
-   # Generate deploy key
-   ssh-keygen -t ed25519 -f ~/.ssh/deploy_key -C "deploy key"
-   
-   # Add to repository settings (Deploy Keys section)
-   cat ~/.ssh/deploy_key.pub
-   ```
-   - Use deploy keys for single-repository access
-   - Useful for CI/CD systems or deployment servers
-
-### Part 4: Advanced Operations
-
-1. Fetching vs. Pulling:
-   ```bash
-   # Fetch changes without merging
-   git fetch origin
-   
-   # View changes
-   git log origin/main
-   
-   # Compare with local
-   git diff main origin/main
-   
-   # Merge if happy
-   git merge origin/main
+   # Create a new directory for GitLab exercise
+   cd /workspaces/git-remote-exercises
+   mkdir gitlab-pat-demo
+   cd gitlab-pat-demo
    ```
 
-2. Managing Multiple Remotes:
+   a. Generate GitLab PAT:
+      - Go to GitLab instance (https://gitlab-dev.thelinuxlabs.com)
+        * Login with your github account
+        * Create a dummy project: e.g. "dummy"
+          - Add README.md file
+          - Make it public
+      - Navigate to Edit Profile → User Settings → Access Tokens
+      - Add new token:
+        - Name: "codespace-access"
+        - Expiration: 30 days
+        - Scope: api, read_repository, write_repository
+      - Save the token securely!
+
+   b. Clone Using PAT:
+   Back to your codespace:  
    ```bash
-   # Add another remote
-   git remote add upstream <original-repo-url>
+   # Clone using HTTPS with PAT
+   git clone https://oauth2:<your-gitlab-pat>@gitlab-dev.thelinuxlabs.com/your-username/dummy.git
+   cd dummy
    
-   # List remotes
-   git remote -v
+   # Create and push a change
+   echo "Testing GitLab PAT access" > pat-test.txt
+   git add pat-test.txt
+   git commit -m "Test GitLab PAT access"
+   git push origin main
+   ```
+
+2. Deploy Keys Exercise:
+   ```bash
+   cd /workspaces/git-remote-exercises
+   mkdir deploy-key-demo
+   cd deploy-key-demo
    
-   # Fetch from specific remote
-   git fetch upstream
+   # Generate a deploy key
+   ssh-keygen -t ed25519 -f ./deploy_key -C "deploy key demo"
    
-   # Pull from upstream
-   git pull upstream main
+   # Create test repository
+   git init
+   echo "# Deploy Key Test" > README.md
+   git add README.md
+   git commit -m "Initial commit"
+   ```
+
+   a. Add Deploy Key to GitHub:
+      - Create new GitHub repository: "deploy-key-demo"
+      - Go to repository Settings → Deploy Keys
+      - Add new deploy key:
+        - Title: "Deploy Key Demo"
+        - Key: (content of deploy_key.pub)
+        - Allow write access: Yes
+   
+   b. Test Deploy Key:
+   ```bash
+   # Configure SSH for this repository
+   mkdir -p ~/.ssh
+   echo "Host github.com-deploy
+         HostName github.com
+         IdentityFile $(pwd)/deploy_key
+         IdentitiesOnly yes" >> ~/.ssh/config
+   
+   # Add remote using custom SSH host
+   git remote add origin git@github.com-deploy:<username>/deploy-key-demo.git
+   
+   # Test push
+   git push -u origin main
    ```
 
 ## Useful Commands
