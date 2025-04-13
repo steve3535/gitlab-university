@@ -22,7 +22,6 @@ Before starting this tutorial, ensure you have the following installed on your m
    
    🚨 Common Issues:
    - If you get a permission error on Unix-like systems, you may need to use `sudo`
-Great! Let me continue with the next section about creating the static website:
 
 ### Part 2: Creating Your Static Website
 
