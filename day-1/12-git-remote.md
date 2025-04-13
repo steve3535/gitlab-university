@@ -151,7 +151,7 @@ You will create and manage multiple remote repositories to learn essential remot
    ```
 
    a. Generate GitLab PAT:
-      - Go to GitLab instance (https://gitlab-dev.thelinuxlabs.com)
+      - Go to GitLab instance (https://gitlab.thelinuxlabs.com)
         * Login with your github account
         * Create a dummy project: e.g. "dummy"
           - Add README.md file
