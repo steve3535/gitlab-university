@@ -69,4 +69,4 @@ Your personal settings let you configure various aspects of your GitLab experien
 GitLab is a powerful tool, and this introduction is just the beginning. Feel free to explore more features like **Merge Requests**, **Wiki**, and **Security & Compliance** tools as you gain familiarity.
 <br />
 
-## [<< Previous](5-branching-and-merging.md)
+## [<< Previous](5-branching-and-merging.md) &nbsp;&nbsp; [>>Next](../day-2/1-intro.md)
