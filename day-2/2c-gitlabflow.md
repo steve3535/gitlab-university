@@ -184,27 +184,12 @@ code_quality:
 - Share a virtual high-five emoji 🖐
 - Close the issue
 
-## Time Allocation
-- Expected completion time: 45-60 minutes
-- Spend about 2-3 minutes on each task
-
-## Success Criteria
-- All 23 tasks completed in sequence
-- Proper label management throughout the process
-- Clear documentation of decisions and changes
-- Appropriate team member involvement at each stage
-- Proper use of GitLab features (issues, merge requests, labels, etc.)
-
 ## Notes
 - Focus on understanding the workflow rather than actual code
-- Pay attention to how labels and assignments change
-- Observe how different teams collaborate
 - Notice how GitLab flow maintains organization and transparency
 
 ## Tips
 - Keep the issue and merge request descriptions clear and detailed
 - Use proper Git commit message conventions
-- Maintain professional communication in all interactions
-- Document important decisions in the issue/merge request 
 
 ## [<<Previous](2b-projects.md) &nbsp;&nbsp; [>>Next](3-your-first-ci.md)
