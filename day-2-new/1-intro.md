@@ -63,14 +63,4 @@
 
 ![agile](./images/agile1.png)
 
-## GitLab's Unified Solution
-
-### Single Tool Benefits 🛠️
-- One platform for entire pipeline
-- Unified user interface
-- Centralized reporting
-- Integrated security
-- Simplified maintenance
-- Clear visibility across all stages
-
-The power of GitLab comes from combining all these elements into a single, coherent platform that implements DevOps principles naturally and efficiently.
+### [>>Next](2-gitlab-components.md)
