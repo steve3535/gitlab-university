@@ -105,4 +105,4 @@ Now that we have our production build working locally, let's automate this proce
    - Click "Browse" to see the built website files
    - Download artifacts to inspect locally if needed
 
-```
+## [<<Previous](./5-static-website-1.md) &nbsp;&nbsp; [>>Next](./8-static-website-deploy.md)
