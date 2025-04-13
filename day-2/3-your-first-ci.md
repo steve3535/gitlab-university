@@ -36,3 +36,4 @@ To verify everything works:
 4. View the pipeline to see your updated message
 
 
+## [<<Previous](./2d-gitlab-stages.md) &nbsp;&nbsp; [>>Next](./4-another-ci.md)
