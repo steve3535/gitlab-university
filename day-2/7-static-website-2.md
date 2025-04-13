@@ -63,15 +63,15 @@ Now that we have our production build working locally, let's automate this proce
      script:
        - npm install
        - npm install gatsby-cli
-       - ./node_modules/.bin/gatsby serve
-       - sleep 3
-       - curl localhost:9000  | grep -q "Gatsby"
+       - ./node_modules/.bin/gatsby serve &
+       - sleep 5
+       - curl --retry 5 --retry-dely 2 http://localhost:9000  | grep -q "Gatsby"
    ```
 
    💡 Key Concepts:
    - Jobs in the same stage (like both test jobs) run in parallel
    - Using `&` makes gatsby serve run in background
-   - The `sleep 3` gives the server time to start
+   - The `sleep 5` gives the server time to start
    - The `-q` flag makes grep quiet for cleaner logs
 
    ✨ Success Checks:
