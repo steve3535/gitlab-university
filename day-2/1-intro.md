@@ -63,4 +63,4 @@
 
 ![agile](./images/agile1.png)
 
-### [>>Next](2-gitlab-components.md)
+### ### [<<Previous](../day-1/14-gitlab-intro.md) &nbsp;&nbsp; [>>Next](2-gitlab-components.md)

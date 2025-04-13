@@ -231,4 +231,4 @@ code_quality:
 - Keep the issue and merge request descriptions clear and detailed
 - Use proper Git commit message conventions
 
-## [<<Previous](2b-projects.md) &nbsp;&nbsp; [>>Next](3-your-first-ci.md)
+## [<<Previous](2b-projects.md) &nbsp;&nbsp; [>>Next](./2d-gitlab-stages.md)
