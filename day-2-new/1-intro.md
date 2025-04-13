@@ -27,6 +27,10 @@
    - Managing test results was challenging
    - Test automation required multiple tools
 
+   ![tests pyramid](./images/tests_pyramid.png)
+
+   ![security tests](./images/security_tests.png)
+
 # The DevOps Revolution & GitLab Solution
 
 ## DevOps Core Principles
@@ -54,6 +58,10 @@
 - Lower risk deployments
 - Faster feature delivery
 - More stable production environment
+
+![waterfall](./images/waterfall1.png)
+
+![agile](./images/agile1.png)
 
 ## GitLab's Unified Solution
 

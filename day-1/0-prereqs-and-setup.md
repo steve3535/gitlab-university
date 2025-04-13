@@ -1,4 +1,4 @@
-# Setup Guide
+# Let's *git* started
 
 ## Overview
 This guide will help you set up your development environment for the course. We'll be using:
