@@ -12,13 +12,28 @@
 
 ---
 
-## Step 2: Open the GitLab Web IDE
+## Step 2: Open the project in  your codespace
 
-1. Inside your project, locate the **Edit** button and click on **Web IDE**.
-   - **Shortcut**: Press the `.` key on your keyboard to open the Web IDE directly.
-2. In the Web IDE, create a new file named `.gitlab-ci.yml`. This file will define your pipeline.
+1. **Connect your codespace to your gitlab project**  
+   1.1. Go to your project in gitlab and generate a Personal Access Token:
+     * Settings > Access Tokens > Add new token
+     * Select "Maintainer" role and the following scopes: read repository, write repository
+     * Click "Create Project Access Token"
+     * Copy down the token  
+   
+   3.2. Back to your codespace,clone your gitlab project
+     ```bash
+     @kwakoulux ➜ /workspaces/gitlab-university (main) $ cd ..
+     kwakoulux ➜ /workspaces $ git clone https://oauth2:glpat-xxxxxxx@gitlab.thelinuxlabs.com/<username>/car-assembly
+     ...
+     remote: Enumerating objects: 3, done.
+     Receiving objects: 100% (3/3), done.
+     @kwakoulux ➜ /workspaces $
+     ```   
+   You can now open the project in your codespace.
 
----
+
+2. **Create the CI/CD file .gitlab-ci.yml**. This file will define your pipeline.
 
 ## Step 3: Define the GitLab Pipeline
 
