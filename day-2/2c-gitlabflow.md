@@ -14,8 +14,8 @@ You are working on the "Shoes for Dogs" web application. Your task is to impleme
 
 Each team must add both reviewers to their project as developers:
 1. Go to Project Settings > Members
-2. Add member: @michael (Developer role)
-3. Add member: @emma (Developer role)
+2. Add reviewer: @michael (Developer role)
+3. Add reviewer: @emma (Developer role)
 
 ## Project Teams
 
@@ -24,8 +24,7 @@ Each team must add both reviewers to their project as developers:
   - Creates initial issue
   - Sets up project
   - Manages overall flow
-  - Adds Michael and Emma as project members
-- Student 2: Backend Developer
+  - Student 2: Backend Developer
   - Implements initial backend features
   - Works with reviewers
   - Sets up CI/CD pipeline
@@ -66,7 +65,7 @@ etc...
   1. On the left sidebar, go to "Manage > Members"
   2. Click "Invite members"
   3. Enter the usernames or email addresses of two classmates
-  4. Set their role to "Developer"
+  4. Set their role to "Maintainer" for the backend developer and to "Developer" for the frontend dev
   5. Click "Invite"
 - In the issue's discussion section:
   1. Use @ to mention the two team members you just invited
@@ -85,16 +84,14 @@ etc...
 
 #### Task 5: Planning Meeting Implementation
 - Set the issue weight to 8 (representing a 1-week task)
-- Invite a new team member, lets suppose his/her name is Sarah
-- Assign the issue to backend developer Sarah
+- Assign the issue to backend developer
 - Set the due date to 2 weeks from today
 
 ### Development Phase
 
-#### Task 6: Issue Organization  
-**As Sarah:**
+#### Task 6: Issue Organization [Backend developper]
 - Apply the scoped label "Status::In Progress"
-- Add the unscoped label "Back-end"
+- Add the unscoped label "backend"
 - Verify both labels are visible on the issue
 
 #### Task 7: Setup Base CI/CD Pipeline
@@ -139,7 +136,7 @@ code_quality:
 #### Task 9: Merge Request Setup
 - Create a new merge request
 - Title it "Draft: Filter shoes by dog size"
-- Invite two new team members, Michael and Emma, as project members (follow same steps as in Task 2)
+- Invite the two reviewers, Michael and Emma, as project members (follow same steps as in Task 2)
 - Add reviewers:
   1. Initially select Michael as the reviewer when creating the MR
   2. After creating the MR, click on the right sidebar
@@ -170,7 +167,7 @@ code_quality:
 - Focus on architectural and design aspects
 
 #### Task 14: Implementation Discussion
-- Respond to review comments as Sarah
+- Respond to review comments
 - Engage in discussion about suggested changes
 - Document agreed-upon solutions
 - Add a commit message reflecting the agreements
@@ -181,21 +178,21 @@ code_quality:
 - Document the security improvement
 
 #### Task 16: Frontend Handoff
-- Remove the "Back-end" label
-- Add the "Front-end" label
-- Reassign the issue to frontend developer James
+- Remove the "Backend" label
+- Add the "Frontend" label
+- Reassign the issue to frontend developer
 - Add a handoff comment with relevant information
 
 ### Frontend Implementation Phase
 
-#### Task 17: Frontend Development
-- As James, add frontend-related commit messages
+#### Task 17: Frontend Development [Frontend developer]
+- add frontend-related commit messages
 - Request reviews from Michael and Emma
 - Respond to any frontend-specific feedback
 
 #### Task 18: Progress Monitoring
 - Add "At Risk" label if falling behind schedule
-- Development manager assigns Maya to help
+- Project owner assigns another developper to help
 - Document the team expansion in the issue
 
 #### Task 19: Completion Phase
@@ -218,7 +215,7 @@ code_quality:
 
 #### Task 22: Merge Process
 - Confirm all required approvals are received
-- Remove "Front-end" and "Status::In Progress" labels
+- Remove "Frontend" and "Status::In Progress" labels
 - Complete the merge
 
 #### Task 23: Celebration
