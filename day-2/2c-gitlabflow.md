@@ -206,3 +206,5 @@ code_quality:
 - Use proper Git commit message conventions
 - Maintain professional communication in all interactions
 - Document important decisions in the issue/merge request 
+
+## [<<Previous](2b-projects.md) &nbsp;&nbsp; [>>Next](3-your-first-ci.md)
