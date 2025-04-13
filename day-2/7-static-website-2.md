@@ -17,7 +17,7 @@ Now that we have our production build working locally, let's automate this proce
    Try pushing ...  
 
    🚨 Common Issue #1: npm command not found
-   - If you get `npm: command not found`, it's because the default GitLab CI image (ruby:2.5) doesn't include Node.js
+   - If you get `npm: command not found`, it's because our default GitLab CI image (alpine) doesn't include Node.js
    - Fix: Add the following line at the start of your job:
      ```yaml
      image: node:18
