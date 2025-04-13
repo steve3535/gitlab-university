@@ -12,7 +12,7 @@ Now that we have our production build working locally, let's automate this proce
        - gatsby build
      artifacts:
        paths:
-         - ./public
+         - public
    ```
    Try pushing ...  
 
@@ -37,6 +37,7 @@ Now that we have our production build working locally, let's automate this proce
 3. Test Our Build Artifact
    Let's add testing to ensure our build is correct:
    ```yaml
+   images: node
    stages:
      - build
      - test
@@ -50,12 +51,15 @@ Now that we have our production build working locally, let's automate this proce
    test_artifact:
      stage: test
      image: alpine
+     tags:
+      - node
      script:
        - grep -q "Gatsby" ./public/index.html
    
    test_website:
      stage: test
-     image: node
+     tags:
+       - node
      script:
        - npm install
        - npm install gatsby-cli
