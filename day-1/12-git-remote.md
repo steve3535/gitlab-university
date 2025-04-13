@@ -285,5 +285,5 @@ You will create and manage multiple remote repositories to learn essential remot
    git remote add origin git@github.com:<username>/repo.git
    ```
 
-### [<<Previous](11-basic-stashing.md) &nbsp;&nbsp; [>>Next](13-git-tags.md)
+### [<<Previous](11-basic-stashing.md) &nbsp;&nbsp; [>>Next](14-gitlab-intro.md)
 
