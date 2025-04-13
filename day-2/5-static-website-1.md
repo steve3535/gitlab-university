@@ -50,7 +50,7 @@ Before starting this tutorial, ensure you have the following installed on your m
 1. Log into GitLab and create a new project:
    - Click "New project"
    - Name it "my-static-website"
-   - **Do not add README.md file** 
+   - **Do not initialize the project with README file** 
 
 2. Connect your Gatsby repository to GitLab
 
