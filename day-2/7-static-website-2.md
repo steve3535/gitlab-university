@@ -30,8 +30,8 @@ Now that we have our production build working locally, let's automate this proce
 
    🚨 Another eventual Issue: gatsby command not found
    - Try fix the error
-   - Hint 1: its a PATH issue
-   - Hint 2: to find out use find command :)
+   - **Hint 1**: its a PATH issue
+   - **Hint 2**: to find out use find command in your local dev environment :)
         
 
 3. Test Our Build Artifact
