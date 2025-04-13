@@ -1,4 +1,4 @@
-### Part 6: Setting Up GitLab CI Pipeline
+### Part 5: Setting Up GitLab CI Pipeline
 
 Now that we have our production build working locally, let's automate this process using GitLab CI.
 
