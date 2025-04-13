@@ -4,6 +4,10 @@ Welcome to GitLab! If you're new here, GitLab can seem a little overwhelming at 
 
 ![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-logo-gray-rgb.png)
 
+**Our course instance:**  
+https://gitlab-dev.thelinuxlabs.com  
+Use your GitHub account to register  
+
 ## 1. Introduction to GitLab
 
 **GitLab** is an open-source platform for collaborative software development. It helps you manage your code repositories, plan projects, track issues, and automate deployments.
