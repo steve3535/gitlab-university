@@ -47,7 +47,7 @@ Before starting this tutorial, ensure you have the following installed on your m
 
 ### Part 3: Setting up Your GitLab Repository
 
-1. Log into GitLab.com and create a new project:
+1. Log into GitLab and create a new project:
    - Click "New project"
    - Name it "my-static-website"
 
