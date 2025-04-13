@@ -1,10 +1,10 @@
-### Prerequisites
+## Prerequisites
 Before starting this tutorial, ensure you have the following installed on your machine:
 
 - Node.js (Check with `node --version`)
 - npm (Check with `npm --version`) 
 - Git
-- A GitLab.com account
+- A GitLab account
 
 ### Part 1: Setting Up Your Development Environment
 
