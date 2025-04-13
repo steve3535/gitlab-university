@@ -1,6 +1,6 @@
 # GitLab Project Planning Tutorial: Building TaskMaster
 
-Welcome to this hands-on tutorial where you'll learn GitLab's project planning and organization features by building TaskMaster, a personal task management web application. This tutorial focuses on proper project setup and planning using GitLab's powerful tools.
+Welcome to this hands-on exercise where you'll learn GitLab's project planning and organization features by building TaskMaster, a personal task management web application. This tutorial focuses on proper project setup and planning using GitLab's components.
 
 You'll learn how to:
 1. Set up project structure in GitLab
@@ -221,4 +221,4 @@ Now you have a Kanban-style board that visualizes your workflow! Try these actio
 ---
 <br />
 
-## [<<Previous](1-onboarding.md) &nbsp;&nbsp; [>>Next](3-implementation-merge-requests.md)  
+## [<<Previous](2-gitlab-components.md) &nbsp;&nbsp; [>>Next](2c-gitlabflow.md)  

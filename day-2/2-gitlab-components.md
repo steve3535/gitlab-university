@@ -170,4 +170,4 @@ This structured approach helps teams:
 - Maintain code quality
 - Deploy reliably
 
-### [<<Previous](1-intro.md) &nbsp;&nbsp; [>>Next](3-your-first-ci.md)
+### [<<Previous](1-intro.md) &nbsp;&nbsp; [>>Next](2b-projects.md)
