@@ -22,7 +22,7 @@ Now that we have our production build working locally, let's automate this proce
      ```yaml
      image: node:18
      tags:
-       - node
+       - docker
      variables:
        NODE_OPTIONS: "--max-old-space-size=4096"  # Increase Node's memory limit
      ```
