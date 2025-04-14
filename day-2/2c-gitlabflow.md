@@ -4,6 +4,9 @@
 This hands-on exercise will guide you through implementing a feature using GitLab flow - a proven workflow methodology for efficient software development. You'll simulate the complete development lifecycle of a new feature, from issue creation to final merge.
 
 ## Scenario
+
+![shoes for dog](./images/shoesfordogs.png)
+
 You are working on the "Shoes for Dogs" web application. Your task is to implement a new feature that allows users to filter dog shoes by dog size. While no actual coding is required, you'll go through all the steps of the GitLab flow process.
 
 ## Prerequisites
