@@ -53,7 +53,7 @@ git config --global user.email "your.email@example.com"
 ### 3. GitLab Access Setup
 
 1. **Access the Training GitLab Instance**
-   - Visit [gitlab-dev.thelinuxlabs.com](https://gitlab-dev.thelinuxlabs.com)
+   - Visit [gitlab.thelinuxlabs.com](https://gitlab.thelinuxlabs.com)
    - Click "Sign in with GitHub"
    - Authorize the GitLab application to access your GitHub account
    - Wait for admin approval of your account (you'll receive an email notification)
