@@ -59,7 +59,7 @@ Now that we have our production build working locally, let's automate this proce
    test_website:
      stage: test
      tags:
-       - node
+       - docker
      script:
        - npm install
        - npm install gatsby-cli
