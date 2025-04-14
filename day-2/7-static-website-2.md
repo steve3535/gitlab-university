@@ -355,4 +355,24 @@ security_scan:
    - If pipelines are slow, check if your GitLab runners have enough resources
    - Consider using smaller Docker images where possible
 
+## Remark:
+In production, you should do something like this for the security scan:
+```
+security_scan:
+  stage: test
+  tags:
+    - docker
+  script:
+    - npm audit --omit=dev --json > vulnerabilities-report.json || echo "Vulnerabilities found"
+    - if [ $(cat vulnerabilities-report.json | grep -c '"severity":"critical"') -gt 0 ]; then echo "CRITICAL VULNERABILITIES FOUND"; exit 1; fi
+  artifacts:
+    paths:
+      - vulnerabilities-report.json
+    expire_in: 1 week
+    when: always
+  needs:
+    - install_dependencies
+  allow_failure: false
+``` 
+
 ## [<<Previous](./5-static-website-1.md) &nbsp;&nbsp; [>>Next](./8-static-website-deploy.md)
