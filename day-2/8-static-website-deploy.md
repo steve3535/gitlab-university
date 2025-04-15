@@ -245,4 +245,4 @@ Notes:
 
 By adding this stage, you create a full end-to-end verification of your deployment process, ensuring your website is not just deployed but also functioning correctly.
 
-## [<<Previous](./7-static-website-ci.md) &nbsp;&nbsp; [>>Next](../day-3/0-gitlab-predefined-variables.md)
+## [<<Previous](./7-static-website-2.md) &nbsp;&nbsp; [>>Next](../day-3/0-gitlab-predefined-variables.md)
