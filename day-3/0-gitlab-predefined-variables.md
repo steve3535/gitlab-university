@@ -188,45 +188,6 @@ build_website:
   needs:
     - install_dependencies
 ```
-
-> **Why this approach works better**: By using environment variables with the `GATSBY_` prefix, we ensure that:
-> 1. The variables are available during build time
-> 2. They're also included in the client-side JavaScript bundle
-> 3. React will hydrate with the correct values, not placeholders
-> 4. The version info will remain visible after page load
-
-## Side-by-Side Comparison
-
-| **Old Approach (Markers)** | **New Approach (Environment Variables)** |
-|----------------------------|------------------------------------------|
-| Add text markers to React | Create dedicated React component |
-| Build site with Gatsby | Set environment variables before build |
-| Replace markers in HTML files | Environment variables included in JS bundle |
-| Version disappears on hydration | Version persists after hydration |
-
-## Step 4: Add Version Verification to Deployment Tests
-
-Now, let's update our deployment test to verify that the correct version is deployed:
-
-```yaml
-deployment_test:
-  stage: deployment_tests
-  tags:
-    - docker
-  image: alpine
-  script:
-    - apk add --no-cache curl
-    - echo "Verifying deployment of version ${CI_COMMIT_SHORT_SHA}"
-    
-    # 👇 IMPORTANT: We're testing the fully rendered page
-    # This verifies what users actually see after JavaScript loads
-    # The grep will fail if our version disappears after hydration
-    - curl --retry 5 --retry-delay 2 https://your-chosen-name.surge.sh | grep -q "${CI_COMMIT_SHORT_SHA}"
-    - echo "✅ Version verification successful!"
-  needs:
-    - deploy_to_surge
-```
-
 ## Troubleshooting Common Issues
 
 1. **Version shows and then disappears**:
@@ -242,36 +203,6 @@ deployment_test:
 3. **Variables not working in development**:
    - Add defaults for local development as shown in the component
    - Consider using `.env.development` for local testing
-
-## Assignment: Enhanced Deployment Information
-
-Extend your Gatsby site with a more interactive deployment information panel:
-
-1. Enhance the `VersionInfo` component to:
-   - Show/hide details when clicked
-   - Include pipeline and job information
-   - Display environment name (production/staging)
-
-2. Update your CI/CD pipeline to provide additional information:
-   ```yaml
-   - export GATSBY_ENVIRONMENT=${CI_ENVIRONMENT_NAME}
-   - export GATSBY_PIPELINE_ID=${CI_PIPELINE_ID}
-   - export GATSBY_PIPELINE_URL=${CI_PIPELINE_URL}
-   ```
-
-3. **Bonus Challenge**: 
-   - Add a small indicator dot that changes color based on environment
-   - Include build performance metrics
-
-## Conclusion
-
-By adding version information to your Gatsby site, you've:
-1. Improved traceability between code and deployments
-2. Made debugging deployment issues much easier
-3. Added transparency to your deployment process
-4. Created a better developer and operations experience
-
-In the next lesson, we'll explore how to optimize your CI/CD pipeline with caching.
 
 ## [<<Previous](../day-2/8-static-website-deploy.md) &nbsp;&nbsp; [>>Next](./1-schedule.md)
 
