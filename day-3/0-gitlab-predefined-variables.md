@@ -37,11 +37,62 @@ For our Gatsby site, we'll primarily use `CI_COMMIT_SHORT_SHA` because it's:
 - Unique for each commit
 - Automatically provided in every pipeline
 
-## Step 2: Add Version Display to Your Gatsby Site
+## Step 2: Better Version Display for Gatsby
 
-First, let's modify our Gatsby site to include a place for the version information:
+Since we're working with Gatsby, we need to use a more React-friendly approach to ensure our version information persists after the page loads. The approach we'll use is:
 
-1. Edit the layout component (`src/components/layout.js`) to add a version display in the footer:
+1. Add environment variables during the build process
+2. Use Gatsby's build system to access these variables
+3. Create a dedicated component for version display
+
+### Step 2.1: Create a Version Component
+
+Create a new file at `src/components/VersionInfo.js`:
+
+```jsx
+import React from "react"
+
+const VersionInfo = () => {
+  // Access build-time variables
+  const version = process.env.GATSBY_VERSION || "development"
+  const buildDate = process.env.GATSBY_BUILD_DATE || new Date().toISOString()
+  const branch = process.env.GATSBY_BRANCH || "local"
+  const commitUrl = process.env.GATSBY_COMMIT_URL || "#"
+  
+  return (
+    <div className="version-info" style={{
+      fontSize: '0.8rem',
+      color: '#777',
+      marginTop: '0.5rem'
+    }}>
+      Version: {version}
+      <br />
+      Built on: {buildDate}
+      <br />
+      Branch: {branch}
+      {commitUrl && (
+        <>
+          <br />
+          <a 
+            href={commitUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: '#6b6b6b' }}
+          >
+            View commit
+          </a>
+        </>
+      )}
+    </div>
+  )
+}
+
+export default VersionInfo
+```
+
+### Step 2.2: Update the Layout Component
+
+Now update your `layout.js` file to use this component:
 
 ```jsx
 import React from "react"
@@ -49,6 +100,7 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
+import VersionInfo from "./VersionInfo"
 import "./layout.css"
 
 const Layout = ({ children }) => {
@@ -81,15 +133,7 @@ const Layout = ({ children }) => {
           © {new Date().getFullYear()}, Built with
           {` `}
           <a href="https://www.gatsbyjs.com">Gatsby</a>
-          <div className="version-info" style={{
-            fontSize: '0.8rem',
-            color: '#999',
-            marginTop: '0.5rem'
-          }}>
-            Version: __VERSION_MARKER__
-            <br />
-            Built on: __DATE_MARKER__
-          </div>
+          <VersionInfo />
         </footer>
       </div>
     </>
@@ -103,23 +147,18 @@ Layout.propTypes = {
 export default Layout
 ```
 
-2. Commit and push this change:
+### Step 2.3: Commit the Changes
+
 ```bash
+git add src/components/VersionInfo.js
 git add src/components/layout.js
-git commit -m "Add version information display to footer"
+git commit -m "Add persistent version info component"
 git push
 ```
 
 ## Step 3: Update the CI Pipeline
 
-Now, let's modify our CI pipeline to inject the version information during the build process.
-
-Here's what happens in sequence:
-1. Gatsby builds our site, converting React components to static HTML
-2. The markers from our React components (`__VERSION_MARKER__`) are preserved in the output HTML
-3. We then use `sed` to replace these markers in all generated HTML files
-
-Edit your `.gitlab-ci.yml` file to update the `build_website` job:
+Now we need to update our CI pipeline to provide these environment variables to Gatsby during the build process:
 
 ```yaml
 build_website:
@@ -130,11 +169,15 @@ build_website:
     NODE_OPTIONS: "--max-old-space-size=4096"
   script:
     - npm install gatsby-cli
+    # Export GitLab CI variables as Gatsby environment variables
+    # Note the GATSBY_ prefix makes them available to client-side code
+    - export GATSBY_VERSION=${CI_COMMIT_SHORT_SHA}
+    - export GATSBY_BUILD_DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+    - export GATSBY_BRANCH=${CI_COMMIT_BRANCH}
+    - export GATSBY_COMMIT_URL=${CI_PROJECT_URL}/-/commit/${CI_COMMIT_SHA}
+    
+    # Run Gatsby build with these environment variables
     - ./node_modules/.bin/gatsby build
-    # Add version information to the *generated* HTML files
-    - echo "Injecting version information: ${CI_COMMIT_SHORT_SHA}"
-    - find public -name "*.html" -exec sed -i "s/__VERSION_MARKER__/${CI_COMMIT_SHORT_SHA}/g" {} \;
-    - find public -name "*.html" -exec sed -i "s/__DATE_MARKER__/$(date)/g" {} \;
   artifacts:
     paths:
       - public/
@@ -142,11 +185,15 @@ build_website:
     - install_dependencies
 ```
 
-> **Why we find and replace in HTML files**: When Gatsby builds our site, it converts our React components to static HTML files in the `public` directory. We add markers to our React components, but need to replace those markers in the *generated* HTML after the build is complete.
+> **Why this approach works better**: By using environment variables with the `GATSBY_` prefix, we ensure that:
+> 1. The variables are available during build time
+> 2. They're also included in the client-side JavaScript bundle
+> 3. React will hydrate with the correct values, not placeholders
+> 4. The version info will remain visible after page load
 
 ## Step 4: Add Version Verification to Deployment Tests
 
-Now, let's enhance our deployment test to verify that the correct version is deployed:
+Now, let's update our deployment test to verify that the correct version is deployed:
 
 ```yaml
 deployment_test:
@@ -157,80 +204,49 @@ deployment_test:
   script:
     - apk add --no-cache curl
     - echo "Verifying deployment of version ${CI_COMMIT_SHORT_SHA}"
+    # Note: We need to check the rendered page, including client-side rendered content
+    # This is more reliable as it checks what users actually see
     - curl --retry 5 --retry-delay 2 https://your-chosen-name.surge.sh | grep -q "${CI_COMMIT_SHORT_SHA}"
     - echo "✅ Version verification successful!"
   needs:
     - deploy_to_surge
 ```
 
-This test job:
-1. Installs `curl` in the Alpine container
-2. Fetches your deployed site
-3. Verifies it contains the expected commit SHA
-4. Fails if the version information is missing or incorrect
-
-## Enhanced Version Display
-
-For a more professional approach, you can include more detailed information:
-
-1. Update your layout.js file:
-```jsx
-<div className="version-info" style={{
-  fontSize: '0.8rem',
-  color: '#999',
-  marginTop: '0.5rem'
-}}>
-  Version: __VERSION_MARKER__
-  <br />
-  Branch: __BRANCH_MARKER__
-  <br />
-  Built: __TIMESTAMP_MARKER__
-  <br />
-  Commit: <a href="__COMMIT_URL_MARKER__">View changes</a>
-</div>
-```
-
-2. Update your build script:
-```yaml
-- find public -name "*.html" -exec sed -i "s/__VERSION_MARKER__/${CI_COMMIT_SHORT_SHA}/g" {} \;
-- find public -name "*.html" -exec sed -i "s/__BRANCH_MARKER__/${CI_COMMIT_BRANCH}/g" {} \;
-- find public -name "*.html" -exec sed -i "s/__TIMESTAMP_MARKER__/${CI_COMMIT_TIMESTAMP}/g" {} \;
-- find public -name "*.html" -exec sed -i "s|__COMMIT_URL_MARKER__|${CI_PROJECT_URL}/-/commit/${CI_COMMIT_SHA}|g" {} \;
-```
-
-Note the use of `|` as separator in the last `sed` command, because the URL contains forward slashes.
-
 ## Troubleshooting Common Issues
 
-1. **Version not showing**:
-   - Check that your markers are unique enough in the HTML
-   - Ensure the `sed` commands run after the Gatsby build
-   - Verify that all HTML files are being processed
+1. **Version shows and then disappears**:
+   - This happens when using HTML replacement techniques with React
+   - Switch to the environment variable approach shown above
+   - Make sure variables have the `GATSBY_` prefix for client-side access
 
-2. **Wrong version showing**:
-   - Make sure artifacts are properly configured
-   - Confirm the deployment is using the latest build artifacts
+2. **Environment variables not available in browser**:
+   - Gatsby only exposes variables prefixed with `GATSBY_` to the browser
+   - Verify your variable names start with `GATSBY_`
+   - Restart the build after adding variables
 
-3. **Special characters in variables**:
-   - Some GitLab variables may contain characters that need escaping
-   - Use `echo` to debug the exact content of variables
-   - Consider base64 encoding for complex values
+3. **Variables not working in development**:
+   - Add defaults for local development as shown in the component
+   - Consider using `.env.development` for local testing
 
 ## Assignment: Enhanced Deployment Information
 
-Extend your Gatsby site with a complete deployment information panel:
+Extend your Gatsby site with a more interactive deployment information panel:
 
-1. Create a new component called `DeploymentInfo.js` that:
-   - Displays version information in a collapsible panel
-   - Shows the CI/CD pipeline URL
-   - Includes a link to the specific commit
+1. Enhance the `VersionInfo` component to:
+   - Show/hide details when clicked
+   - Include pipeline and job information
+   - Display environment name (production/staging)
 
-2. Update your CI/CD pipeline to:
-   - Inject all required variables into the HTML
-   - Add a test that verifies all information is present
-   - Include the pipeline ID and job ID in the deployment info
+2. Update your CI/CD pipeline to provide additional information:
+   ```yaml
+   - export GATSBY_ENVIRONMENT=${CI_ENVIRONMENT_NAME}
+   - export GATSBY_PIPELINE_ID=${CI_PIPELINE_ID}
+   - export GATSBY_PIPELINE_URL=${CI_PIPELINE_URL}
+   ```
 
-3. **Bonus Challenge**: Make the version info toggle between minimal and detailed views on click
+3. **Bonus Challenge**: 
+   - Add a small indicator dot that changes color based on environment
+   - Include build performance metrics
 
 ## Conclusion
 
