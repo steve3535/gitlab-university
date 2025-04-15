@@ -215,37 +215,34 @@ deploy_to_surge:
 - Deploy logs show: "Success published to yourdomain.surge.sh"
 - Site is accessible at your Surge domain
 
-## Assignment: Add Deployment Tests
+## Assignment:
+
+### Task 1: Personalize the website
+Make the website your own by making at least one visible change:
+
+- Add your name to the site title or homepage content
+- Change a color in the site theme
+
+Notes:  
+* the main stylesheet is *src/components/layout.css*  
+* the main homepage is *src/pages/index.js*  
+* the site metadata is *gatsby-config.js*  
+* to test changes locally: `npm run develop`  
+
+### Task 2: Add Deployment Tests
 
 For the next step, enhance your pipeline by adding a fourth stage called "deployment_tests" with a job that verifies the deployed website is working correctly:
 
-```yaml
-stages:
-  - setup
-  - build
-  - test
-  - deploy
-  - deployment_tests
-
-deployment_verification:
-  stage: deployment_tests
-  tags:
-    - docker
-  image: alpine
-  script:
-    - apk add --no-cache curl
-    - curl --retry 5 --retry-delay 2 https://your-chosen-name.surge.sh | grep -q "Gatsby"
-  needs:
-    - deploy_to_surge
-```
-
-This job will:
+The job will:
 1. Run after successful deployment
 2. Use a lightweight Alpine image with curl
 3. Make an HTTP request to your deployed site
 4. Verify the site contains expected content
 5. Fail the pipeline if the deployment isn't working properly
 
+Notes:
+* to install curl in alpine, use: `apk add --no-cache curl`
+
 By adding this stage, you create a full end-to-end verification of your deployment process, ensuring your website is not just deployed but also functioning correctly.
 
-## [<<Previous](./7-static-website-ci.md) &nbsp;&nbsp; [>>Next](./9-static-website-wrap-up.md)
+## [<<Previous](./7-static-website-ci.md) &nbsp;&nbsp; [>>Next](../day-3/0-gitlab-predefined-variables.md)
