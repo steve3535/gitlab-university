@@ -114,6 +114,11 @@ git push
 
 Now, let's modify our CI pipeline to inject the version information during the build process.
 
+Here's what happens in sequence:
+1. Gatsby builds our site, converting React components to static HTML
+2. The markers from our React components (`__VERSION_MARKER__`) are preserved in the output HTML
+3. We then use `sed` to replace these markers in all generated HTML files
+
 Edit your `.gitlab-ci.yml` file to update the `build_website` job:
 
 ```yaml
@@ -126,7 +131,7 @@ build_website:
   script:
     - npm install gatsby-cli
     - ./node_modules/.bin/gatsby build
-    # Add version information
+    # Add version information to the *generated* HTML files
     - echo "Injecting version information: ${CI_COMMIT_SHORT_SHA}"
     - find public -name "*.html" -exec sed -i "s/__VERSION_MARKER__/${CI_COMMIT_SHORT_SHA}/g" {} \;
     - find public -name "*.html" -exec sed -i "s/__DATE_MARKER__/$(date)/g" {} \;
@@ -137,12 +142,7 @@ build_website:
     - install_dependencies
 ```
 
-The key additions are:
-- `echo` statement for debugging
-- `find` and `sed` commands to replace markers in all HTML files
-- We use `find` because Gatsby generates multiple HTML files
-
-> Note: The double quotes around the `sed` pattern are crucial! They allow the shell to expand the `${CI_COMMIT_SHORT_SHA}` variable. Single quotes would treat it as a literal string.
+> **Why we find and replace in HTML files**: When Gatsby builds our site, it converts our React components to static HTML files in the `public` directory. We add markers to our React components, but need to replace those markers in the *generated* HTML after the build is complete.
 
 ## Step 4: Add Version Verification to Deployment Tests
 
