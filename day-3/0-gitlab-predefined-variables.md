@@ -182,9 +182,6 @@ build_website:
     # Run Gatsby build with these environment variables
     - ./node_modules/.bin/gatsby build
     
-    # ❌ REMOVE the old approach with sed:
-    # - find public -name "*.html" -exec sed -i "s/__VERSION_MARKER__/${CI_COMMIT_SHORT_SHA}/g" {} \;
-    # - find public -name "*.html" -exec sed -i "s/__DATE_MARKER__/$(date)/g" {} \;
   artifacts:
     paths:
       - public/
