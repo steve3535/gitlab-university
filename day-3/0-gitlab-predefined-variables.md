@@ -1,297 +1,246 @@
-# Using GitLab CI Predefined Variables and GitLab Pages
+# Using GitLab CI Predefined Variables in Your Gatsby Project
 
 ## Introduction
 
-When deploying websites, tracking which version is currently live can be challenging. This lesson will show you how to use GitLab's predefined variables to add version information to your website and deploy it using GitLab Pages.
-
-## What You'll Learn
-
-- How to use GitLab's predefined CI variables
-- How to inject version information into your website during build
-- How to view your site using job artifacts
-- How to verify the correct version is deployed
-
-## Setup: Creating a Basic Website
-
-Before setting up our CI pipeline, let's create and preview our basic website:
-
-1. **Create a new project in GitLab**
-   - Go to your GitLab instance (gitlab.thelinuxlabs.com)
-   - Click "New project" → "Create blank project"
-   - Name it "version-demo"
-   - Make it public or internal so your classmates can see it
-
-2. **Clone your new repository**
-   ```bash
-   git clone http://gitlab.thelinuxlabs.com/<your-username>/version-demo.git
-   cd version-demo
-   ```
-
-3. **Create a simple HTML file**
-
-   Create a file named `index.html` with the following content:
-
-   ```html
-   <!DOCTYPE html>
-   <html>
-   <head>
-       <title>GitLab CI Version Demo</title>
-       <style>
-           body {
-               font-family: Arial, sans-serif;
-               margin: 40px;
-               line-height: 1.6;
-           }
-           .version-info {
-               position: fixed;
-               bottom: 10px;
-               right: 10px;
-               background-color: #f8f9fa;
-               padding: 5px 10px;
-               border-radius: 4px;
-               font-size: 12px;
-               color: #6c757d;
-           }
-       </style>
-   </head>
-   <body>
-       <h1>Hello GitLab CI!</h1>
-       <p>This page demonstrates how to inject version information into a deployed website.</p>
-       
-       <div class="version-info">
-           Version: __VERSION_MARKER__
-           <br>
-           Built on: __DATE_MARKER__
-       </div>
-   </body>
-   </html>
-   ```
-
-4. **Preview locally**
-   
-   You can view your HTML file locally before pushing:
-   - Open the file in your web browser:
-     ```bash
-     # On Linux
-     xdg-open index.html
-     
-     # On macOS
-     open index.html
-     
-     # On Windows
-     start index.html
-     ```
-   - You should see your basic page with placeholders for the version info
-
-5. **Commit and push to GitLab**
-   ```bash
-   git add index.html
-   git commit -m "Add basic HTML template with version placeholders"
-   git push
-   ```
-
-## Why This Matters
+After successfully building and deploying your Gatsby site to Surge in the previous lesson, you may be wondering: "How can I tell which version of my site is currently deployed?" This is a common challenge with continuous deployments.
 
 Without version information visible on your site, you can't easily tell:
-- Which commit is currently deployed
+- Which commit generated the current deployment
 - When the last deployment occurred
-- If your latest changes are actually live
+- If your latest changes are actually deployed
 
-Deploying with GitLab Pages provides a free and integrated way to host your site.
+## Solution Overview
 
-## Creating the CI Pipeline
+We'll enhance our Gatsby project by:
+1. Using GitLab's predefined CI variables to get commit information
+2. Injecting this information into the HTML during the build process
+3. Displaying it on our site in a subtle but accessible way
+4. Verifying the deployed version in our test stage
 
-Now that we have our basic website with version placeholders, let's create a CI pipeline that will:
-1. Replace the placeholders with actual version information
-2. Make the processed site available as a job artifact
+## Step 1: Understand Available Predefined Variables
 
-Create a file named `.gitlab-ci.yml` in the root of your repository:
+GitLab provides many predefined variables we can use:   
+[predefined variables documentation](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)    
 
-```yaml
-image: alpine:latest
+For version tracking, these are particularly useful:
 
-build_website:
-  stage: build
-  script:
-    # Display the variables for debugging
-    - echo "Building website with version ${CI_COMMIT_SHORT_SHA}"
-    - echo "Commit date: ${CI_COMMIT_TIMESTAMP}"
-    
-    # Create directory for our built site
-    - mkdir -p public
-    
-    # Copy our index.html to the public directory
-    - cp index.html public/
-    
-    # Replace the markers with actual values using sed
-    - sed -i "s/__VERSION_MARKER__/${CI_COMMIT_SHORT_SHA}/" public/index.html
-    - sed -i "s/__DATE_MARKER__/$(date)/" public/index.html
-    
-    # Show the result for debugging
-    - echo "Content of public/index.html with version info:"
-    - cat public/index.html | grep -A 2 Version
-    - echo "Website build complete!"
-  
-  # Define the artifacts to make available
-  artifacts:
-    paths:
-      - public/
-    expire_in: 1 week
+| Variable | Description | Example Value |
+|----------|-------------|---------------|
+| `CI_COMMIT_SHORT_SHA` | First 8 characters of commit SHA | `1a2b3c4d` |
+| `CI_COMMIT_BRANCH` | The branch name | `main` |
+| `CI_COMMIT_TIMESTAMP` | Commit timestamp | `2023-03-15T12:34:56+00:00` |
+| `CI_COMMIT_AUTHOR` | Commit author | `Jane Doe` |
+| `CI_COMMIT_MESSAGE` | The commit message | `Update homepage content` |
 
-verify_build:
-  stage: test
-  needs: [build_website]
-  script:
-    - echo "Verifying build for version ${CI_COMMIT_SHORT_SHA}..."
-    # Check that the built HTML contains our commit SHA
-    - grep -q "${CI_COMMIT_SHORT_SHA}" public/index.html
-    - echo "✅ Version verification successful!"
+For our Gatsby site, we'll primarily use `CI_COMMIT_SHORT_SHA` because it's:
+- Concise enough to display
+- Unique for each commit
+- Automatically provided in every pipeline
+
+## Step 2: Add Version Display to Your Gatsby Site
+
+First, let's modify our Gatsby site to include a place for the version information:
+
+1. Edit the layout component (`src/components/layout.js`) to add a version display in the footer:
+
+```jsx
+import React from "react"
+import PropTypes from "prop-types"
+import { useStaticQuery, graphql } from "gatsby"
+
+import Header from "./header"
+import "./layout.css"
+
+const Layout = ({ children }) => {
+  const data = useStaticQuery(graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+
+  return (
+    <>
+      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <div
+        style={{
+          margin: `0 auto`,
+          maxWidth: 960,
+          padding: `0 1.0875rem 1.45rem`,
+        }}
+      >
+        <main>{children}</main>
+        <footer
+          style={{
+            marginTop: `2rem`,
+          }}
+        >
+          © {new Date().getFullYear()}, Built with
+          {` `}
+          <a href="https://www.gatsbyjs.com">Gatsby</a>
+          <div className="version-info" style={{
+            fontSize: '0.8rem',
+            color: '#999',
+            marginTop: '0.5rem'
+          }}>
+            Version: __VERSION_MARKER__
+            <br />
+            Built on: __DATE_MARKER__
+          </div>
+        </footer>
+      </div>
+    </>
+  )
+}
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
+export default Layout
 ```
 
-Commit and push this file:
-
+2. Commit and push this change:
 ```bash
-git add .gitlab-ci.yml
-git commit -m "Add CI pipeline with version injection"
+git add src/components/layout.js
+git commit -m "Add version information display to footer"
 git push
 ```
 
-## How It Works
+## Step 3: Update the CI Pipeline
 
-1. **Build Stage**:
-   - Copies the index.html to a public directory
-   - Uses `sed` to replace the markers with actual values
-   - Stores the built site as a job artifact
+Now, let's modify our CI pipeline to inject the version information during the build process.
 
-2. **Test Stage**:
-   - Verifies that the build contains the correct version information
-   - This ensures our version injection worked correctly
-
-## Viewing Your Site with Version Information
-
-After the pipeline completes successfully, you can view your site with the injected version information:
-
-1. Go to your project in GitLab
-2. Navigate to **Build > Jobs**
-3. Find the most recent successful job
-4. Click the "Browse" button in the right sidebar under "Job Artifacts"
-5. Navigate to the `public` directory
-6. Click on `index.html` to view your site
-
-You should now see your website with the actual commit SHA and build date replacing the placeholder markers!
-
-## The Value of Job Artifacts
-
-Job artifacts are powerful because:
-1. They preserve the built output from your CI pipeline
-2. They're accessible directly through the GitLab UI
-3. They can be downloaded as a zip file
-4. They provide a way to inspect and verify builds
-5. They're available even for private projects
-
-## Enhancing the Version Display
-
-You can include more information in your version display:
-
-```html
-<div class="version-info">
-    Version: __VERSION_MARKER__
-    <br>
-    Branch: __BRANCH_MARKER__
-    <br>
-    Built: __TIMESTAMP_MARKER__
-    <br>
-    Author: __AUTHOR_MARKER__
-</div>
-```
-
-Then update your `.gitlab-ci.yml` to replace all markers:
+Edit your `.gitlab-ci.yml` file to update the `build_website` job:
 
 ```yaml
-# Replace all markers with their respective values
-- sed -i "s/__VERSION_MARKER__/${CI_COMMIT_SHORT_SHA}/" public/index.html
-- sed -i "s/__BRANCH_MARKER__/${CI_COMMIT_BRANCH}/" public/index.html
-- sed -i "s/__TIMESTAMP_MARKER__/${CI_COMMIT_TIMESTAMP}/" public/index.html
-- sed -i "s/__AUTHOR_MARKER__/${CI_COMMIT_AUTHOR}/" public/index.html
-```
-
-## Optional: GitLab Pages Integration
-
-If your GitLab instance has Pages enabled, you can deploy your site by renaming the job to `pages`:
-
-```yaml
-pages:
-  stage: deploy
+build_website:
+  stage: build
+  tags:
+    - docker
+  variables:
+    NODE_OPTIONS: "--max-old-space-size=4096"
   script:
-    # Same script content as build_website
-    ...
+    - npm install gatsby-cli
+    - ./node_modules/.bin/gatsby build
+    # Add version information
+    - echo "Injecting version information: ${CI_COMMIT_SHORT_SHA}"
+    - find public -name "*.html" -exec sed -i "s/__VERSION_MARKER__/${CI_COMMIT_SHORT_SHA}/g" {} \;
+    - find public -name "*.html" -exec sed -i "s/__DATE_MARKER__/$(date)/g" {} \;
   artifacts:
     paths:
       - public/
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  needs:
+    - install_dependencies
 ```
 
-With this configuration, your site would be available at a URL determined by your GitLab administrator (typically something like `http://<username>.pages.thelinuxlabs.com/version-demo/`).
+The key additions are:
+- `echo` statement for debugging
+- `find` and `sed` commands to replace markers in all HTML files
+- We use `find` because Gatsby generates multiple HTML files
+
+> Note: The double quotes around the `sed` pattern are crucial! They allow the shell to expand the `${CI_COMMIT_SHORT_SHA}` variable. Single quotes would treat it as a literal string.
+
+## Step 4: Add Version Verification to Deployment Tests
+
+Now, let's enhance our deployment test to verify that the correct version is deployed:
+
+```yaml
+deployment_test:
+  stage: deployment_tests
+  tags:
+    - docker
+  image: alpine
+  script:
+    - apk add --no-cache curl
+    - echo "Verifying deployment of version ${CI_COMMIT_SHORT_SHA}"
+    - curl --retry 5 --retry-delay 2 https://your-chosen-name.surge.sh | grep -q "${CI_COMMIT_SHORT_SHA}"
+    - echo "✅ Version verification successful!"
+  needs:
+    - deploy_to_surge
+```
+
+This test job:
+1. Installs `curl` in the Alpine container
+2. Fetches your deployed site
+3. Verifies it contains the expected commit SHA
+4. Fails if the version information is missing or incorrect
+
+## Enhanced Version Display
+
+For a more professional approach, you can include more detailed information:
+
+1. Update your layout.js file:
+```jsx
+<div className="version-info" style={{
+  fontSize: '0.8rem',
+  color: '#999',
+  marginTop: '0.5rem'
+}}>
+  Version: __VERSION_MARKER__
+  <br />
+  Branch: __BRANCH_MARKER__
+  <br />
+  Built: __TIMESTAMP_MARKER__
+  <br />
+  Commit: <a href="__COMMIT_URL_MARKER__">View changes</a>
+</div>
+```
+
+2. Update your build script:
+```yaml
+- find public -name "*.html" -exec sed -i "s/__VERSION_MARKER__/${CI_COMMIT_SHORT_SHA}/g" {} \;
+- find public -name "*.html" -exec sed -i "s/__BRANCH_MARKER__/${CI_COMMIT_BRANCH}/g" {} \;
+- find public -name "*.html" -exec sed -i "s/__TIMESTAMP_MARKER__/${CI_COMMIT_TIMESTAMP}/g" {} \;
+- find public -name "*.html" -exec sed -i "s|__COMMIT_URL_MARKER__|${CI_PROJECT_URL}/-/commit/${CI_COMMIT_SHA}|g" {} \;
+```
+
+Note the use of `|` as separator in the last `sed` command, because the URL contains forward slashes.
 
 ## Troubleshooting Common Issues
 
 1. **Version not showing**:
-   - Ensure your marker is unique in the HTML
-   - Check that the `sed` command runs after the HTML is available
-   - Verify proper quoting in the `sed` command
+   - Check that your markers are unique enough in the HTML
+   - Ensure the `sed` commands run after the Gatsby build
+   - Verify that all HTML files are being processed
 
 2. **Wrong version showing**:
    - Make sure artifacts are properly configured
-   - Confirm you're viewing the latest job artifacts
+   - Confirm the deployment is using the latest build artifacts
 
 3. **Special characters in variables**:
    - Some GitLab variables may contain characters that need escaping
    - Use `echo` to debug the exact content of variables
+   - Consider base64 encoding for complex values
 
-## Integration with Other Projects
+## Assignment: Enhanced Deployment Information
 
-These techniques can be applied to any web project:
+Extend your Gatsby site with a complete deployment information panel:
 
-1. For static site generators:
-   ```yaml
-   build_website:
-     script:
-       - npm install     # or any other build system
-       - npm run build
-       - sed -i "s/__VERSION_MARKER__/${CI_COMMIT_SHORT_SHA}/" public/index.html
-   ```
+1. Create a new component called `DeploymentInfo.js` that:
+   - Displays version information in a collapsible panel
+   - Shows the CI/CD pipeline URL
+   - Includes a link to the specific commit
 
-2. For dynamic sites, consider:
-   - Creating a version.txt file during build
-   - Adding the version info to a footer or about page
-   - Including it in API responses
+2. Update your CI/CD pipeline to:
+   - Inject all required variables into the HTML
+   - Add a test that verifies all information is present
+   - Include the pipeline ID and job ID in the deployment info
 
-## Assignment: Enhanced Version Display
-
-1. Create a simple HTML page with placeholders for:
-   - Commit SHA (short version)
-   - Branch name
-   - Build timestamp
-   - Commit message
-
-2. Write a `.gitlab-ci.yml` file that:
-   - Builds the HTML file
-   - Replaces all placeholders with GitLab variables
-   - Makes the site available as a job artifact
-   - Verifies the version information is correctly displayed
-
-3. **Extra Challenge**: Add a clickable link to the commit page from your version info by using `${CI_PROJECT_URL}/-/commit/${CI_COMMIT_SHA}`
+3. **Bonus Challenge**: Make the version info toggle between minimal and detailed views on click
 
 ## Conclusion
 
-Using GitLab's predefined variables is a powerful way to add dynamic information to your builds:
+By adding version information to your Gatsby site, you've:
+1. Improved traceability between code and deployments
+2. Made debugging deployment issues much easier
+3. Added transparency to your deployment process
+4. Created a better developer and operations experience
 
-- It helps identify which version is deployed
-- Makes debugging issues easier
-- Provides transparency about when and by whom changes were made
-- Establishes traceability between your code and builds
-
-This technique is simple yet effective and can be applied to any type of web project.
+In the next lesson, we'll explore how to optimize your CI/CD pipeline with caching.
 
 ## [<<Previous](../day-2/8-static-website-deploy.md) &nbsp;&nbsp; [>>Next](./1-schedule.md)
+
