@@ -53,7 +53,8 @@ Create a new file at `src/components/VersionInfo.js`:
 import React from "react"
 
 const VersionInfo = () => {
-  // Access build-time variables
+  // 👇 KEY POINT: We use environment variables instead of text markers
+  // These will be set by our CI pipeline and included in the JavaScript bundle
   const version = process.env.GATSBY_VERSION || "development"
   const buildDate = process.env.GATSBY_BUILD_DATE || new Date().toISOString()
   const branch = process.env.GATSBY_BRANCH || "local"
@@ -65,6 +66,7 @@ const VersionInfo = () => {
       color: '#777',
       marginTop: '0.5rem'
     }}>
+      {/* The values come directly from React, not injected later */}
       Version: {version}
       <br />
       Built on: {buildDate}
@@ -100,8 +102,8 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
-import VersionInfo from "./VersionInfo"
 import "./layout.css"
+import VersionInfo from "./VersionInfo"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -127,10 +129,11 @@ const Layout = ({ children }) => {
         <main>{children}</main>
         <footer
           style={{
-            marginTop: `2rem`,
+            marginTop: `var(--space-5)`,
+            fontSize: `var(--font-sm)`,
           }}
         >
-          © {new Date().getFullYear()}, Built with
+          © {new Date().getFullYear()} &middot; Built with
           {` `}
           <a href="https://www.gatsbyjs.com">Gatsby</a>
           <VersionInfo />
@@ -169,8 +172,9 @@ build_website:
     NODE_OPTIONS: "--max-old-space-size=4096"
   script:
     - npm install gatsby-cli
-    # Export GitLab CI variables as Gatsby environment variables
-    # Note the GATSBY_ prefix makes them available to client-side code
+    
+    # 👇 IMPORTANT CHANGE: Set environment variables for Gatsby
+    # The GATSBY_ prefix is required for client-side access
     - export GATSBY_VERSION=${CI_COMMIT_SHORT_SHA}
     - export GATSBY_BUILD_DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
     - export GATSBY_BRANCH=${CI_COMMIT_BRANCH}
@@ -178,6 +182,10 @@ build_website:
     
     # Run Gatsby build with these environment variables
     - ./node_modules/.bin/gatsby build
+    
+    # ❌ REMOVE the old approach with sed:
+    # - find public -name "*.html" -exec sed -i "s/__VERSION_MARKER__/${CI_COMMIT_SHORT_SHA}/g" {} \;
+    # - find public -name "*.html" -exec sed -i "s/__DATE_MARKER__/$(date)/g" {} \;
   artifacts:
     paths:
       - public/
@@ -190,6 +198,15 @@ build_website:
 > 2. They're also included in the client-side JavaScript bundle
 > 3. React will hydrate with the correct values, not placeholders
 > 4. The version info will remain visible after page load
+
+## Side-by-Side Comparison
+
+| **Old Approach (Markers)** | **New Approach (Environment Variables)** |
+|----------------------------|------------------------------------------|
+| Add text markers to React | Create dedicated React component |
+| Build site with Gatsby | Set environment variables before build |
+| Replace markers in HTML files | Environment variables included in JS bundle |
+| Version disappears on hydration | Version persists after hydration |
 
 ## Step 4: Add Version Verification to Deployment Tests
 
@@ -204,8 +221,10 @@ deployment_test:
   script:
     - apk add --no-cache curl
     - echo "Verifying deployment of version ${CI_COMMIT_SHORT_SHA}"
-    # Note: We need to check the rendered page, including client-side rendered content
-    # This is more reliable as it checks what users actually see
+    
+    # 👇 IMPORTANT: We're testing the fully rendered page
+    # This verifies what users actually see after JavaScript loads
+    # The grep will fail if our version disappears after hydration
     - curl --retry 5 --retry-delay 2 https://your-chosen-name.surge.sh | grep -q "${CI_COMMIT_SHORT_SHA}"
     - echo "✅ Version verification successful!"
   needs:
