@@ -175,8 +175,6 @@ test_staging:
     - curl -s https://$STAGING_DOMAIN | grep -q "Gatsby"
   needs:
     - deploy_staging
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
   when: on_success
 
 test_production:
@@ -185,8 +183,6 @@ test_production:
     - curl -s https://$PRODUCTION_DOMAIN | grep -q "Gatsby"
   needs:
     - deploy_production
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
   when: on_success
 ```
 
