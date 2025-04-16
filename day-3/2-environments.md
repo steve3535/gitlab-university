@@ -8,7 +8,7 @@ In our previous lessons, we built a Gatsby website, set up a basic CI/CD pipelin
 - How to configure staging and production environments
 - How to implement deployment rules based on branches
 - How to view and manage environments in GitLab
-- Advanced environment features like protection and manual deployments
+- Which environment features are available in different GitLab tiers (CE vs. Premium/Ultimate)
 
 ## Introduction to GitLab Environments
 
@@ -18,7 +18,6 @@ In GitLab, an environment represents a deployment target for your application, s
 - Keep your deployment process consistent
 - Enable easy rollbacks to previous versions
 - Manage different configurations across environments
-- Protect sensitive environments (like production)
 
 Currently, our Gatsby site deploys directly to a single Surge domain. Let's enhance our deployment strategy by creating dedicated staging and production environments.
 
@@ -178,6 +177,7 @@ test_staging:
     - deploy_staging
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
+  when: on_success
 
 test_production:
   stage: deploy_production
@@ -274,6 +274,8 @@ deploy_staging:
     - test_website
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
+  tags:
+    - docker
 
 test_staging:
   stage: deploy_staging
@@ -298,6 +300,8 @@ deploy_production:
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
   when: manual
+  tags:
+    - docker
 
 test_production:
   stage: deploy_production
@@ -344,9 +348,11 @@ To see your environments:
 
 ## Advanced Environment Features
 
-### 1. Environment Protection
+### 1. Environment Protection **(PREMIUM FEATURE)**
 
-You can protect sensitive environments (like production) to restrict who can deploy to them:
+> **Note**: This feature is only available in GitLab Premium and Ultimate tiers, not in Community Edition.
+
+In GitLab Premium, you can protect sensitive environments to restrict who can deploy to them:
 
 1. Go to **Settings > CI/CD > Protected environments**
 2. Click **Add protected environment**
@@ -355,7 +361,7 @@ You can protect sensitive environments (like production) to restrict who can dep
 
 This ensures only authorized team members can trigger production deployments.
 
-### 2. Environment-Specific Variables
+### 2. Environment-Specific Variables 
 
 You can set variables that only apply to specific environments:
 
@@ -375,7 +381,7 @@ As we've implemented with `when: manual`, you can require manual approval before
 3. They manually approve the production deployment
 4. The code is promoted to production
 
-### 4. Rollbacks
+### 4. Rollbacks **(SOME FEATURES PREMIUM)**
 
 GitLab makes it easy to roll back to previous deployments:
 
@@ -383,6 +389,8 @@ GitLab makes it easy to roll back to previous deployments:
 2. Click on an environment (e.g., "production")
 3. Find a previous deployment in the history
 4. Click the "Re-deploy" button (circular arrow)
+
+> **Note**: Advanced rollback features like automatic rollbacks on failure require GitLab Premium.
 
 ## Practical Exercise: Implementing Review Apps
 
@@ -424,6 +432,27 @@ This configuration:
 2. Uses the branch name in the environment name and URL
 3. Adds a job to stop/delete the environment when needed
 4. Only runs for non-main branches
+
+## GitLab Community Edition (CE) vs. Premium Features
+
+For educational purposes, here's a summary of environment features available in different GitLab tiers:
+
+| Feature | Community Edition (CE) | Premium/Ultimate |
+|---------|------------------------|-----------------|
+| Basic environment tracking | ✅ | ✅ |
+| Deployment history | ✅ | ✅ |
+| Manual deployments | ✅ | ✅ |
+| Environment variables | ✅ | ✅ |
+| Review apps | ✅ | ✅ |
+| Protected environments | ❌ | ✅ |
+| Advanced environment dashboards | ❌ | ✅ |
+| Environment type/tier | ❌ | ✅ |
+| Auto rollback | ❌ | ✅ |
+
+While protected environments require Premium or Ultimate, you can still implement a similar workflow in CE by using:
+- Branch protection rules to limit who can merge to main
+- Manual approval steps with `when: manual`
+- Strict code review processes
 
 ## Benefits of Multiple Environments
 
