@@ -1,429 +1,301 @@
-# Securing Your Code with GitLab SAST
+# Securing Your Code with GitLab CI/CD Security Scanners
 
-In our previous lessons, we built a Gatsby website, set up a CI/CD pipeline, implemented caching, and configured multiple environments. Now, let's focus on an equally important aspect of modern DevOps practices: **security**.
+In our previous lessons, we built a Gatsby website, set up a CI/CD pipeline, implemented caching, and configured multiple environments. Now, let's add an essential layer to our DevOps workflow: security scanning.
 
 ## What You'll Learn
 
-- What Static Application Security Testing (SAST) is and why it matters
-- How to integrate SAST scanners into your GitLab CI pipeline
-- How to interpret security reports and address vulnerabilities
-- How to customize security scanning for your JavaScript/React application
-- Best practices for implementing "security as code"
+- How to implement four different security scanners in your GitLab CI pipeline
+- How to configure each scanner for optimal results
+- How to review and interpret security findings
+- How to fix common security issues in a JavaScript/React application
 
-## Introduction to SAST
+## Introduction to GitLab Security Scanners
 
-Static Application Security Testing analyzes your source code without executing it to find security vulnerabilities early in the development lifecycle. This "shifting left" approach helps you:
+For our Gatsby project, we'll add four security scanners to our pipeline:
 
-- Identify security issues before they reach production
-- Reduce the cost of fixing vulnerabilities (earlier = cheaper)
-- Improve overall code quality and security awareness
-- Meet compliance requirements more easily
+1. **Static Application Security Testing (SAST)**: Analyzes source code for security vulnerabilities
+2. **Secret Detection**: Identifies credentials and other secrets committed to your repository
+3. **Dependency Scanning**: Checks for known vulnerabilities in your project dependencies
+4. **Container Scanning**: Scans container images for OS-level vulnerabilities (if you're using Docker)
 
-For our Gatsby project, SAST can detect issues like:
-- Insecure coding patterns
-- Known vulnerable dependencies
-- Cross-site scripting (XSS) opportunities
-- Hardcoded secrets or credentials
-- Injection vulnerabilities
+Let's implement them one by one.
 
-## GitLab's Security Scanning Tools
+## Adding SAST to the Pipeline
 
-GitLab provides several built-in security scanners that we can easily integrate:
+Adding a GitLab security scanner to your pipeline is straightforward. To enable SAST for our Gatsby project, we need to include a GitLab-provided template in our `.gitlab-ci.yml` file.
 
-| Scanner Type | What It Checks | Good For |
-|--------------|----------------|----------|
-| SAST | Source code for vulnerabilities | Finding coding errors that lead to security issues |
-| Dependency Scanning | Project dependencies | Finding known vulnerabilities in npm packages |
-| Secret Detection | Entire codebase | Finding API keys, credentials, tokens |
-| Container Scanning | Docker images | Finding OS-level vulnerabilities in containers |
-
-For our Gatsby project, we'll focus primarily on SAST and Dependency Scanning.
-
-## Step 1: Enable GitLab SAST in Your Pipeline
-
-The simplest way to add SAST to your pipeline is to include GitLab's pre-configured templates. Let's modify our `.gitlab-ci.yml` file:
+1. Open your `.gitlab-ci.yml` file
+2. Add this line to the top of the file in the `include:` section (create this section if it doesn't exist):
 
 ```yaml
-# At the top of your .gitlab-ci.yml file, add:
 include:
   - template: Security/SAST.gitlab-ci.yml
-  - template: Security/Dependency-Scanning.gitlab-ci.yml
+```
+
+This enables SAST, but we should configure it to ignore unnecessary files. Add the following variables section (or add to your existing variables):
+
+```yaml
+variables:
+  SAST_EXCLUDED_PATHS: "node_modules, public, .cache"
+```
+
+These two changes allow SAST to analyze our Gatsby code while ignoring directories that don't need scanning.
+
+## Adding Secret Detection to the Pipeline
+
+Next, let's add Secret Detection to identify any accidentally committed credentials.
+
+1. Add another template to your `include:` section:
+
+```yaml
+include:
+  - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
 ```
 
-This includes GitLab's pre-configured security scanning jobs in your pipeline.
-
-## Step 2: Customize the Security Jobs for Our Gatsby Project
-
-Now, let's customize these jobs to better fit our JavaScript/React project:
+2. Let's configure Secret Detection to ignore unnecessary files:
 
 ```yaml
-# Add this to your existing .gitlab-ci.yml file
-
-# Configure SAST for JavaScript/Node.js
-sast:
-  stage: test
-  variables:
-    SEARCH_MAX_DEPTH: 20
-    SAST_EXCLUDED_PATHS: "node_modules, public, .cache"
-    SAST_ANALYZER_IMAGE_TAG: 3
-  rules:
-    - if: $CI_COMMIT_BRANCH
-
-# Configure Dependency Scanning
-dependency_scanning:
-  stage: test
-  variables:
-    DS_EXCLUDED_PATHS: "public, .cache"
-  rules:
-    - if: $CI_COMMIT_BRANCH
-
-# Configure Secret Detection
 secret_detection:
-  stage: test
   variables:
-    SECRET_DETECTION_HISTORIC_SCAN: "true"
-  rules:
-    - if: $CI_COMMIT_BRANCH
+    SECRET_DETECTION_EXCLUDED_PATHS: "public, .cache"
 ```
 
-These configurations:
-1. Set appropriate stages for our security jobs
-2. Exclude unnecessary directories from scanning
-3. Enable more thorough scanning options
-4. Run on all branches
+This tells Secret Detection to skip over build artifacts and cached files.
 
-## Step 3: Add Security Report Artifacts
+## Adding Dependency Scanning to the Pipeline
 
-GitLab automatically generates security reports, but let's explicitly configure them:
+Now, let's add Dependency Scanning to check our npm packages for vulnerabilities.
+
+1. Add the Dependency Scanning template to your `include:` section:
 
 ```yaml
-# For the sast job, add:
-sast:
-  # ... existing configuration ...
-  artifacts:
-    reports:
-      sast: gl-sast-report.json
-    paths:
-      - gl-sast-report.json
-    expire_in: 1 week
-
-# For the dependency_scanning job, add:
-dependency_scanning:
-  # ... existing configuration ...
-  artifacts:
-    reports:
-      dependency_scanning: gl-dependency-scanning-report.json
-    paths:
-      - gl-dependency-scanning-report.json
-    expire_in: 1 week
-```
-
-This ensures:
-1. Reports are properly categorized in GitLab's UI
-2. Raw report files are available for download
-3. Reports are kept for 1 week for review
-
-## Step 4: Add Manual Security Job for Production Only
-
-Let's add a dedicated, more thorough security scan before production deployments:
-
-```yaml
-production_security_scan:
-  stage: deploy_production
-  needs:
-    - deploy_staging
-    - test_staging
-  script:
-    - npm install -g @cyclonedx/bom
-    - cyclonedx-bom -o bom.xml
-    - npm audit --json > npm-audit.json || true
-  artifacts:
-    paths:
-      - bom.xml
-      - npm-audit.json
-    expire_in: 1 month
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-      when: manual
-  allow_failure: true
-```
-
-This job:
-1. Creates a Software Bill of Materials (SBOM)
-2. Runs a detailed npm audit
-3. Only runs before production deployments
-4. Is optional (manual trigger)
-
-## Step 5: Update Complete Pipeline
-
-Our complete pipeline with security scanning now looks like this:
-
-```yaml
-image: node:18
-
-# Include GitLab security scanning templates
 include:
   - template: Security/SAST.gitlab-ci.yml
-  - template: Security/Dependency-Scanning.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+```
+
+2. For a Gatsby project, you typically don't need additional configuration for dependency scanning, as it will automatically check your `package.json` and `package-lock.json`.
+
+## Complete Security Configuration
+
+Here's how your complete `.gitlab-ci.yml` file should look with all security scanners enabled and configured:
+
+```yaml
+# Include security scanning templates
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
+image: node:18
 
 stages:
   - setup
   - build
   - test
+  - security
   - deploy_staging
   - deploy_production
 
 variables:
+  # Existing variables (from previous lessons)
   STAGING_DOMAIN: "${CI_PROJECT_NAME}-staging.surge.sh"
   PRODUCTION_DOMAIN: "${CI_PROJECT_NAME}.surge.sh"
+  
+  # Security scanner configurations
+  SAST_EXCLUDED_PATHS: "node_modules, public, .cache"
+  SEARCH_MAX_DEPTH: 20
+  SECRET_DETECTION_EXCLUDED_PATHS: "public, .cache"
 
-# Cache configuration
-cache:
-  key:
-    files:
-      - package-lock.json
-    prefix: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - node_modules/
-    - .cache/
-
-# Configure SAST for JavaScript/Node.js
+# Configure SAST stage
 sast:
-  stage: test
-  variables:
-    SEARCH_MAX_DEPTH: 20
-    SAST_EXCLUDED_PATHS: "node_modules, public, .cache"
-    SAST_ANALYZER_IMAGE_TAG: 3
-  artifacts:
-    reports:
-      sast: gl-sast-report.json
-    paths:
-      - gl-sast-report.json
-    expire_in: 1 week
-  rules:
-    - if: $CI_COMMIT_BRANCH
+  stage: security
+  tags:
+    - docker
 
-# Configure Dependency Scanning
-dependency_scanning:
-  stage: test
-  variables:
-    DS_EXCLUDED_PATHS: "public, .cache"
-  artifacts:
-    reports:
-      dependency_scanning: gl-dependency-scanning-report.json
-    paths:
-      - gl-dependency-scanning-report.json
-    expire_in: 1 week
-  rules:
-    - if: $CI_COMMIT_BRANCH
-
-# Configure Secret Detection
+# Configure Secret Detection stage
 secret_detection:
-  stage: test
-  variables:
-    SECRET_DETECTION_HISTORIC_SCAN: "true"
-  artifacts:
-    reports:
-      secret_detection: gl-secret-detection-report.json
-    paths:
-      - gl-secret-detection-report.json
-    expire_in: 1 week
-  rules:
-    - if: $CI_COMMIT_BRANCH
+  stage: security
+  tags:
+    - docker
 
-# Existing jobs (omitted for brevity)
-# ...
+# Configure Dependency Scanning stage
+dependency_scanning:
+  stage: security
+  tags:
+    - docker
 
-# Production security scan
-production_security_scan:
-  stage: deploy_production
-  needs:
-    - deploy_staging
-    - test_staging
-  script:
-    - npm install -g @cyclonedx/bom
-    - cyclonedx-bom -o bom.xml
-    - npm audit --json > npm-audit.json || true
-  artifacts:
-    paths:
-      - bom.xml
-      - npm-audit.json
-    expire_in: 1 month
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-      when: manual
-  allow_failure: true
-
-# Rest of the existing pipeline
-# ...
+# Rest of your pipeline configuration...
+# (install_dependencies, build_website, etc.)
 ```
 
-## Understanding Security Reports
+## Viewing Security Results
 
-After running your pipeline with security scanning enabled:
+After pushing these changes, run your pipeline and follow these steps to view the security results:
 
-1. **Navigate to Security > Vulnerability Report** in your GitLab project
-2. You'll see all detected vulnerabilities categorized by severity
-3. For each vulnerability, you can:
-   - View detailed information about the issue
-   - See the affected code/dependencies
-   - Create issues to track remediation
-   - Dismiss or accept the risk
-   - Create merge requests to fix the issue
+1. Go to your project in GitLab
+2. Navigate to the pipeline that was triggered
+3. Click on the **Security** tab
+4. You'll see a list of all detected vulnerabilities, grouped by scanner
 
-![Security Dashboard Screenshot](https://docs.gitlab.com/ee/user/application_security/secure_vision/img/vulnerability_report_v16_10.png)
+If your project has security vulnerabilities, they'll appear here. For example:
 
-## Common SAST Issues in JavaScript/React Applications
+- SAST might find hardcoded credentials in your source code
+- Secret Detection might find API keys committed to your repository
+- Dependency Scanning might find vulnerable npm packages
 
-When running SAST on your Gatsby project, watch for these common issues:
+## Fixing Common Security Issues
 
-1. **Cross-Site Scripting (XSS)**: Using `dangerouslySetInnerHTML` without proper sanitization
-   ```jsx
-   // Vulnerable
-   <div dangerouslySetInnerHTML={{ __html: userInput }} />
-   
-   // Fixed
-   import DOMPurify from 'dompurify';
-   <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userInput) }} />
-   ```
+Let's look at how to fix some common security issues in a Gatsby project:
 
-2. **Hardcoded Secrets**: API keys or credentials in source code
-   ```jsx
-   // Vulnerable
-   const API_KEY = "1234567890abcdef";
-   
-   // Fixed - use environment variables
-   const API_KEY = process.env.GATSBY_API_KEY;
-   ```
+### 1. Fix Vulnerable Dependencies
 
-3. **Insecure Dependencies**: Using libraries with known vulnerabilities
-   ```bash
-   # Fix with
-   npm audit fix
-   # Or for major updates
-   npm audit fix --force
-   ```
+If Dependency Scanning finds vulnerable npm packages:
 
-4. **Path Traversal**: Insecure file path handling
-   ```jsx
-   // Vulnerable
-   import(`../${userInput}/config.js`);
-   
-   // Fixed - whitelist approach
-   const allowedModules = ['profile', 'settings', 'dashboard'];
-   if (allowedModules.includes(userInput)) {
-     import(`../${userInput}/config.js`);
-   }
-   ```
+```bash
+# Update a specific package to a non-vulnerable version
+npm update <package-name>
 
-## Advanced: Custom Security Scanning
+# Or run npm audit fix to automatically update vulnerable dependencies
+npm audit fix
+```
 
-For more specialized security scanning, you can create custom jobs:
+### 2. Remove Hardcoded Secrets
+
+If SAST or Secret Detection finds hardcoded credentials:
+
+```jsx
+// BAD: Hardcoded API key
+const apiKey = "1234567890abcdef";
+
+// GOOD: Use environment variables
+const apiKey = process.env.GATSBY_API_KEY;
+```
+
+For Gatsby, remember to:
+- Prefix environment variables with `GATSBY_` to make them available in the browser
+- Add these variables in your GitLab CI/CD settings (Settings > CI/CD > Variables)
+
+### 3. Fix Cross-Site Scripting (XSS) Vulnerabilities
+
+If SAST finds XSS vulnerabilities:
+
+```jsx
+// BAD: Directly inserting user input into HTML
+<div dangerouslySetInnerHTML={{ __html: userInput }} />
+
+// GOOD: Sanitize user input first
+import DOMPurify from 'dompurify';
+<div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(userInput) }} />
+```
+
+## Practical Exercise: Add a Vulnerable Dependency and Fix It
+
+Let's practice by intentionally adding a vulnerable dependency and then fixing it:
+
+1. Add a known vulnerable package to your project:
+
+```bash
+# Add an old version of lodash with known vulnerabilities
+npm install lodash@4.17.15 --save
+```
+
+2. Commit and push this change to trigger your pipeline:
+
+```bash
+git add package.json package-lock.json
+git commit -m "Add lodash for testing dependency scanning"
+git push
+```
+
+3. Check the Security tab in your pipeline - you should see vulnerabilities in lodash detected
+
+4. Fix the issue by updating to a non-vulnerable version:
+
+```bash
+npm update lodash
+# Or for a specific version
+npm install lodash@latest --save
+```
+
+5. Commit and push again:
+
+```bash
+git add package.json package-lock.json
+git commit -m "Update lodash to fix vulnerabilities"
+git push
+```
+
+6. Verify in the next pipeline that the vulnerabilities are resolved
+
+## Customizing Security Scanners
+
+If you need more control over how the security scanners work, you can override specific settings:
+
+### Custom SAST Configuration
 
 ```yaml
-eslint_security_scan:
-  stage: test
-  script:
-    - npm install
-    - npm install -g eslint eslint-plugin-security
-    - echo '{"plugins": ["security"], "extends": ["plugin:security/recommended"]}' > .eslintrc
-    - eslint --no-eslintrc -c .eslintrc --format=json src/ > eslint-security-report.json || true
-  artifacts:
-    paths:
-      - eslint-security-report.json
-    expire_in: 1 week
-  needs:
-    - install_dependencies
-  rules:
-    - if: $CI_COMMIT_BRANCH
+sast:
+  variables:
+    SAST_EXCLUDED_PATHS: "node_modules, public, .cache"
+    SAST_ANALYZER_IMAGE_TAG: 3
+    SAST_BRAKEMAN_LEVEL: 2
 ```
 
-This job:
-1. Installs the eslint-plugin-security package
-2. Creates a security-focused ESLint configuration
-3. Scans your source code for security issues
-4. Saves the report as an artifact
+### Custom Secret Detection Configuration
 
-## Managing Security Policies
+```yaml
+secret_detection:
+  variables:
+    SECRET_DETECTION_HISTORIC_SCAN: "true"  # Check all Git history
+    SECRET_DETECTION_EXCLUDED_PATHS: "public, .cache"
+```
 
-GitLab allows you to define security policies to automatically apply rules:
+### Custom Dependency Scanning Configuration
 
-1. Create a `.gitlab/security-policies/policy.yml` file:
-   ```yaml
-   ---
-   security-scanner-level:
-     scanner: sast
-     vulnerabilities:
-       critical:
-         action: require_approval
-       high:
-         action: require_approval
-       medium:
-         action: report
-       low:
-         action: report
-   ```
+```yaml
+dependency_scanning:
+  variables:
+    DS_EXCLUDED_PATHS: "public, .cache"
+    DS_DEFAULT_ANALYZERS: "bundler-audit, retire.js"
+```
 
-2. This policy:
-   - Requires manual approval for critical and high issues
-   - Reports but allows medium and low severity issues
+## Security Best Practices for Gatsby Projects
 
-## Practical Exercise: Fix a Security Vulnerability
+1. **Keep dependencies updated**: Run `npm update` regularly
+2. **Use environment variables**: Never hardcode secrets or credentials
+3. **Sanitize user inputs**: Use libraries like DOMPurify for user-generated content
+4. **Implement Content Security Policy**: Add CSP headers to prevent XSS attacks
+5. **Review scanner results**: Check the Security tab after each pipeline run
 
-1. Run your pipeline with security scanning enabled
-2. Navigate to the Security > Vulnerability Report
-3. Identify an issue, preferably related to a dependency
-4. Create a merge request to fix the issue:
-   ```bash
-   # Update dependencies to fix vulnerabilities
-   npm update <vulnerable-package>
-   # Or specifically install non-vulnerable version
-   npm install <package>@<safe-version>
-   ```
-5. Verify the fix by running the pipeline again
+## GitLab Community Edition vs. Premium/Ultimate
 
-## Benefits of Security Scanning
+While basic security scanning is available in GitLab Community Edition, advanced features require Premium or Ultimate:
 
-Implementing security scanning in your CI/CD pipeline provides:
+| Feature | Community Edition | Premium/Ultimate |
+|---------|------------------|------------------|
+| Basic SAST scanning | ✅ | ✅ |
+| Secret Detection | ✅ | ✅ |
+| Dependency Scanning | ✅ | ✅ |
+| Container Scanning | ✅ | ✅ |
+| License Compliance | ❌ | ✅ |
+| Security Dashboard | ❌ | ✅ |
+| Security Approvals | ❌ | ✅ |
+| Vulnerability Management | ❌ | ✅ |
 
-1. **Early Detection**: Find and fix issues before they reach production
-2. **Documentation**: Maintain a record of security issues and their remediation
-3. **Automation**: Enforce security policies without manual review
-4. **Education**: Help developers learn about security best practices
-5. **Compliance**: Meet regulatory and organizational security requirements
-
-## Best Practices for SAST Implementation
-
-1. **Fail Builds Selectively**: 
-   - Don't fail builds for low-severity issues
-   - Consider manual review for medium and above
-
-2. **Tune for Low Noise**:
-   - Exclude third-party code
-   - Configure appropriate rules for your project
-   - Use allowlists for known false positives
-
-3. **Progressive Implementation**:
-   - Start with reports only (no failing)
-   - Gradually increase strictness
-   - Enforce on main branch once stable
-
-4. **Regular Maintenance**:
-   - Update scanners and rules
-   - Review and refine policy
-   - Track security metrics over time
+The scanners we've implemented in this lesson work in all GitLab editions, but the reporting and management features vary.
 
 ## Conclusion
 
-By integrating SAST into your GitLab CI/CD pipeline, you've added a crucial security layer to your development process. This helps you:
+By adding security scanning to your GitLab CI/CD pipeline, you've taken a crucial step toward building more secure applications. Security scanning helps you:
 
-- Identify and fix security issues early
+- Identify vulnerabilities early in the development cycle
+- Prevent security issues from reaching production
+- Maintain an audit trail of security findings
 - Build security awareness among developers
-- Create more robust applications
-- Protect your users and your business
 
-In a modern DevOps environment, security is not an afterthought but an integral part of the development process—often called "DevSecOps." The steps you've taken in this lesson move your project firmly in that direction.
+In your DevOps journey, remember that security isn't a one-time task but an ongoing process. Regular scanning, code reviews, and dependency updates are essential to maintaining a secure application.
 
 ## [<<Previous](./2-environments.md) &nbsp;&nbsp; [>>Next](../day-4/1-kubernetes-integration.md) 
