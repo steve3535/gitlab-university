@@ -69,6 +69,8 @@ Now, let's create a staging environment by updating our deploy job:
 ```yaml
 deploy_staging:
   stage: deploy_staging
+  tags:
+    - docker
   script:
     - npm install --global surge
     - surge --project ./public --domain ${CI_PROJECT_NAME}-staging.surge.sh
@@ -87,6 +89,7 @@ Key changes:
 4. We added the `environment` configuration with:
    - `name`: Identifies the environment in GitLab
    - `url`: Provides a clickable link in the GitLab UI
+5. We added `tags: docker` to ensure the job runs on Docker-capable runners
 
 ## Step 3: Adding a Production Environment
 
@@ -95,6 +98,8 @@ Next, let's add a production deployment job:
 ```yaml
 deploy_production:
   stage: deploy_production
+  tags:
+    - docker
   script:
     - npm install --global surge
     - surge --project ./public --domain ${CI_PROJECT_NAME}.surge.sh
@@ -112,6 +117,7 @@ Key features:
 3. Production deployment requires the staging deployment to complete first
 4. `when: manual` means this job requires manual intervention to run
 5. The `environment` section defines the production environment
+6. We added `tags: docker` to ensure the job runs on Docker-capable runners
 
 ## Step 4: Using Variables to Avoid Duplication
 
@@ -171,26 +177,35 @@ Let's add a verification step for each environment:
 ```yaml
 test_staging:
   stage: deploy_staging
+  tags:
+    - docker
   script:
     - curl -s https://$STAGING_DOMAIN | grep -q "Gatsby"
   needs:
     - deploy_staging
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
   when: on_success
 
 test_production:
   stage: deploy_production
+  tags:
+    - docker
   script:
     - curl -s https://$PRODUCTION_DOMAIN | grep -q "Gatsby"
   needs:
     - deploy_production
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
   when: on_success
 ```
 
 These jobs:
 1. Verify that the deployment was successful
 2. Ensure our website contains expected content
-3. Run automatically after their respective deployments
+3. Run automatically after their respective deployments (with `when: on_success`)
 4. Only run when the deployment jobs run
+5. Use Docker-capable runners with `tags: docker`
 
 ## Step 7: Complete Pipeline Configuration
 
@@ -222,6 +237,8 @@ cache:
 
 install_dependencies:
   stage: setup
+  tags:
+    - docker
   script:
     - npm ci
   artifacts:
@@ -231,6 +248,8 @@ install_dependencies:
 
 build_website:
   stage: build
+  tags:
+    - docker
   variables:
     NODE_OPTIONS: "--max-old-space-size=4096"
   script:
@@ -250,6 +269,8 @@ build_website:
 
 test_website:
   stage: test
+  tags:
+    - docker
   script:
     - ./node_modules/.bin/gatsby serve &
     - sleep 10
@@ -259,6 +280,8 @@ test_website:
 
 deploy_staging:
   stage: deploy_staging
+  tags:
+    - docker
   script:
     - npm install --global surge
     - surge --project ./public --domain $STAGING_DOMAIN
@@ -270,19 +293,23 @@ deploy_staging:
     - test_website
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
-  tags:
-    - docker
 
 test_staging:
   stage: deploy_staging
+  tags:
+    - docker
   script:
     - curl -s https://$STAGING_DOMAIN | grep -q "Gatsby"
   needs:
     - deploy_staging
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
   when: on_success
 
 deploy_production:
   stage: deploy_production
+  tags:
+    - docker
   script:
     - npm install --global surge
     - surge --project ./public --domain $PRODUCTION_DOMAIN
@@ -295,15 +322,17 @@ deploy_production:
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
   when: manual
-  tags:
-    - docker
 
 test_production:
   stage: deploy_production
+  tags:
+    - docker
   script:
     - curl -s https://$PRODUCTION_DOMAIN | grep -q "Gatsby"
   needs:
     - deploy_production
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
   when: on_success
 ```
 
@@ -388,12 +417,39 @@ GitLab makes it easy to roll back to previous deployments:
 
 ## Practical Exercise: Implementing Review Apps
 
-Let's extend our pipeline to create temporary environments for feature branches, known as "review apps":
+Review apps are dynamically created environments for feature branches, allowing you to preview changes before merging.
+
+### Step 1: Create a Feature Branch
+
+First, create a feature branch to test our review apps setup:
+
+```bash
+# Make sure you're up-to-date with main
+git checkout main
+git pull
+
+# Create a new feature branch
+git checkout -b feature/homepage-redesign
+
+# Make some changes to the homepage
+# For example, edit src/pages/index.js or change the color scheme in src/components/layout.css
+
+# Commit and push your changes
+git add .
+git commit -m "Redesign homepage header [ci skip]"
+git push -u origin feature/homepage-redesign
+```
+
+### Step 2: Add Review Apps Configuration
+
+Now, add the following configuration to your `.gitlab-ci.yml` file:
 
 ```yaml
 # Add this to your existing pipeline
 deploy_review:
   stage: deploy_staging
+  tags:
+    - docker
   script:
     - npm install --global surge
     - surge --project ./public --domain ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}.surge.sh
@@ -409,6 +465,8 @@ deploy_review:
 
 stop_review:
   stage: deploy_staging
+  tags:
+    - docker
   script:
     - npm install --global surge
     - surge teardown ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}.surge.sh
@@ -420,6 +478,15 @@ stop_review:
     - if: $CI_COMMIT_BRANCH != "main" && $CI_PIPELINE_SOURCE == "push"
       when: manual
 ```
+
+### Step 3: Test the Review App
+
+1. After pushing your feature branch, GitLab will automatically trigger a pipeline
+2. The `deploy_review` job will create a unique environment for your branch
+3. Once the pipeline completes, go to **Operate > Environments** 
+4. You should see a review environment with the name of your branch
+5. Click on the URL to visit your feature branch's deployed version
+6. Make additional changes to your branch and push them to see updates
 
 This configuration:
 1. Creates a unique environment for each branch
