@@ -227,7 +227,8 @@ Notes:
 * the main stylesheet is *src/components/layout.css*  
 * the main homepage is *src/pages/index.js*  
 * the site metadata is *gatsby-config.js*  
-* to test changes locally: `npm run develop`  
+* to test changes locally: `npm run develop`
+* Upon successful local changes, make sure it is automated through your CI/CD pipeline
 
 ### Task 2: Add Deployment Tests
 
