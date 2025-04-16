@@ -85,7 +85,12 @@ This simple change tells GitLab to:
 3. Use the branch name as the cache key, so each branch has its own cache
 
 ## Step 2: Updating Our Pipeline with Caching
-
+### Important:
+* we dont have any central cache such as a database or a S3 bucket. The cache is not *distributed*: the cache scope is the runner, i.e. each runner manages a its own cache.
+  Henceforth, when tagging our pipeline jobs, we should ensure to use consistently the same runner.  
+* while using cache, we can avoid using artifacts for external dependencies.  
+* wile using cache, jobs within the same stage have a mutual exclusive access to the cache.  
+  
 Let's integrate caching into our full Gatsby pipeline:
 
 ```yaml
@@ -108,11 +113,11 @@ install_dependencies:
   stage: setup
   script:
     - npm install
-  artifacts:
-    paths:
-      - node_modules/.bin/
-      - node_modules/gatsby/
-    expire_in: 1 hour
+  # artifacts:
+  #  paths:
+      # - node_modules/.bin/
+      # - node_modules/gatsby/
+    # expire_in: 1 hour
 
 build_website:
   stage: build
