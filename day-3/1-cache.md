@@ -107,7 +107,7 @@ cache:
 install_dependencies:
   stage: setup
   script:
-    - npm ci  # More reliable than npm install for CI environments
+    - npm install
   artifacts:
     paths:
       - node_modules/.bin/
