@@ -204,5 +204,5 @@ build_website:
    - Add defaults for local development as shown in the component
    - Consider using `.env.development` for local testing
 
-## [<<Previous](../day-2/8-static-website-deploy.md) &nbsp;&nbsp; [>>Next](./2-cache.md)
+## [<<Previous](../day-2/8-static-website-deploy.md) &nbsp;&nbsp; [>>Next](./1-cache.md)
 
