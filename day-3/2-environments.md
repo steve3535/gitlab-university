@@ -447,4 +447,4 @@ By implementing multiple environments in our Gatsby project, we've created a rob
 
 This approach significantly improves our workflow by ensuring changes are thoroughly tested before reaching production and giving us tools to monitor and manage our deployments.
 
-## [<<Previous](./1-cache.md) &nbsp;&nbsp; [>>Next](./3-environments&vars.md)
+## [<<Previous](./1-cache.md) &nbsp;&nbsp; [>>Next](./3-sast.md)
