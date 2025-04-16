@@ -111,6 +111,8 @@ cache:
 
 install_dependencies:
   stage: setup
+  tags:
+    - docker1
   script:
     - npm install
   # artifacts:
@@ -121,6 +123,8 @@ install_dependencies:
 
 build_website:
   stage: build
+  tags:
+    - docker1
   variables:
     NODE_OPTIONS: "--max-old-space-size=4096"
   script:
@@ -135,17 +139,52 @@ build_website:
   needs:
     - install_dependencies
 
-test_website:
+test_artifact:
   stage: test
+  image: alpine
+  tags:
+    - docker1
   script:
-    - ./node_modules/.bin/gatsby serve &
-    - sleep 10
-    - curl --retry 5 --retry-delay 2 http://localhost:9000 | grep -q "Gatsby"
+    - grep -q "Gatsby" ./public/index.html
   needs:
     - build_website
 
+test_website:
+  stage: test
+  tags:
+    - docker1
+  script:
+    - ls -l ./node_modules 
+    #- npm install
+    #- npm install gatsby-cli
+    - ./node_modules/.bin/gatsby serve &
+    - sleep 5
+    - curl --retry 5 --retry-delay 2 http://localhost:9000 | grep -q "Gatsby"
+  needs:
+    - install_dependencies
+    - build_website
+    - test_artifact
+
+security_scan:
+  stage: test
+  tags:
+    - docker1
+  script:
+    - npm audit --omit=dev --json > vulnerabilities-report.json || true
+  artifacts:
+    paths:
+      - vulnerabilities-report.json
+    expire_in: 1 week
+  needs:
+    - install_dependencies
+    - build_website
+    - test_website
+  allow_failure: true
+
 deploy_to_surge:
   stage: deploy
+  tags:
+    - docker1
   script:
     - npm install --global surge
     - surge --project ./public --domain your-chosen-name.surge.sh
