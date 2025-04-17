@@ -25,10 +25,8 @@ GitLab Container Registry is a secure, private registry for Docker images that c
 The Container Registry is located in the left sidebar navigation under "Packages and registries":
 
 1. Navigate to your project
-2. In the left sidebar, expand "Packages and registries"
+2. In the left sidebar, expand "Packages and registries" through Deploy menu
 3. Click on "Container Registry"
-
-If you haven't pushed any images yet, you'll see a page with instructions on how to use the registry, similar to Figure 8.4 in the chapter materials.
 
 ## Authentication and Access Control
 
