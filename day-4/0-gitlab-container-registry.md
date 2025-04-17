@@ -55,36 +55,6 @@ Password: your_personal_access_token
 
 You should see `Login Succeeded` if authentication is successful.
 
-### 3. Troubleshooting Login Issues
-
-If you encounter login problems, check these common issues:
-
-- **Firewall blocking access**: Ensure your firewall allows outgoing connections to the registry port (typically 5050 for self-hosted GitLab)
-  ```bash
-  # Test TCP connection to the registry
-  nc -zv gitlab.thelinuxlabs.com 5050
-  ```
-
-- **Certificate issues**: For self-hosted GitLab with custom certificates:
-  ```bash
-  # Add certificate to Docker's trusted certificates
-  sudo mkdir -p /etc/docker/certs.d/gitlab.thelinuxlabs.com:5050
-  sudo cp /path/to/certificate.crt /etc/docker/certs.d/gitlab.thelinuxlabs.com:5050/ca.crt
-  sudo systemctl restart docker
-  ```
-
-- **Network connectivity**: Check if you can reach the GitLab server
-  ```bash
-  ping gitlab.thelinuxlabs.com
-  ```
-
-- **DNS resolution**: Verify DNS resolution for the GitLab domain
-  ```bash
-  nslookup gitlab.thelinuxlabs.com
-  ```
-
-If you see a `Client.Timeout exceeded while awaiting headers` error, it's typically a networking issue rather than an authentication problem.
-
 ### 4. Deploy Tokens
 
 Deploy tokens are project or group-specific tokens that aren't tied to a user:
