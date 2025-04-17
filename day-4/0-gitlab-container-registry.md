@@ -32,16 +32,60 @@ The Container Registry is located in the left sidebar navigation under "Packages
 
 To use the GitLab Container Registry, you need to authenticate with it. There are several methods:
 
-### 1. Personal Access Token
+### 1. Setting Up Personal Access Tokens
 
-You can create a personal access token with `read_registry` or `write_registry` scopes:
+For secure authentication, especially when Two-Factor Authentication (2FA) is enabled, follow these steps:
+
+1. Go to your user settings in GitLab (click your avatar > Edit profile > Access Tokens)
+2. Create a new personal access token with a meaningful name (e.g., "Container Registry Access")
+3. Select the `read_registry` and `write_registry` scopes
+4. Set an expiration date if desired
+5. Click "Create personal access token"
+6. Copy and save the token immediately (it will only be shown once)
+
+### 2. Logging in to the Container Registry
+
+Once you have your personal access token, you can log in to the registry:
 
 ```bash
-docker login registry.gitlab.com
-# Enter your GitLab username and personal access token when prompted
+docker login gitlab.thelinuxlabs.com:5050
+Username: your_gitlab_username
+Password: your_personal_access_token
 ```
 
-### 2. Deploy Token
+You should see `Login Succeeded` if authentication is successful.
+
+### 3. Troubleshooting Login Issues
+
+If you encounter login problems, check these common issues:
+
+- **Firewall blocking access**: Ensure your firewall allows outgoing connections to the registry port (typically 5050 for self-hosted GitLab)
+  ```bash
+  # Test TCP connection to the registry
+  nc -zv gitlab.thelinuxlabs.com 5050
+  ```
+
+- **Certificate issues**: For self-hosted GitLab with custom certificates:
+  ```bash
+  # Add certificate to Docker's trusted certificates
+  sudo mkdir -p /etc/docker/certs.d/gitlab.thelinuxlabs.com:5050
+  sudo cp /path/to/certificate.crt /etc/docker/certs.d/gitlab.thelinuxlabs.com:5050/ca.crt
+  sudo systemctl restart docker
+  ```
+
+- **Network connectivity**: Check if you can reach the GitLab server
+  ```bash
+  ping gitlab.thelinuxlabs.com
+  ```
+
+- **DNS resolution**: Verify DNS resolution for the GitLab domain
+  ```bash
+  nslookup gitlab.thelinuxlabs.com
+  ```
+
+If you see a `Client.Timeout exceeded while awaiting headers` error, it's typically a networking issue rather than an authentication problem.
+
+### 4. Deploy Tokens
 
 Deploy tokens are project or group-specific tokens that aren't tied to a user:
 
@@ -53,7 +97,7 @@ Deploy tokens are project or group-specific tokens that aren't tied to a user:
 docker login registry.gitlab.com -u deploy-token-username -p deploy-token-password
 ```
 
-### 3. CI/CD Job Token
+### 5. CI/CD Job Token
 
 In GitLab CI/CD pipelines, you can use predefined variables to authenticate:
 
@@ -70,10 +114,10 @@ To build and push an image manually:
 
 ```bash
 # Build the image
-docker build -t registry.gitlab.com/your-group/your-project/image-name:tag .
+docker build -t gitlab.thelinuxlabs.com:5050/your-group/your-project/image-name:tag .
 
 # Push to GitLab Registry
-docker push registry.gitlab.com/your-group/your-project/image-name:tag
+docker push gitlab.thelinuxlabs.com:5050/your-group/your-project/image-name:tag
 ```
 
 ### Using GitLab CI/CD
@@ -150,7 +194,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: registry.gitlab.com/your-group/your-project/image-name:tag
+        image: gitlab.thelinuxlabs.com:5050/your-group/your-project/image-name:tag
 ```
 
 ### 2. Image Pull Authentication
@@ -159,7 +203,7 @@ Kubernetes needs authentication to pull images from private registries:
 
 ```bash
 kubectl create secret docker-registry gitlab-registry \
-  --docker-server=registry.gitlab.com \
+  --docker-server=gitlab.thelinuxlabs.com:5050 \
   --docker-username=<username> \
   --docker-password=<access-token> \
   --docker-email=<email>
