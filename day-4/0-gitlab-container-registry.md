@@ -162,7 +162,7 @@ Effective tagging is crucial for container image management:
 ### 1. Branch-based Tags
 
 ```yaml
-docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
+docker build -t $CI_REGISTRY_IMAGE/myapp:$CI_COMMIT_REF_SLUG .
 ```
 
 This creates tags like `main`, `feature-branch`, etc.
@@ -170,7 +170,7 @@ This creates tags like `main`, `feature-branch`, etc.
 ### 2. Commit SHA Tags
 
 ```yaml
-docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+docker build -t $CI_REGISTRY_IMAGE/myapp:$CI_COMMIT_SHORT_SHA .
 ```
 
 This creates unique, immutable tags based on commit hashes.
@@ -180,16 +180,7 @@ This creates unique, immutable tags based on commit hashes.
 For releases, use semantic versioning:
 
 ```yaml
-docker build -t $CI_REGISTRY_IMAGE:v1.2.3 .
-```
-
-### 4. Environment Tags
-
-Tag images based on their target environment:
-
-```yaml
-docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG $CI_REGISTRY_IMAGE:staging
-docker push $CI_REGISTRY_IMAGE:staging
+docker build -t $CI_REGISTRY_IMAGE/myapp:v1.2.3 .
 ```
 
 ## Using Container Registry Images in Kubernetes
@@ -328,7 +319,7 @@ RUN npm run build
 
 # Runtime stage
 FROM nginx:alpine
-COPY --from=builder /app/public /usr/share/nginx/html
+COPY public/ /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
