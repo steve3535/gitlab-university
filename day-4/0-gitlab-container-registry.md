@@ -309,15 +309,6 @@ Now, let's set up the Container Registry for our Gatsby project and prepare it f
 Create a `Dockerfile` in your Gatsby project root:
 
 ```Dockerfile
-# Build stage
-FROM node:18 AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-# Runtime stage
 FROM nginx:alpine
 COPY public/ /usr/share/nginx/html
 EXPOSE 80
@@ -326,29 +317,20 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ### Step 2: Configure GitLab CI/CD to Build and Push the Image
 
-Update your `.gitlab-ci.yml` to include a job for building and pushing the image:
+Update your `.gitlab-ci.yml` to include a job for containerize and pushing the image:
 
 ```yaml
+...
+...
 stages:
-  - build
+  - ...
   - containerize
-
-variables:
-  DOCKER_TLS_CERTDIR: "/certs"
-
-build_website:
-  stage: build
-  image: node:18
-  script:
-    - npm ci
-    - npm run build
-  artifacts:
-    paths:
-      - public/
+...
+...
 
 build_and_push_image:
   stage: containerize
-  image: docker:latest
+  image: docker:stable
   services:
     - docker:dind
   needs:
@@ -359,9 +341,7 @@ build_and_push_image:
     - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG $CI_REGISTRY_IMAGE:latest
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
     - docker push $CI_REGISTRY_IMAGE:latest
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-```
+  ```
 
 ### Step 3: Commit and Push Your Changes
 
