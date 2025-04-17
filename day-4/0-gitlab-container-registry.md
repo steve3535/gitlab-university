@@ -282,18 +282,14 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 GitLab can automatically scan your container images for vulnerabilities:
 
 ```yaml
+include:
+  - template: Security/Container-Scanning.gitlab-ci.yml
+
+# Optionally customize the template job
 container_scanning:
-  stage: test
-  image: 
-    name: registry.gitlab.com/gitlab-org/security-products/container-scanning:latest
   variables:
-    CS_DEFAULT_BRANCH_IMAGE: $CI_REGISTRY_IMAGE:latest
-    DOCKER_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-    DOCKER_USER: $CI_REGISTRY_USER
-    DOCKER_PASSWORD: $CI_REGISTRY_PASSWORD
-  artifacts:
-    reports:
-      container_scanning: gl-container-scanning-report.json
+    CS_DEFAULT_BRANCH_IMAGE: $CI_REGISTRY_IMAGE/gatsby-app:latest
+    DOCKER_IMAGE: $CI_REGISTRY_IMAGE/gatsby-app:$CI_COMMIT_REF_SLUG
 ```
 
 ### 4. Never Use `latest` Tag in Production
