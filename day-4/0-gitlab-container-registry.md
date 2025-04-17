@@ -25,8 +25,10 @@ GitLab Container Registry is a secure, private registry for Docker images that c
 The Container Registry is located in the left sidebar navigation under "Packages and registries":
 
 1. Navigate to your project
-2. In the left sidebar, expand "Packages and registries" through Deploy menu
+2. In the left sidebar, expand "Packages and registries" 
 3. Click on "Container Registry"
+
+If you haven't pushed any images yet, you'll see a page with instructions on how to use the registry, similar to Figure 8.4 in the chapter materials.
 
 ## Authentication and Access Control
 
@@ -64,7 +66,7 @@ Deploy tokens are project or group-specific tokens that aren't tied to a user:
 3. Use it to authenticate to the registry:
 
 ```bash
-docker login registry.gitlab.com -u deploy-token-username -p deploy-token-password
+docker login gitlab.thelinuxlabs.com:5050 -u deploy-token-username -p deploy-token-password
 ```
 
 ### 5. CI/CD Job Token
@@ -75,6 +77,8 @@ In GitLab CI/CD pipelines, you can use predefined variables to authenticate:
 script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 ```
+
+These variables are automatically populated by GitLab - you don't need to set them yourself. They provide the necessary credentials for your pipeline jobs to interact with your project's container registry.
 
 ## Building and Pushing Docker Images to the Registry
 
@@ -89,6 +93,46 @@ docker build -t gitlab.thelinuxlabs.com:5050/your-group/your-project/image-name:
 # Push to GitLab Registry
 docker push gitlab.thelinuxlabs.com:5050/your-group/your-project/image-name:tag
 ```
+
+### Practical Example: Pushing an Existing Image
+
+You can also tag and push existing images to your GitLab registry. Here's a real-world example:
+
+```bash
+# List available images
+$ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+busybox      latest    ff7a7936e930   6 months ago   4.28MB
+
+# Tag an existing image for your registry (note the project path format)
+$ docker image tag busybox gitlab.thelinuxlabs.com:5050/dianatape/my-static-website/busybox
+
+# Verify the new tag
+$ docker images
+REPOSITORY                                                  TAG      IMAGE ID       CREATED        SIZE
+busybox                                                     latest   ff7a7936e930   6 months ago   4.28MB
+gitlab.thelinuxlabs.com:5050/dianatape/my-static-website/busybox   latest   ff7a7936e930   6 months ago   4.28MB
+
+# Push the image to GitLab
+$ docker push gitlab.thelinuxlabs.com:5050/dianatape/my-static-website/busybox
+Using default tag: latest
+The push refers to repository [gitlab.thelinuxlabs.com:5050/dianatape/my-static-website/busybox]
+068f50152bbc: Pushed 
+latest: digest: sha256:f2e98ad37e4970f48e85946972ac4acb5574c39f27c624efbd9b17a3a402bfe4 size: 527
+```
+
+#### Common Issues When Pushing
+
+If you see errors like:
+```
+denied: requested access to the resource is denied
+```
+
+Check these common causes:
+1. **Incorrect project path**: Ensure the project path in your image tag exactly matches your GitLab project path
+   - Example: If you used `my-static-website-diana` but your project is `my-static-website`, the push will fail
+2. **Authentication issues**: Make sure you're logged in with credentials that have write access to the repository
+3. **Project visibility**: For private projects, ensure your token has the proper permissions
 
 ### Using GitLab CI/CD
 
