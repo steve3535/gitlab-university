@@ -78,6 +78,22 @@ include:
 
 2. For a Gatsby project, you typically don't need additional configuration for dependency scanning, as it will automatically check your `package.json` and `package-lock.json`.
 
+## Adding Container Scanning to the Pipeline
+
+Finally, let's add Container Scanning to scan your Docker images for vulnerabilities.
+
+1. Add the Container Scanning template to your `include:` section:
+
+```yaml
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
+```
+
+2. For container scanning to work, you need to have a Docker image to scan, typically specified in your `.gitlab-ci.yml` file.
+
 ## Complete Security Configuration
 
 Here's how your complete `.gitlab-ci.yml` file should look with all security scanners enabled and configured:
@@ -88,6 +104,7 @@ include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
   - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/Container-Scanning.gitlab-ci.yml
 
 image: node:18
 
@@ -95,7 +112,6 @@ stages:
   - setup
   - build
   - test
-  - security
   - deploy_staging
   - deploy_production
 
@@ -106,26 +122,8 @@ variables:
   
   # Security scanner configurations
   SAST_EXCLUDED_PATHS: "node_modules, public, .cache"
-  SEARCH_MAX_DEPTH: 20
   SECRET_DETECTION_EXCLUDED_PATHS: "public, .cache"
 
-# Configure SAST stage
-sast:
-  stage: security
-  tags:
-    - docker
-
-# Configure Secret Detection stage
-secret_detection:
-  stage: security
-  tags:
-    - docker
-
-# Configure Dependency Scanning stage
-dependency_scanning:
-  stage: security
-  tags:
-    - docker
 
 # Rest of your pipeline configuration...
 # (install_dependencies, build_website, etc.)
