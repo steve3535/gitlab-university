@@ -207,7 +207,7 @@ spec:
 Kubernetes needs authentication to pull images from private registries:
 
 ```bash
-kubectl create secret docker-registry gitlab-registry \
+kubectl create secret gitlab-registry \
   --docker-server=gitlab.thelinuxlabs.com:5050 \
   --docker-username=<username> \
   --docker-password=<access-token> \
