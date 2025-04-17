@@ -162,4 +162,4 @@ By adding security scanning to your GitLab CI/CD pipeline, you've taken a crucia
 
 In your DevOps journey, remember that security isn't a one-time task but an ongoing process. Regular scanning, code reviews, and dependency updates are essential to maintaining a secure application.
 
-## [<<Previous](./2-environments.md) &nbsp;&nbsp; [>>Next](../day-4/1-kubernetes-integration.md) 
+## [<<Previous](./2-environments.md) &nbsp;&nbsp; [>>Next](../day-4/0-gitlab-container-registry.md) 
