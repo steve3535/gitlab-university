@@ -469,11 +469,9 @@ EOF
 ```
 Then, substitute the placeholder with your username:  
 ```
-# Replace <username> with your GitLab username
-sed -i "s/<username>/$(echo YOUR_GITLAB_USERNAME_HERE)/g" index.html
+# Replace <username> with your username
+sed -i "s/<username>/<your_username>/g" index.html
 ```
-
-Make sure to replace `YOUR_GITLAB_USERNAME_HERE` with your actual GitLab username.
 
 #### Step 2: Create a ConfigMap from the HTML File
 
@@ -496,8 +494,6 @@ kubectl describe configmap nginx-index-html -n my-app-<username>
 ```
 
 #### Step 3: Update Your Deployment to Use the ConfigMap
-
-Create a new file named `nginx-deployment-custom.yaml` with the following content:
 
 ```yaml
 apiVersion: apps/v1
@@ -539,7 +535,7 @@ spec:
 Apply the updated deployment:
 
 ```bash
-kubectl apply -f nginx-deployment-custom.yaml -n my-app-<username>
+kubectl apply -f nginx-deployment.yaml -n my-app-<username>
 ```
 
 #### Step 4: Verify the Deployment
