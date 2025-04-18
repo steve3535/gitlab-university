@@ -148,6 +148,8 @@ sudo apt-get update
 sudo apt-get install -y kubectl
 ```
 
+For other operating systems, follow the instructions at: https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
 Verify installation:
 ```bash
 kubectl version --client
@@ -155,16 +157,27 @@ kubectl version --client
 
 ### 2. Configure Cluster Access
 
-Your instructor will provide you with a kubeconfig file named `student-config.yaml`. This file contains restricted access credentials for the training cluster.
+Access to the Kubernetes cluster is managed through a dedicated GitLab project called `kubeadmin`.
 
-1. Create your kubectl config directory:
+1. Navigate to the `kubeadmin` project in GitLab
+2. Go to **Settings > CI/CD > Variables**
+3. Find the variable named `KUBE_CONFIG`
+4. Copy the content of this variable (it's your kubeconfig file)
+
+5. Create your kubectl config directory:
 ```bash
 mkdir -p ~/.kube
 ```
 
-2. Copy the provided config file to **~/.kube/config**
+6. Paste the kubeconfig content into your config file:
+```bash
+cat > ~/.kube/config << EOF
+[PASTE THE KUBE_CONFIG CONTENT HERE]
+EOF
+chmod 600 ~/.kube/config
+```
 
-3. Verify your access:
+7. Verify your access:
 ```bash
 kubectl cluster-info
 kubectl get nodes
@@ -172,13 +185,15 @@ kubectl get nodes
 
 Expected output should show the cluster running at `https://k3s.thelinuxlabs.com:9443`
 
-## Let's Begin!
+### 3. Understanding Your Access
 
-Now that you have access to the cluster, let's start exploring Kubernetes fundamentals...
+As a student, you have access to:
+- Create and manage resources in your assigned namespace
+- View cluster-wide resources like nodes and namespaces
 
 ## Hands-on Lab: Deploying Your First Application to Kubernetes
 
-Let's get practical by deploying a simple web application to our cluster.
+Let's deploy a simple web application to our K3s cluster.
 
 ### Step 1: Verify Cluster Access
 
@@ -191,12 +206,19 @@ kubectl get nodes
 
 You should see information about the Kubernetes control plane and the available nodes.
 
-### Step 2: Create a Namespace
+### Step 2: Create Your Personal Namespace
 
-Let's create a namespace for our application to keep resources organized:
+To avoid conflicts with other students, create a namespace with your username:
 
 ```bash
-kubectl create namespace my-app-<username>
+# Replace <username> with your actual username
+export MY_NAMESPACE="my-app-$(whoami)"
+kubectl create namespace $MY_NAMESPACE
+```
+
+Verify your namespace was created:
+```bash
+kubectl get namespace $MY_NAMESPACE
 ```
 
 ### Step 3: Create a Deployment
@@ -208,7 +230,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: my-app
+  namespace: my-app-<username>  # Replace <username> with your actual username
 spec:
   replicas: 2
   selector:
@@ -233,10 +255,17 @@ spec:
             cpu: "100m"
 ```
 
-Apply the deployment:
+Edit the file to replace `<username>` with your actual username or use the environment variable approach:
 
 ```bash
-kubectl apply -f nginx-deployment.yaml
+# Use the environment variable defined earlier
+sed "s/my-app-<username>/$MY_NAMESPACE/g" nginx-deployment.yaml > my-deployment.yaml
+kubectl apply -f my-deployment.yaml
+```
+
+Or apply directly with the namespace flag:
+```bash
+kubectl apply -f nginx-deployment.yaml -n $MY_NAMESPACE
 ```
 
 ### Step 4: Create a Service
@@ -248,7 +277,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
-  namespace: my-app
+  namespace: my-app-<username>  # Replace <username> with your actual username
 spec:
   selector:
     app: nginx
@@ -258,10 +287,17 @@ spec:
   type: ClusterIP
 ```
 
-Apply the service:
+Apply the service (replacing `<username>` or using the environment variable approach):
 
 ```bash
-kubectl apply -f nginx-service.yaml
+# Using environment variable
+sed "s/my-app-<username>/$MY_NAMESPACE/g" nginx-service.yaml > my-service.yaml
+kubectl apply -f my-service.yaml
+```
+
+Or apply directly with the namespace flag:
+```bash
+kubectl apply -f nginx-service.yaml -n $MY_NAMESPACE
 ```
 
 ### Step 5: Check Your Deployment
@@ -269,13 +305,13 @@ kubectl apply -f nginx-service.yaml
 Check that your Pods are running:
 
 ```bash
-kubectl get pods -n my-app
+kubectl get pods -n $MY_NAMESPACE
 ```
 
 Check that your Service is created:
 
 ```bash
-kubectl get services -n my-app
+kubectl get services -n $MY_NAMESPACE
 ```
 
 ### Step 6: Expose the Application
@@ -289,12 +325,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress
-  namespace: my-app
+  namespace: my-app-<username>  # Replace <username> with your actual username
   annotations:
     kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
-  - host: "nginx-myusername.k3s.thelinuxlabs.com"  # Replace with your username
+  - host: "nginx-<username>.k3s.thelinuxlabs.com"  # Replace <username> with your actual username
     http:
       paths:
       - path: /
@@ -306,19 +342,28 @@ spec:
               number: 80
 ```
 
-Apply the ingress:
+Apply the ingress (replacing `<username>` or using environment variables):
 
 ```bash
-kubectl apply -f nginx-ingress.yaml
+export MY_USERNAME=$(whoami)
+sed -e "s/my-app-<username>/$MY_NAMESPACE/g" -e "s/nginx-<username>/nginx-$MY_USERNAME/g" nginx-ingress.yaml > my-ingress.yaml
+kubectl apply -f my-ingress.yaml
+```
+
+Or apply directly with the namespace flag:
+```bash
+kubectl apply -f nginx-ingress.yaml -n $MY_NAMESPACE
 ```
 
 ### Step 7: Access Your Application
 
-After a few moments, you should be able to access your application at the URL specified in the Ingress resource:
+After a few moments, you should be able to access your application at the URL:
 
 ```
-http://nginx-myusername.k3s.thelinuxlabs.com
+http://nginx-<username>.k3s.thelinuxlabs.com
 ```
+
+Replace `<username>` with your actual username.
 
 ## Common kubectl Commands
 
@@ -326,38 +371,40 @@ Here are some essential kubectl commands to manage your Kubernetes resources:
 
 ### Viewing Resources
 ```bash
-# List all pods in all namespaces
-kubectl get pods --all-namespaces
+# Get resources in your namespace
+kubectl get pods -n $MY_NAMESPACE
+kubectl get services -n $MY_NAMESPACE
+kubectl get deployments -n $MY_NAMESPACE
 
 # Get detailed information about a pod
-kubectl describe pod <pod-name> -n <namespace>
+kubectl describe pod <pod-name> -n $MY_NAMESPACE
 
 # View the logs for a pod
-kubectl logs <pod-name> -n <namespace>
+kubectl logs <pod-name> -n $MY_NAMESPACE
 ```
 
 ### Modifying Resources
 ```bash
 # Scale a deployment
-kubectl scale deployment <deployment-name> --replicas=3 -n <namespace>
+kubectl scale deployment nginx-deployment --replicas=3 -n $MY_NAMESPACE
 
 # Delete a resource
-kubectl delete -f <filename.yaml>
+kubectl delete -f <filename.yaml> -n $MY_NAMESPACE
 
 # Apply a manifest file
-kubectl apply -f <filename.yaml>
+kubectl apply -f <filename.yaml> -n $MY_NAMESPACE
 ```
 
 ### Debugging
 ```bash
 # Execute a command in a container
-kubectl exec -it <pod-name> -n <namespace> -- /bin/bash
+kubectl exec -it <pod-name> -n $MY_NAMESPACE -- /bin/bash
 
 # Check a service's endpoints
-kubectl get endpoints <service-name> -n <namespace>
+kubectl get endpoints nginx-service -n $MY_NAMESPACE
 
 # Port-forward to a pod
-kubectl port-forward <pod-name> 8080:80 -n <namespace>
+kubectl port-forward <pod-name> 8080:80 -n $MY_NAMESPACE
 ```
 
 ## Exercise
