@@ -466,7 +466,9 @@ cat << EOF > index.html
 </body>
 </html>
 EOF
-
+```
+Then, substitute the placeholder with your username:  
+```
 # Replace <username> with your GitLab username
 sed -i "s/<username>/$(echo YOUR_GITLAB_USERNAME_HERE)/g" index.html
 ```
