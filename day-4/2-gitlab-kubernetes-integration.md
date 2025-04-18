@@ -62,7 +62,7 @@ Let's set up the GitLab Agent for Kubernetes and connect our GitLab project to o
 1. In your GitLab project, navigate to **Infrastructure > Kubernetes clusters**
 2. Click **Connect a Kubernetes cluster** and select **Connect with Agent**
 3. Fill in:
-   - **Agent name**: `k3s-agent`
+   - **Agent name**: `k3s-agent-<username>` (replace `<username>` with your GitLab username)
    - **Project**: Select your current project
 4. Click **Create agent**
 
@@ -72,10 +72,10 @@ While the UI-based approach works without a configuration file, creating an empt
 
 1. In your project, create a directory for the agent configuration:
    ```bash
-   mkdir -p .gitlab/agents/k3s-agent
+   mkdir -p .gitlab/agents/k3s-agent-<username>
    ```
 
-2. Create an empty configuration file at `.gitlab/agents/k3s-agent/config.yaml`:
+2. Create an empty configuration file at `.gitlab/agents/k3s-agent-<username>/config.yaml`:
    ```yaml
    # This file can be used for future GitOps configurations
    # For now, we're using the UI-based approach
@@ -97,19 +97,19 @@ While the UI-based approach works without a configuration file, creating an empt
    ```bash
    helm repo add gitlab https://charts.gitlab.io
    helm repo update
-   helm upgrade --install k3s-agent gitlab/gitlab-agent \
+   helm upgrade --install k3s-agent-<username> gitlab/gitlab-agent \
      --namespace gitlab-agent \
      --create-namespace \
      --set image.tag=v16.1.0 \
      --set config.token=<your-agent-token> \
      --set config.kasAddress=wss://gitlab.example.com/-/kubernetes-agent/
    ```
-3. Copy the provided Helm command and run it in your terminal
+3. Copy the provided Helm command and run it in your terminal (make sure the agent name contains your username)
 4. This will install the agent in your Kubernetes cluster
 
 4. Verify the agent is running:
    ```bash
-   kubectl get pods -n gitlab-agent
+   kubectl get pods -n gitlab-agent | grep k3s-agent-<username>
    ```
 
    You should see the agent pod in a Running state.
