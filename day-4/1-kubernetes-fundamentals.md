@@ -580,13 +580,6 @@ kubectl get pods -n my-app-<username>
 kubectl logs <pod-name> -n my-app-<username>
 ```
 
-Execute a command inside one of the pods to view the content of your custom index.html file:
-
-```bash
-# Replace <pod-name> with an actual pod name
-kubectl exec -it <pod-name> -n my-app-<username> -- cat /usr/share/nginx/html/index.html
-```
-
 ## Summary
 
 In this lesson, we've covered:
