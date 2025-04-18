@@ -387,12 +387,207 @@ kubectl port-forward <pod-name> 8080:80 -n my-app-<username>
 
 ## Exercise
 
-Now that you've deployed your first application, try these exercises:
+Now that you've deployed your first application, try these guided exercises:
 
-1. Scale your deployment to 3 replicas
-2. Check the logs of one of your nginx pods
-3. Execute a command inside one of the pods to view the content of the default Nginx page
-4. Delete and recreate your deployment and service
+### Exercise 1: Customize Your Nginx Homepage
+
+Let's modify your Nginx deployment to display a personalized welcome page with your username.
+
+#### Step 1: Create a Custom HTML File
+
+First, create a file named `index.html` with custom content:
+
+```bash
+cat << EOF > index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Kubernetes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0066cc;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .highlight {
+            background-color: #e6f7ff;
+            padding: 15px;
+            border-left: 4px solid #0066cc;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Kubernetes!</h1>
+        
+        <div class="highlight">
+            <h2>Hello, <username>!</h2>
+            <p>This page is being served from a Kubernetes pod in your namespace.</p>
+        </div>
+        
+        <p>Congratulations on deploying your first application to Kubernetes. This page 
+        demonstrates how to use ConfigMaps to customize content served by your pods.</p>
+        
+        <p>Some things you've learned:</p>
+        <ul>
+            <li>Creating namespaces for resource isolation</li>
+            <li>Deploying applications using Deployments</li>
+            <li>Exposing applications with Services</li>
+            <li>Making applications accessible via Ingress</li>
+            <li>Using ConfigMaps to customize application content</li>
+        </ul>
+        
+        <div class="footer">
+            GitLab University Kubernetes Training - Deployed by <username>
+        </div>
+    </div>
+</body>
+</html>
+EOF
+
+# Replace <username> with your GitLab username
+sed -i "s/<username>/$(echo YOUR_GITLAB_USERNAME_HERE)/g" index.html
+```
+
+Make sure to replace `YOUR_GITLAB_USERNAME_HERE` with your actual GitLab username.
+
+#### Step 2: Create a ConfigMap from the HTML File
+
+Now, create a ConfigMap containing your HTML file:
+
+```bash
+kubectl create configmap nginx-index-html --from-file=index.html -n my-app-<username>
+```
+
+Verify the ConfigMap was created:
+
+```bash
+kubectl get configmap nginx-index-html -n my-app-<username>
+```
+
+You can also check its contents:
+
+```bash
+kubectl describe configmap nginx-index-html -n my-app-<username>
+```
+
+#### Step 3: Update Your Deployment to Use the ConfigMap
+
+Create a new file named `nginx-deployment-custom.yaml` with the following content:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: my-app-<username>  # Replace <username> with your GitLab username
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-index-html
+          mountPath: /usr/share/nginx/html/
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+      volumes:
+      - name: nginx-index-html
+        configMap:
+          name: nginx-index-html
+```
+
+Apply the updated deployment:
+
+```bash
+kubectl apply -f nginx-deployment-custom.yaml -n my-app-<username>
+```
+
+#### Step 4: Verify the Deployment
+
+Check that your pods are restarting with the new configuration:
+
+```bash
+kubectl get pods -n my-app-<username>
+```
+
+Wait for the pods to be in a Running state, then access your application to see the custom page:
+
+```
+https://nginx-<username>.k3s.thelinuxlabs.com:9443
+```
+
+You should see your personalized welcome page with your GitLab username.
+
+### Exercise 2: Scale Your Deployment
+
+Try scaling your deployment to 3 replicas:
+
+```bash
+kubectl scale deployment nginx-deployment --replicas=3 -n my-app-<username>
+```
+
+Verify the number of pods increased:
+
+```bash
+kubectl get pods -n my-app-<username>
+```
+
+### Exercise 3: Explore Pod Details
+
+Check the logs of one of your Nginx pods:
+
+```bash
+# Get the pod name first
+kubectl get pods -n my-app-<username>
+
+# View logs for a specific pod (replace <pod-name> with an actual pod name)
+kubectl logs <pod-name> -n my-app-<username>
+```
+
+Execute a command inside one of the pods to view the content of your custom index.html file:
+
+```bash
+# Replace <pod-name> with an actual pod name
+kubectl exec -it <pod-name> -n my-app-<username> -- cat /usr/share/nginx/html/index.html
+```
 
 ## Summary
 
@@ -401,6 +596,7 @@ In this lesson, we've covered:
 - Key components of the Kubernetes architecture
 - The benefits of K3s as a lightweight Kubernetes distribution
 - How to deploy a simple application to Kubernetes
+- Customizing content using ConfigMaps
 - Essential kubectl commands for managing resources
 
 In the next lesson, we'll explore how to integrate GitLab with Kubernetes to streamline your deployment process and leverage GitLab's CI/CD capabilities with Kubernetes.
