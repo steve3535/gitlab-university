@@ -208,17 +208,16 @@ You should see information about the Kubernetes control plane and the available 
 
 ### Step 2: Create Your Personal Namespace
 
-To avoid conflicts with other students, create a namespace with your username:
+To avoid conflicts with other students, create a namespace with your GitLab username:
 
 ```bash
-# Replace <username> with your actual username
-export MY_NAMESPACE="my-app-$(whoami)"
-kubectl create namespace $MY_NAMESPACE
+# Replace <username> with your GitLab username
+kubectl create namespace my-app-<username>
 ```
 
 Verify your namespace was created:
 ```bash
-kubectl get namespace $MY_NAMESPACE
+kubectl get namespace my-app-<username>
 ```
 
 ### Step 3: Create a Deployment
@@ -230,7 +229,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: my-app-<username>  # Replace <username> with your actual username
+  namespace: my-app-<username>  # Replace <username> with your GitLab username
 spec:
   replicas: 2
   selector:
@@ -255,17 +254,10 @@ spec:
             cpu: "100m"
 ```
 
-Edit the file to replace `<username>` with your actual username or use the environment variable approach:
+Apply the deployment:
 
 ```bash
-# Use the environment variable defined earlier
-sed "s/my-app-<username>/$MY_NAMESPACE/g" nginx-deployment.yaml > my-deployment.yaml
-kubectl apply -f my-deployment.yaml
-```
-
-Or apply directly with the namespace flag:
-```bash
-kubectl apply -f nginx-deployment.yaml -n $MY_NAMESPACE
+kubectl apply -f nginx-deployment.yaml -n my-app-<username>
 ```
 
 ### Step 4: Create a Service
@@ -277,7 +269,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
-  namespace: my-app-<username>  # Replace <username> with your actual username
+  namespace: my-app-<username>  # Replace <username> with your GitLab username
 spec:
   selector:
     app: nginx
@@ -287,17 +279,10 @@ spec:
   type: ClusterIP
 ```
 
-Apply the service (replacing `<username>` or using the environment variable approach):
+Apply the service:
 
 ```bash
-# Using environment variable
-sed "s/my-app-<username>/$MY_NAMESPACE/g" nginx-service.yaml > my-service.yaml
-kubectl apply -f my-service.yaml
-```
-
-Or apply directly with the namespace flag:
-```bash
-kubectl apply -f nginx-service.yaml -n $MY_NAMESPACE
+kubectl apply -f nginx-service.yaml -n my-app-<username>
 ```
 
 ### Step 5: Check Your Deployment
@@ -305,13 +290,13 @@ kubectl apply -f nginx-service.yaml -n $MY_NAMESPACE
 Check that your Pods are running:
 
 ```bash
-kubectl get pods -n $MY_NAMESPACE
+kubectl get pods -n my-app-<username>
 ```
 
 Check that your Service is created:
 
 ```bash
-kubectl get services -n $MY_NAMESPACE
+kubectl get services -n my-app-<username>
 ```
 
 ### Step 6: Expose the Application
@@ -325,12 +310,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress
-  namespace: my-app-<username>  # Replace <username> with your actual username
+  namespace: my-app-<username>  # Replace <username> with your GitLab username
   annotations:
     kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
-  - host: "nginx-<username>.k3s.thelinuxlabs.com"  # Replace <username> with your actual username
+  - host: "nginx-<username>.k3s.thelinuxlabs.com"  # Replace <username> with your GitLab username
     http:
       paths:
       - path: /
@@ -342,17 +327,10 @@ spec:
               number: 80
 ```
 
-Apply the ingress (replacing `<username>` or using environment variables):
+Apply the ingress:
 
 ```bash
-export MY_USERNAME=$(whoami)
-sed -e "s/my-app-<username>/$MY_NAMESPACE/g" -e "s/nginx-<username>/nginx-$MY_USERNAME/g" nginx-ingress.yaml > my-ingress.yaml
-kubectl apply -f my-ingress.yaml
-```
-
-Or apply directly with the namespace flag:
-```bash
-kubectl apply -f nginx-ingress.yaml -n $MY_NAMESPACE
+kubectl apply -f nginx-ingress.yaml -n my-app-<username>
 ```
 
 ### Step 7: Access Your Application
@@ -360,10 +338,10 @@ kubectl apply -f nginx-ingress.yaml -n $MY_NAMESPACE
 After a few moments, you should be able to access your application at the URL:
 
 ```
-http://nginx-<username>.k3s.thelinuxlabs.com
+https://nginx-<username>.k3s.thelinuxlabs.com:9443
 ```
 
-Replace `<username>` with your actual username.
+Replace `<username>` with your GitLab username.
 
 ## Common kubectl Commands
 
@@ -372,39 +350,39 @@ Here are some essential kubectl commands to manage your Kubernetes resources:
 ### Viewing Resources
 ```bash
 # Get resources in your namespace
-kubectl get pods -n $MY_NAMESPACE
-kubectl get services -n $MY_NAMESPACE
-kubectl get deployments -n $MY_NAMESPACE
+kubectl get pods -n my-app-<username>
+kubectl get services -n my-app-<username>
+kubectl get deployments -n my-app-<username>
 
 # Get detailed information about a pod
-kubectl describe pod <pod-name> -n $MY_NAMESPACE
+kubectl describe pod <pod-name> -n my-app-<username>
 
 # View the logs for a pod
-kubectl logs <pod-name> -n $MY_NAMESPACE
+kubectl logs <pod-name> -n my-app-<username>
 ```
 
 ### Modifying Resources
 ```bash
 # Scale a deployment
-kubectl scale deployment nginx-deployment --replicas=3 -n $MY_NAMESPACE
+kubectl scale deployment nginx-deployment --replicas=3 -n my-app-<username>
 
 # Delete a resource
-kubectl delete -f <filename.yaml> -n $MY_NAMESPACE
+kubectl delete -f <filename.yaml> -n my-app-<username>
 
 # Apply a manifest file
-kubectl apply -f <filename.yaml> -n $MY_NAMESPACE
+kubectl apply -f <filename.yaml> -n my-app-<username>
 ```
 
 ### Debugging
 ```bash
 # Execute a command in a container
-kubectl exec -it <pod-name> -n $MY_NAMESPACE -- /bin/bash
+kubectl exec -it <pod-name> -n my-app-<username> -- /bin/bash
 
 # Check a service's endpoints
-kubectl get endpoints nginx-service -n $MY_NAMESPACE
+kubectl get endpoints nginx-service -n my-app-<username>
 
 # Port-forward to a pod
-kubectl port-forward <pod-name> 8080:80 -n $MY_NAMESPACE
+kubectl port-forward <pod-name> 8080:80 -n my-app-<username>
 ```
 
 ## Exercise
