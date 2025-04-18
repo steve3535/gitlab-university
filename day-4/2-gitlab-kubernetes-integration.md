@@ -140,15 +140,18 @@ The simplest way to use the agent is through GitLab CI/CD:
      image: 
        name: bitnami/kubectl:latest
        entrypoint: [""]
-     script:
+     script:    
        - kubectl config get-contexts
-       - kubectl create namespace $CI_PROJECT_NAME-$CI_PROJECT_ID --dry-run=client -o yaml | kubectl apply -f -
-       - kubectl apply -f kubernetes/deployment.yaml -n $CI_PROJECT_NAME-$CI_PROJECT_ID
+       - kubectl config use-context $CI_PROJECT_PATH:k3s-agent-<username>
+       - kubectl create namespace $CI_PROJECT_NAME-$CI_PROJECT_ID --dry-run=client -o yaml | kubectl apply --validate=false -f -
+       - kubectl apply --validate=false -f kubernetes/deployment.yaml -n $CI_PROJECT_NAME-$CI_PROJECT_ID
      environment:
-       name: production
+       name: staging
      rules:
        - if: $CI_COMMIT_BRANCH == "main"
    ```
+
+   > **Important:** Replace `<username>` with your GitLab username in the context name.
 
 2. Create a `kubernetes/deployment.yaml` file for your application:
    ```yaml
@@ -227,14 +230,118 @@ If the agent isn't connecting:
 
 3. Check the Helm installation parameters, particularly the token and KAS address
 
-## Exercise
+## Exercise: Creating an Ingress for Your Application
 
-Let's practice what we've learned:
+Let's make your application accessible via a URL by creating an Ingress resource.
 
-1. Connect your GitLab project to the K3s cluster using the GitLab Agent
-2. Create a deployment manifest for a simple web application
-3. Configure a CI/CD pipeline to deploy the application
-4. Make a change to the deployment (like scaling up replicas) and observe the change
+### Step 1: Create an Ingress Manifest
+
+Create a file named `kubernetes/ingress.yaml` with the following content:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+  - host: "web-<username>-$CI_PROJECT_NAME.k3s.thelinuxlabs.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-app-svc
+            port:
+              number: 80
+```
+
+> **Note:** Replace `<username>` with your GitLab username to create a unique hostname.
+
+### Step 2: Update Your CI/CD Configuration
+
+Update your `.gitlab-ci.yml` to apply the ingress manifest:
+
+```yaml
+stages:
+  - deploy
+
+deploy_to_kubernetes:
+  stage: deploy
+  image: 
+    name: bitnami/kubectl:latest
+    entrypoint: [""]
+  script:    
+    - kubectl config get-contexts
+    - kubectl config use-context $CI_PROJECT_PATH:k3s-agent-<username>
+    - kubectl create namespace $CI_PROJECT_NAME-$CI_PROJECT_ID --dry-run=client -o yaml | kubectl apply --validate=false -f -
+    - kubectl apply --validate=false -f kubernetes/deployment.yaml -n $CI_PROJECT_NAME-$CI_PROJECT_ID
+    - |
+      INGRESS_MANIFEST=$(cat kubernetes/ingress.yaml | sed "s/<username>/$CI_USERNAME/g" | sed "s/\$CI_PROJECT_NAME/$CI_PROJECT_NAME/g")
+      echo "$INGRESS_MANIFEST" | kubectl apply --validate=false -f - -n $CI_PROJECT_NAME-$CI_PROJECT_ID
+    - echo "Application will be available at: https://web-$CI_USERNAME-$CI_PROJECT_NAME.k3s.thelinuxlabs.com:9443"
+  environment:
+    name: staging
+    url: https://web-$CI_USERNAME-$CI_PROJECT_NAME.k3s.thelinuxlabs.com:9443
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+```
+
+### Step 3: Add CI Variable
+
+In your GitLab project:
+1. Go to **Settings > CI/CD > Variables**
+2. Add a new variable:
+   - Key: `CI_USERNAME`
+   - Value: Your GitLab username
+   - Type: Variable
+   - Environment scope: All (default)
+
+### Step 4: Commit and Push Your Changes
+
+```bash
+# Create the ingress manifest file
+cat > kubernetes/ingress.yaml << EOF
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+  - host: "web-<username>-\$CI_PROJECT_NAME.k3s.thelinuxlabs.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web-app-svc
+            port:
+              number: 80
+EOF
+
+# Update the placeholder with your username
+sed -i "s/<username>/your-gitlab-username/g" kubernetes/ingress.yaml
+
+# Commit and push
+git add kubernetes/ingress.yaml .gitlab-ci.yml
+git commit -m "Add Kubernetes ingress configuration"
+git push
+```
+
+### Step 5: Verify the Deployment
+
+1. Go to **CI/CD > Pipelines** and wait for the pipeline to complete
+2. Once completed, go to **Deployments > Environments**
+3. You should see your staging environment with a URL
+4. Click on the URL to access your application
+
+If everything worked correctly, you'll see the default Nginx welcome page served from your Kubernetes cluster.
 
 ## Summary
 
@@ -242,6 +349,7 @@ In this lesson, we've covered:
 - The architecture and benefits of the GitLab Agent for Kubernetes
 - Setting up the connection between GitLab and Kubernetes using the UI-based approach
 - Deploying applications using CI/CD with the Kubernetes agent
+- Creating an Ingress to make your application publicly accessible
 - Basic troubleshooting for agent connections
 
 In the next lesson, we'll build on this foundation and learn how to deploy our Gatsby application from previous days to our Kubernetes cluster using the GitLab-Kubernetes integration.
