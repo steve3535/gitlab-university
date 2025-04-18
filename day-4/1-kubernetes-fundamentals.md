@@ -162,11 +162,7 @@ Your instructor will provide you with a kubeconfig file named `student-config.ya
 mkdir -p ~/.kube
 ```
 
-2. Copy the provided config file:
-```bash
-cp student-config.yaml ~/.kube/config
-chmod 600 ~/.kube/config
-```
+2. Copy the provided config file to **~/.kube/config**
 
 3. Verify your access:
 ```bash
@@ -176,29 +172,13 @@ kubectl get nodes
 
 Expected output should show the cluster running at `https://k3s.thelinuxlabs.com:9443`
 
-### 3. Understanding Your Access
-
-As a student, you have been granted access to:
-- View resources in your assigned namespace
-- Create and manage pods, deployments, and services
-- View cluster-wide resources (nodes, namespaces)
-
-You do not have permissions to:
-- Create or modify cluster-wide resources
-- Access other students' namespaces
-- Modify system namespaces
-
 ## Let's Begin!
 
 Now that you have access to the cluster, let's start exploring Kubernetes fundamentals...
 
 ## Hands-on Lab: Deploying Your First Application to Kubernetes
 
-Let's get practical by deploying a simple web application to our K3s cluster.
-
-### Prerequisites
-- Access to a Kubernetes cluster (cluster is setup at `https://k3s.thelinuxlabs.com:9443`)
-- `kubectl` installed and configured to access the cluster
+Let's get practical by deploying a simple web application to our cluster.
 
 ### Step 1: Verify Cluster Access
 
@@ -216,7 +196,7 @@ You should see information about the Kubernetes control plane and the available 
 Let's create a namespace for our application to keep resources organized:
 
 ```bash
-kubectl create namespace my-app
+kubectl create namespace my-app-<username>
 ```
 
 ### Step 3: Create a Deployment
