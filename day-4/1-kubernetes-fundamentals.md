@@ -133,22 +133,6 @@ Default namespaces:
 - **kube-public**: For resources that should be publicly readable
 - **kube-node-lease**: For node lease objects
 
-## K3s: A Lightweight Kubernetes Distribution
-
-For our hands-on labs, we'll be using K3s, a certified Kubernetes distribution designed for production workloads in resource-constrained environments. K3s is perfect for:
-
-- Edge computing
-- IoT devices
-- CI/CD environments
-- Development workstations
-- ARM devices
-
-K3s advantages:
-- Single binary of less than 100MB
-- Reduced memory footprint (~512MB RAM vs ~2GB for standard K8s)
-- Simpler to install and operate
-- Includes everything you need to run Kubernetes
-
 ## Hands-on Lab: Deploying Your First Application to Kubernetes
 
 Let's get practical by deploying a simple web application to our K3s cluster.
