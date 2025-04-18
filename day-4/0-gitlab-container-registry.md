@@ -333,10 +333,8 @@ build_and_push_image:
     - build_website
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
-    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG $CI_REGISTRY_IMAGE:latest
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-    - docker push $CI_REGISTRY_IMAGE:latest
+    - docker build -t $CI_REGISTRY_IMAGE/gatsby-app:$CI_COMMIT_SHORT_SHA .
+    - docker push $CI_REGISTRY_IMAGE/gatsby-app:$CI_COMMIT_SHORT_SHA
   ```
 
 ### Step 3: Commit and Push Your Changes
@@ -374,8 +372,8 @@ spec:
         app: gatsby-site
     spec:
       containers:
-      - name: gatsby-site
-        image: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+      - name: gatsby-app
+        image: ${CI_REGISTRY_IMAGE}/gatsby-app:${CI_COMMIT_SHORT_SHA}
         ports:
         - containerPort: 80
 ```
