@@ -138,12 +138,12 @@ Default namespaces:
 Let's get practical by deploying a simple web application to our K3s cluster.
 
 ### Prerequisites
-- Access to a K3s cluster (Your instructor has set up a cluster at `https://k3s.thelinuxlabs.com:9443`)
+- Access to a Kubernetes cluster (cluster is setup at `https://k3s.thelinuxlabs.com:9443`)
 - `kubectl` installed and configured to access the cluster
 
 ### Step 1: Verify Cluster Access
 
-First, let's verify that you can access the K3s cluster:
+First, let's verify that you can access the cluster:
 
 ```bash
 kubectl cluster-info
