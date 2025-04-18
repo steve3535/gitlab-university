@@ -133,6 +133,65 @@ Default namespaces:
 - **kube-public**: For resources that should be publicly readable
 - **kube-node-lease**: For node lease objects
 
+## Prerequisites Setup
+
+### 1. Install kubectl
+
+For Ubuntu/Debian Linux:
+```bash
+# Add Kubernetes apt repository
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+# Install kubectl
+sudo apt-get update
+sudo apt-get install -y kubectl
+```
+
+Verify installation:
+```bash
+kubectl version --client
+```
+
+### 2. Configure Cluster Access
+
+Your instructor will provide you with a kubeconfig file named `student-config.yaml`. This file contains restricted access credentials for the training cluster.
+
+1. Create your kubectl config directory:
+```bash
+mkdir -p ~/.kube
+```
+
+2. Copy the provided config file:
+```bash
+cp student-config.yaml ~/.kube/config
+chmod 600 ~/.kube/config
+```
+
+3. Verify your access:
+```bash
+kubectl cluster-info
+kubectl get nodes
+```
+
+Expected output should show the cluster running at `https://k3s.thelinuxlabs.com:9443`
+
+### 3. Understanding Your Access
+
+As a student, you have been granted access to:
+- View resources in your assigned namespace
+- Create and manage pods, deployments, and services
+- View cluster-wide resources (nodes, namespaces)
+
+You do not have permissions to:
+- Create or modify cluster-wide resources
+- Access other students' namespaces
+- Modify system namespaces
+
+## Let's Begin!
+
+Now that you have access to the cluster, let's start exploring Kubernetes fundamentals...
+
 ## Hands-on Lab: Deploying Your First Application to Kubernetes
 
 Let's get practical by deploying a simple web application to our K3s cluster.
